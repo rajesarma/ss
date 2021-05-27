@@ -1,0 +1,470 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.11
+-- Dumped by pg_dump version 9.3.11
+-- Started on 2021-05-28 02:36:33
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+DROP DATABASE sample;
+--
+-- TOC entry 1990 (class 1262 OID 16395)
+-- Name: sample; Type: DATABASE; Schema: -; Owner: sample
+--
+
+CREATE DATABASE sample WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'English_United States.1252' LC_CTYPE = 'English_United States.1252';
+
+
+ALTER DATABASE sample OWNER TO sample;
+
+\connect sample
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 6 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 1991 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
+-- TOC entry 1 (class 3079 OID 11750)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1993 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 175 (class 1259 OID 16413)
+-- Name: role_services; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
+--
+
+CREATE TABLE role_services (
+    role_id integer,
+    service_id integer
+);
+
+
+ALTER TABLE public.role_services OWNER TO sample;
+
+--
+-- TOC entry 172 (class 1259 OID 16398)
+-- Name: roles; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
+--
+
+CREATE TABLE roles (
+    role_id integer NOT NULL,
+    role_name character varying(100) DEFAULT NULL::character varying
+);
+
+
+ALTER TABLE public.roles OWNER TO sample;
+
+--
+-- TOC entry 171 (class 1259 OID 16396)
+-- Name: roles_role_id_seq; Type: SEQUENCE; Schema: public; Owner: sample
+--
+
+CREATE SEQUENCE roles_role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_role_id_seq OWNER TO sample;
+
+--
+-- TOC entry 1994 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: roles_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sample
+--
+
+ALTER SEQUENCE roles_role_id_seq OWNED BY roles.role_id;
+
+
+--
+-- TOC entry 174 (class 1259 OID 16407)
+-- Name: services; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
+--
+
+CREATE TABLE services (
+    service_id integer NOT NULL,
+    service_url character varying(100),
+    service_name character varying(25),
+    disabled boolean,
+    parent_id integer,
+    display_order integer,
+    menu_display boolean
+);
+
+
+ALTER TABLE public.services OWNER TO sample;
+
+--
+-- TOC entry 173 (class 1259 OID 16405)
+-- Name: services_service_id_seq; Type: SEQUENCE; Schema: public; Owner: sample
+--
+
+CREATE SEQUENCE services_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.services_service_id_seq OWNER TO sample;
+
+--
+-- TOC entry 1995 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: services_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sample
+--
+
+ALTER SEQUENCE services_service_id_seq OWNED BY services.service_id;
+
+
+--
+-- TOC entry 179 (class 1259 OID 16454)
+-- Name: user_role_id_mapping; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
+--
+
+CREATE TABLE user_role_id_mapping (
+    user_id bigint NOT NULL,
+    role_id integer NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.user_role_id_mapping OWNER TO sample;
+
+--
+-- TOC entry 178 (class 1259 OID 16441)
+-- Name: user_roles; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
+--
+
+CREATE TABLE user_roles (
+    user_id bigint,
+    role_id integer
+);
+
+
+ALTER TABLE public.user_roles OWNER TO sample;
+
+--
+-- TOC entry 177 (class 1259 OID 16428)
+-- Name: users; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    user_name character varying(100) DEFAULT NULL::character varying,
+    password character varying(100) DEFAULT NULL::character varying,
+    disabled boolean DEFAULT false,
+    user_desc character varying(100) DEFAULT NULL::character varying,
+    email character varying(100) DEFAULT NULL::character varying,
+    last_login timestamp without time zone,
+    failed_login_attempts bigint,
+    last_password_change timestamp without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO sample;
+
+--
+-- TOC entry 176 (class 1259 OID 16426)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: sample
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO sample;
+
+--
+-- TOC entry 1996 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sample
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- TOC entry 1847 (class 2604 OID 16401)
+-- Name: role_id; Type: DEFAULT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY roles ALTER COLUMN role_id SET DEFAULT nextval('roles_role_id_seq'::regclass);
+
+
+--
+-- TOC entry 1849 (class 2604 OID 16410)
+-- Name: service_id; Type: DEFAULT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY services ALTER COLUMN service_id SET DEFAULT nextval('services_service_id_seq'::regclass);
+
+
+--
+-- TOC entry 1850 (class 2604 OID 16431)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- TOC entry 1981 (class 0 OID 16413)
+-- Dependencies: 175
+-- Data for Name: role_services; Type: TABLE DATA; Schema: public; Owner: sample
+--
+
+INSERT INTO role_services (role_id, service_id) VALUES (1, 1);
+INSERT INTO role_services (role_id, service_id) VALUES (1, 15);
+INSERT INTO role_services (role_id, service_id) VALUES (1, 16);
+INSERT INTO role_services (role_id, service_id) VALUES (1, 17);
+INSERT INTO role_services (role_id, service_id) VALUES (1, 18);
+INSERT INTO role_services (role_id, service_id) VALUES (1, 28);
+INSERT INTO role_services (role_id, service_id) VALUES (1, 29);
+
+
+--
+-- TOC entry 1978 (class 0 OID 16398)
+-- Dependencies: 172
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: sample
+--
+
+INSERT INTO roles (role_id, role_name) VALUES (1, 'Admin');
+INSERT INTO roles (role_id, role_name) VALUES (2, 'User');
+
+
+--
+-- TOC entry 1997 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: roles_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
+--
+
+SELECT pg_catalog.setval('roles_role_id_seq', 1, false);
+
+
+--
+-- TOC entry 1980 (class 0 OID 16407)
+-- Dependencies: 174
+-- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: sample
+--
+
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (1, '/home', 'Home', false, 0, 1, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (15, '/logout', 'Log Out', false, 0, 10, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (16, '/home', 'Admin Services', false, 0, 6, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (17, '/admin/user/add', 'User Creation', false, 16, 1, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (18, '/changePassword', 'Change Password', false, 16, 2, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (22, '/management/managementReport', 'Management Report', false, 23, 41, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (23, '/home', 'Management Reports', false, 0, 6, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (28, '/admin/usersList', 'Users List', false, 16, 3, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (29, '/super/roleServices', 'Role Services Mapping', false, 16, 4, true);
+INSERT INTO services (service_id, service_url, service_name, disabled, parent_id, display_order, menu_display) VALUES (37, '/management/managementDashboard', 'Management Dashboard', false, 23, 38, true);
+
+
+--
+-- TOC entry 1998 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: services_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
+--
+
+SELECT pg_catalog.setval('services_service_id_seq', 1, false);
+
+
+--
+-- TOC entry 1985 (class 0 OID 16454)
+-- Dependencies: 179
+-- Data for Name: user_role_id_mapping; Type: TABLE DATA; Schema: public; Owner: sample
+--
+
+
+
+--
+-- TOC entry 1984 (class 0 OID 16441)
+-- Dependencies: 178
+-- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: sample
+--
+
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
+
+
+--
+-- TOC entry 1983 (class 0 OID 16428)
+-- Dependencies: 177
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: sample
+--
+
+INSERT INTO users (id, user_name, password, disabled, user_desc, email, last_login, failed_login_attempts, last_password_change) VALUES (2, 'management', '$2a$10$/Vq9fiMAIpZj7yd8MO46I.V0G0scg3wEuLNhoy91kyCqol1dNeNFG', false, 'Management Login', NULL, '2019-08-02 04:55:09', 0, '2019-05-03 05:32:11');
+INSERT INTO users (id, user_name, password, disabled, user_desc, email, last_login, failed_login_attempts, last_password_change) VALUES (4, 'super', '$2a$10$WvPD/76KaGt3Bny6OXdRTeXBI6GThwE.eeqFXLODkb58yBLKuITgm', false, 'Supervizor Login', NULL, '2019-06-03 04:55:26', 0, NULL);
+INSERT INTO users (id, user_name, password, disabled, user_desc, email, last_login, failed_login_attempts, last_password_change) VALUES (1, 'admin', '$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq', false, 'Admin User', NULL, '2021-05-28 02:21:25.685', 0, '2019-05-02 13:00:00');
+
+
+--
+-- TOC entry 1999 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, false);
+
+
+--
+-- TOC entry 1857 (class 2606 OID 16404)
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (role_id);
+
+
+--
+-- TOC entry 1859 (class 2606 OID 16412)
+-- Name: services_pkey; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY services
+    ADD CONSTRAINT services_pkey PRIMARY KEY (service_id);
+
+
+--
+-- TOC entry 1861 (class 2606 OID 16438)
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1863 (class 2606 OID 16440)
+-- Name: users_unique; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_unique UNIQUE (user_name);
+
+
+--
+-- TOC entry 1868 (class 2606 OID 16457)
+-- Name: role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY user_role_id_mapping
+    ADD CONSTRAINT role_id_fkey FOREIGN KEY (role_id) REFERENCES roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1864 (class 2606 OID 16416)
+-- Name: role_services_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY role_services
+    ADD CONSTRAINT role_services_role_id_fkey FOREIGN KEY (role_id) REFERENCES roles(role_id);
+
+
+--
+-- TOC entry 1865 (class 2606 OID 16421)
+-- Name: role_services_service_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY role_services
+    ADD CONSTRAINT role_services_service_id_fkey FOREIGN KEY (service_id) REFERENCES services(service_id);
+
+
+--
+-- TOC entry 1869 (class 2606 OID 16462)
+-- Name: user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY user_role_id_mapping
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1866 (class 2606 OID 16444)
+-- Name: user_roles_ibfk_1; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY user_roles
+    ADD CONSTRAINT user_roles_ibfk_1 FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1867 (class 2606 OID 16449)
+-- Name: user_roles_ibfk_2; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY user_roles
+    ADD CONSTRAINT user_roles_ibfk_2 FOREIGN KEY (role_id) REFERENCES roles(role_id);
+
+
+--
+-- TOC entry 1992 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2021-05-28 02:36:34
+
+--
+-- PostgreSQL database dump complete
+--
+

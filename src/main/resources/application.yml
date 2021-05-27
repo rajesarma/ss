@@ -1,0 +1,101 @@
+server:
+  port: 8040
+  error:
+    whitelabel:
+      enabled: false
+  servlet:
+    context-path: /
+  #  session:
+  #    cookie:
+  #      http-only: true # Also configured in configuration file
+  #      secure: true # Also configured in configuration file
+
+
+spring:
+  application:
+    name: sample
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 15MB
+      file-size-threshold: 2KB
+
+  mvc:
+    locale: en_US
+    locale-resolver: accept_header #fixed
+    view:
+      prefix: WEB-INF/views/
+      suffix: .jsp
+    #throw-exception-if-no-handler-found: false
+
+  resources:
+    static-locations: classpath:/static/
+
+  messages:
+    basename: labels,validation_messages
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sample
+    username: sample
+    password: sample
+
+  #Set the SQL Dialect to “default” in your labels.properties to let Spring autodetect the different SQL Dialects of each datasource
+  jpa:
+    #show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+
+# LOGGING ================================================================================
+logging:
+  file: C:\\logs\\logs-debug.log
+  config: classpath:logback-access.xml
+  #config: classpath:logback-file-only-appender.xml
+  #path:
+  pattern:
+    console:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
+    file:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
+  level:
+    root: INFO
+    com.ss.sample: INFO
+    org.springframework: INFO
+    org.springframework.core: INFO
+    org.springframework.web: INFO
+    org.springframework.data: INFO
+    org.springframework.security: INFO
+    org.springframework.boot.web.servlet.FilterRegistrationBean: WARN
+    org.springframework.boot.web.servlet.ServletRegistrationBean: WARN
+    org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: WARN
+    org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping: WARN
+    org.springframework.context.support.DefaultLifecycleProcessor: WARN
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN # url mappings
+    org.hibernate: INFO
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      roles: ["ADMIN", "SUPER"]
+      show-details: when_authorized
+    httptrace:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /application
+      exposure:
+#        include: ["health", "info", "beans", "env", "loggers","metrics"]
+        include: "*"
+        exclude: loggers
+
+info:
+  app:
+    name: Sample Project
+    java:
+      version: 8
+    type: Spring Boot

@@ -1,0 +1,55 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.ss'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
+	implementation group: 'org.postgresql', name: 'postgresql'
+	compile 'org.apache.commons:commons-lang3:3.7'
+	compile 'org.json:json:20090211'
+
+	compile 'org.apache.tiles:tiles-core:3.0.7'
+
+	compile 'org.apache.tiles:tiles-jsp:3.0.7'
+	compile 'org.webjars:jquery:1.8.2'
+	compile 'org.webjars:bootstrap:2.3.0'
+	compile 'org.apache.commons:commons-lang3:3.7'
+	compile 'org.springframework.boot:spring-boot-configuration-processor:2.1.4.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-actuator'
+	compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	compile 'javax.servlet:jstl'
+
+
+	testImplementation 'org.springframework.security:spring-security-test'
+
+
+
+
+}
+
+test {
+	useJUnitPlatform()
+}

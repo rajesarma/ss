@@ -1,0 +1,387 @@
+28-05-2021 01:44:40 INFO  [           main] [com.ss.sample.SampleApplication    ] - Starting SampleApplication using Java 1.8.0_121 on Lakshmi with PID 5092 (D:\Projects\sample\build\classes\java\main started by Sarma in D:\Projects\sample)
+28-05-2021 01:44:40 INFO  [           main] [com.ss.sample.SampleApplication    ] - No active profile set, falling back to default profiles: default
+28-05-2021 01:44:42 WARN  [kground-preinit] [s.h.c.j.Jackson2ObjectMapperBuilder] - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+28-05-2021 01:44:48 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+28-05-2021 01:44:48 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 192 ms. Found 3 JPA repository interfaces.
+28-05-2021 01:44:50 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2007435e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:50 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleConfig' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimplePropertiesConfigAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'micrometerClock' of type [io.micrometer.core.instrument.Clock$1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleMeterRegistry' of type [io.micrometer.core.instrument.simple.SimpleMeterRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'repositoryTagsProvider' of type [org.springframework.boot.actuate.metrics.data.DefaultRepositoryTagsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:51 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'metricsRepositoryMethodInvocationListener' of type [org.springframework.boot.actuate.metrics.data.MetricsRepositoryMethodInvocationListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:44:54 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat initialized with port(s): 8040 (http)
+28-05-2021 01:44:54 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:44:54 INFO  [           main] [o.a.catalina.core.StandardService  ] - Starting service [Tomcat]
+28-05-2021 01:44:54 INFO  [           main] [o.a.catalina.core.StandardEngine   ] - Starting Servlet engine: [Apache Tomcat/9.0.46]
+28-05-2021 01:44:54 INFO  [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring embedded WebApplicationContext
+28-05-2021 01:44:54 INFO  [           main] [.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 13873 ms
+28-05-2021 01:44:56 INFO  [           main] [o.h.jpa.internal.util.LogHelper    ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+28-05-2021 01:44:56 INFO  [           main] [org.hibernate.Version              ] - HHH000412: Hibernate ORM core version 5.4.31.Final
+28-05-2021 01:44:56 INFO  [           main] [o.h.annotations.common.Version     ] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+28-05-2021 01:44:57 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Starting...
+28-05-2021 01:44:58 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Start completed.
+28-05-2021 01:44:58 INFO  [           main] [org.hibernate.dialect.Dialect      ] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+28-05-2021 01:45:01 INFO  [           main] [o.h.e.t.j.p.i.JtaPlatformInitiator ] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+28-05-2021 01:45:01 INFO  [           main] [alContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:45:04 ERROR [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Resource retrieval failed for path: /WEB-INF/**/tiles.xml
+java.io.FileNotFoundException: ServletContext resource [/WEB-INF/] cannot be resolved to URL because it does not exist
+	at org.springframework.web.context.support.ServletContextResource.getURL(ServletContextResource.java:174)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.findPathMatchingResources(PathMatchingResourcePatternResolver.java:501)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:298)
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:81)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.getSources(TilesConfigurer.java:316)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createLocaleDefinitionDao(BasicTilesContainerFactory.java:182)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createDefinitionsFactory(BasicTilesContainerFactory.java:137)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.createDefinitionsFactory(TilesConfigurer.java:364)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createContainer(BasicTilesContainerFactory.java:86)
+	at org.apache.tiles.startup.AbstractTilesInitializer.createContainer(AbstractTilesInitializer.java:114)
+	at org.apache.tiles.startup.AbstractTilesInitializer.initialize(AbstractTilesInitializer.java:64)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer.afterPropertiesSet(TilesConfigurer.java:280)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:438)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:337)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1336)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1325)
+	at com.ss.sample.SampleApplication.main(SampleApplication.java:10)
+28-05-2021 01:45:04 INFO  [           main] [org.apache.tiles.access.TilesAccess] - Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+28-05-2021 01:45:04 INFO  [           main] [o.s.s.w.DefaultSecurityFilterChain ] - Will secure Ant [pattern='/resources/**'] with []
+28-05-2021 01:45:05 INFO  [           main] [o.s.s.w.DefaultSecurityFilterChain ] - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@619b7436, org.springframework.security.web.context.SecurityContextPersistenceFilter@76ebd595, org.springframework.security.web.header.HeaderWriterFilter@397bd46b, org.springframework.security.web.csrf.CsrfFilter@2686a801, org.springframework.security.web.authentication.logout.LogoutFilter@5f596a1a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@29a1dab3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4560eb15, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b4c89b6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6af0407c, org.springframework.security.web.session.SessionManagementFilter@d863bb, org.springframework.security.web.access.ExceptionTranslationFilter@62ba3045, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7343d843]
+28-05-2021 01:45:07 INFO  [           main] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 12 endpoint(s) beneath base path '/application'
+28-05-2021 01:45:07 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:45:07 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat started on port(s): 8040 (http) with context path ''
+28-05-2021 01:45:07 INFO  [           main] [com.ss.sample.SampleApplication    ] - Started SampleApplication in 30.985 seconds (JVM running for 34.0)
+28-05-2021 01:45:07 INFO  [           main] [o.s.b.a.ApplicationAvailabilityBean] - Application availability state LivenessState changed to CORRECT
+28-05-2021 01:45:07 INFO  [           main] [o.s.b.a.ApplicationAvailabilityBean] - Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+28-05-2021 01:46:13 INFO  [           main] [com.ss.sample.SampleApplication    ] - Starting SampleApplication using Java 1.8.0_121 on Lakshmi with PID 6124 (D:\Projects\sample\build\classes\java\main started by Sarma in D:\Projects\sample)
+28-05-2021 01:46:13 INFO  [           main] [com.ss.sample.SampleApplication    ] - No active profile set, falling back to default profiles: default
+28-05-2021 01:46:13 WARN  [kground-preinit] [s.h.c.j.Jackson2ObjectMapperBuilder] - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+28-05-2021 01:46:15 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+28-05-2021 01:46:15 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 128 ms. Found 3 JPA repository interfaces.
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@40ac6b76' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleConfig' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimplePropertiesConfigAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'micrometerClock' of type [io.micrometer.core.instrument.Clock$1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleMeterRegistry' of type [io.micrometer.core.instrument.simple.SimpleMeterRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'repositoryTagsProvider' of type [org.springframework.boot.actuate.metrics.data.DefaultRepositoryTagsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:16 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'metricsRepositoryMethodInvocationListener' of type [org.springframework.boot.actuate.metrics.data.MetricsRepositoryMethodInvocationListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:46:17 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat initialized with port(s): 8040 (http)
+28-05-2021 01:46:17 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:46:17 INFO  [           main] [o.a.catalina.core.StandardService  ] - Starting service [Tomcat]
+28-05-2021 01:46:17 INFO  [           main] [o.a.catalina.core.StandardEngine   ] - Starting Servlet engine: [Apache Tomcat/9.0.46]
+28-05-2021 01:46:17 INFO  [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring embedded WebApplicationContext
+28-05-2021 01:46:17 INFO  [           main] [.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 4439 ms
+28-05-2021 01:46:18 INFO  [           main] [o.h.jpa.internal.util.LogHelper    ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+28-05-2021 01:46:18 INFO  [           main] [org.hibernate.Version              ] - HHH000412: Hibernate ORM core version 5.4.31.Final
+28-05-2021 01:46:18 INFO  [           main] [o.h.annotations.common.Version     ] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+28-05-2021 01:46:19 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Starting...
+28-05-2021 01:46:19 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Start completed.
+28-05-2021 01:46:19 INFO  [           main] [org.hibernate.dialect.Dialect      ] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+28-05-2021 01:46:20 INFO  [           main] [o.h.e.t.j.p.i.JtaPlatformInitiator ] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+28-05-2021 01:46:20 INFO  [           main] [alContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:46:22 WARN  [           main] [gServletWebServerApplicationContext] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tilesConfigurer' defined in class path resource [com/ss/sample/configuration/TilesConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: No URL for ServletContext resource [/WEB-INF/tiles.xml]
+28-05-2021 01:46:22 INFO  [           main] [alContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:46:22 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Shutdown initiated...
+28-05-2021 01:46:22 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Shutdown completed.
+28-05-2021 01:46:22 INFO  [           main] [o.a.catalina.core.StandardService  ] - Stopping service [Tomcat]
+28-05-2021 01:46:22 INFO  [           main] [tionEvaluationReportLoggingListener] - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+28-05-2021 01:46:23 ERROR [           main] [o.s.boot.SpringApplication         ] - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tilesConfigurer' defined in class path resource [com/ss/sample/configuration/TilesConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: No URL for ServletContext resource [/WEB-INF/tiles.xml]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:438)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:337)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1336)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1325)
+	at com.ss.sample.SampleApplication.main(SampleApplication.java:10)
+Caused by: java.lang.IllegalArgumentException: No URL for ServletContext resource [/WEB-INF/tiles.xml]
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:100)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.getSources(TilesConfigurer.java:316)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createLocaleDefinitionDao(BasicTilesContainerFactory.java:182)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createDefinitionsFactory(BasicTilesContainerFactory.java:137)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.createDefinitionsFactory(TilesConfigurer.java:364)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createContainer(BasicTilesContainerFactory.java:86)
+	at org.apache.tiles.startup.AbstractTilesInitializer.createContainer(AbstractTilesInitializer.java:114)
+	at org.apache.tiles.startup.AbstractTilesInitializer.initialize(AbstractTilesInitializer.java:64)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer.afterPropertiesSet(TilesConfigurer.java:280)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	... 16 common frames omitted
+Caused by: java.io.FileNotFoundException: ServletContext resource [/WEB-INF/tiles.xml] cannot be resolved to URL because it does not exist
+	at org.springframework.web.context.support.ServletContextResource.getURL(ServletContextResource.java:174)
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:95)
+	... 26 common frames omitted
+28-05-2021 01:47:10 INFO  [           main] [com.ss.sample.SampleApplication    ] - Starting SampleApplication using Java 1.8.0_121 on Lakshmi with PID 5156 (D:\Projects\sample\build\classes\java\main started by Sarma in D:\Projects\sample)
+28-05-2021 01:47:10 INFO  [           main] [com.ss.sample.SampleApplication    ] - No active profile set, falling back to default profiles: default
+28-05-2021 01:47:10 WARN  [kground-preinit] [s.h.c.j.Jackson2ObjectMapperBuilder] - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+28-05-2021 01:47:12 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+28-05-2021 01:47:12 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 152 ms. Found 3 JPA repository interfaces.
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@759de304' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleConfig' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimplePropertiesConfigAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'micrometerClock' of type [io.micrometer.core.instrument.Clock$1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleMeterRegistry' of type [io.micrometer.core.instrument.simple.SimpleMeterRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'repositoryTagsProvider' of type [org.springframework.boot.actuate.metrics.data.DefaultRepositoryTagsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:13 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'metricsRepositoryMethodInvocationListener' of type [org.springframework.boot.actuate.metrics.data.MetricsRepositoryMethodInvocationListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:47:14 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat initialized with port(s): 8040 (http)
+28-05-2021 01:47:14 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:47:14 INFO  [           main] [o.a.catalina.core.StandardService  ] - Starting service [Tomcat]
+28-05-2021 01:47:14 INFO  [           main] [o.a.catalina.core.StandardEngine   ] - Starting Servlet engine: [Apache Tomcat/9.0.46]
+28-05-2021 01:47:14 INFO  [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring embedded WebApplicationContext
+28-05-2021 01:47:14 INFO  [           main] [.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 4270 ms
+28-05-2021 01:47:15 INFO  [           main] [o.h.jpa.internal.util.LogHelper    ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+28-05-2021 01:47:15 INFO  [           main] [org.hibernate.Version              ] - HHH000412: Hibernate ORM core version 5.4.31.Final
+28-05-2021 01:47:15 INFO  [           main] [o.h.annotations.common.Version     ] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+28-05-2021 01:47:15 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Starting...
+28-05-2021 01:47:16 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Start completed.
+28-05-2021 01:47:16 INFO  [           main] [org.hibernate.dialect.Dialect      ] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+28-05-2021 01:47:17 INFO  [           main] [o.h.e.t.j.p.i.JtaPlatformInitiator ] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+28-05-2021 01:47:17 INFO  [           main] [alContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:47:18 WARN  [           main] [gServletWebServerApplicationContext] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tilesConfigurer' defined in class path resource [com/ss/sample/configuration/TilesConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: No URL for ServletContext resource [/WEB-INF/tiles.xml]
+28-05-2021 01:47:18 INFO  [           main] [alContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:47:18 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Shutdown initiated...
+28-05-2021 01:47:18 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Shutdown completed.
+28-05-2021 01:47:18 INFO  [           main] [o.a.catalina.core.StandardService  ] - Stopping service [Tomcat]
+28-05-2021 01:47:18 INFO  [           main] [tionEvaluationReportLoggingListener] - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+28-05-2021 01:47:19 ERROR [           main] [o.s.boot.SpringApplication         ] - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tilesConfigurer' defined in class path resource [com/ss/sample/configuration/TilesConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: No URL for ServletContext resource [/WEB-INF/tiles.xml]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:438)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:337)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1336)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1325)
+	at com.ss.sample.SampleApplication.main(SampleApplication.java:10)
+Caused by: java.lang.IllegalArgumentException: No URL for ServletContext resource [/WEB-INF/tiles.xml]
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:100)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.getSources(TilesConfigurer.java:316)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createLocaleDefinitionDao(BasicTilesContainerFactory.java:182)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createDefinitionsFactory(BasicTilesContainerFactory.java:137)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.createDefinitionsFactory(TilesConfigurer.java:364)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createContainer(BasicTilesContainerFactory.java:86)
+	at org.apache.tiles.startup.AbstractTilesInitializer.createContainer(AbstractTilesInitializer.java:114)
+	at org.apache.tiles.startup.AbstractTilesInitializer.initialize(AbstractTilesInitializer.java:64)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer.afterPropertiesSet(TilesConfigurer.java:280)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	... 16 common frames omitted
+Caused by: java.io.FileNotFoundException: ServletContext resource [/WEB-INF/tiles.xml] cannot be resolved to URL because it does not exist
+	at org.springframework.web.context.support.ServletContextResource.getURL(ServletContextResource.java:174)
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:95)
+	... 26 common frames omitted
+28-05-2021 01:51:02 INFO  [           main] [com.ss.sample.SampleApplication    ] - Starting SampleApplication using Java 1.8.0_121 on Lakshmi with PID 7040 (D:\Projects\sample\build\classes\java\main started by Sarma in D:\Projects\sample)
+28-05-2021 01:51:02 INFO  [           main] [com.ss.sample.SampleApplication    ] - No active profile set, falling back to default profiles: default
+28-05-2021 01:51:02 WARN  [kground-preinit] [s.h.c.j.Jackson2ObjectMapperBuilder] - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+28-05-2021 01:51:04 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+28-05-2021 01:51:04 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 144 ms. Found 3 JPA repository interfaces.
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@1a07bf6' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleConfig' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimplePropertiesConfigAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'micrometerClock' of type [io.micrometer.core.instrument.Clock$1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:05 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleMeterRegistry' of type [io.micrometer.core.instrument.simple.SimpleMeterRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:06 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'repositoryTagsProvider' of type [org.springframework.boot.actuate.metrics.data.DefaultRepositoryTagsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:06 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'metricsRepositoryMethodInvocationListener' of type [org.springframework.boot.actuate.metrics.data.MetricsRepositoryMethodInvocationListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:51:06 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat initialized with port(s): 8040 (http)
+28-05-2021 01:51:06 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:51:06 INFO  [           main] [o.a.catalina.core.StandardService  ] - Starting service [Tomcat]
+28-05-2021 01:51:06 INFO  [           main] [o.a.catalina.core.StandardEngine   ] - Starting Servlet engine: [Apache Tomcat/9.0.46]
+28-05-2021 01:51:07 INFO  [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring embedded WebApplicationContext
+28-05-2021 01:51:07 INFO  [           main] [.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 4946 ms
+28-05-2021 01:51:08 INFO  [           main] [o.h.jpa.internal.util.LogHelper    ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+28-05-2021 01:51:08 INFO  [           main] [org.hibernate.Version              ] - HHH000412: Hibernate ORM core version 5.4.31.Final
+28-05-2021 01:51:08 INFO  [           main] [o.h.annotations.common.Version     ] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+28-05-2021 01:51:09 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Starting...
+28-05-2021 01:51:09 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Start completed.
+28-05-2021 01:51:09 INFO  [           main] [org.hibernate.dialect.Dialect      ] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+28-05-2021 01:51:10 INFO  [           main] [o.h.e.t.j.p.i.JtaPlatformInitiator ] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+28-05-2021 01:51:10 INFO  [           main] [alContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:51:11 WARN  [           main] [gServletWebServerApplicationContext] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tilesConfigurer' defined in class path resource [com/ss/sample/configuration/TilesConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: No URL for class path resource [src/webapp/WEB-INF/tiles.xml]
+28-05-2021 01:51:11 INFO  [           main] [alContainerEntityManagerFactoryBean] - Closing JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:51:11 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Shutdown initiated...
+28-05-2021 01:51:11 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Shutdown completed.
+28-05-2021 01:51:11 INFO  [           main] [o.a.catalina.core.StandardService  ] - Stopping service [Tomcat]
+28-05-2021 01:51:11 INFO  [           main] [tionEvaluationReportLoggingListener] - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+28-05-2021 01:51:11 ERROR [           main] [o.s.boot.SpringApplication         ] - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tilesConfigurer' defined in class path resource [com/ss/sample/configuration/TilesConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: No URL for class path resource [src/webapp/WEB-INF/tiles.xml]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:438)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:337)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1336)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1325)
+	at com.ss.sample.SampleApplication.main(SampleApplication.java:10)
+Caused by: java.lang.IllegalArgumentException: No URL for class path resource [src/webapp/WEB-INF/tiles.xml]
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:100)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.getSources(TilesConfigurer.java:316)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createLocaleDefinitionDao(BasicTilesContainerFactory.java:182)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createDefinitionsFactory(BasicTilesContainerFactory.java:137)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer$SpringTilesContainerFactory.createDefinitionsFactory(TilesConfigurer.java:364)
+	at org.apache.tiles.factory.BasicTilesContainerFactory.createContainer(BasicTilesContainerFactory.java:86)
+	at org.apache.tiles.startup.AbstractTilesInitializer.createContainer(AbstractTilesInitializer.java:114)
+	at org.apache.tiles.startup.AbstractTilesInitializer.initialize(AbstractTilesInitializer.java:64)
+	at org.springframework.web.servlet.view.tiles3.TilesConfigurer.afterPropertiesSet(TilesConfigurer.java:280)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	... 16 common frames omitted
+Caused by: java.io.FileNotFoundException: class path resource [src/webapp/WEB-INF/tiles.xml] cannot be resolved to URL because it does not exist
+	at org.springframework.core.io.ClassPathResource.getURL(ClassPathResource.java:202)
+	at org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext.getResources(SpringWildcardServletTilesApplicationContext.java:95)
+	... 26 common frames omitted
+28-05-2021 01:52:49 INFO  [           main] [com.ss.sample.SampleApplication    ] - Starting SampleApplication using Java 1.8.0_121 on Lakshmi with PID 6600 (D:\Projects\sample\build\classes\java\main started by Sarma in D:\Projects\sample)
+28-05-2021 01:52:49 INFO  [           main] [com.ss.sample.SampleApplication    ] - No active profile set, falling back to default profiles: default
+28-05-2021 01:52:50 WARN  [kground-preinit] [s.h.c.j.Jackson2ObjectMapperBuilder] - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+28-05-2021 01:52:51 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+28-05-2021 01:52:51 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 144 ms. Found 3 JPA repository interfaces.
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3965bdf9' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleConfig' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimplePropertiesConfigAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'micrometerClock' of type [io.micrometer.core.instrument.Clock$1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleMeterRegistry' of type [io.micrometer.core.instrument.simple.SimpleMeterRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'repositoryTagsProvider' of type [org.springframework.boot.actuate.metrics.data.DefaultRepositoryTagsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:52 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'metricsRepositoryMethodInvocationListener' of type [org.springframework.boot.actuate.metrics.data.MetricsRepositoryMethodInvocationListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:52:53 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat initialized with port(s): 8040 (http)
+28-05-2021 01:52:53 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:52:53 INFO  [           main] [o.a.catalina.core.StandardService  ] - Starting service [Tomcat]
+28-05-2021 01:52:53 INFO  [           main] [o.a.catalina.core.StandardEngine   ] - Starting Servlet engine: [Apache Tomcat/9.0.46]
+28-05-2021 01:52:54 INFO  [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring embedded WebApplicationContext
+28-05-2021 01:52:54 INFO  [           main] [.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 4337 ms
+28-05-2021 01:52:54 INFO  [           main] [o.h.jpa.internal.util.LogHelper    ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+28-05-2021 01:52:54 INFO  [           main] [org.hibernate.Version              ] - HHH000412: Hibernate ORM core version 5.4.31.Final
+28-05-2021 01:52:55 INFO  [           main] [o.h.annotations.common.Version     ] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+28-05-2021 01:52:55 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Starting...
+28-05-2021 01:52:55 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Start completed.
+28-05-2021 01:52:55 INFO  [           main] [org.hibernate.dialect.Dialect      ] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+28-05-2021 01:52:57 INFO  [           main] [o.h.e.t.j.p.i.JtaPlatformInitiator ] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+28-05-2021 01:52:57 INFO  [           main] [alContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:52:58 INFO  [           main] [org.apache.tiles.access.TilesAccess] - Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+28-05-2021 01:52:58 INFO  [           main] [o.s.s.w.DefaultSecurityFilterChain ] - Will secure Ant [pattern='/resources/**'] with []
+28-05-2021 01:52:59 INFO  [           main] [o.s.s.w.DefaultSecurityFilterChain ] - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@33502cfe, org.springframework.security.web.context.SecurityContextPersistenceFilter@1e6e29d6, org.springframework.security.web.header.HeaderWriterFilter@522f74a1, org.springframework.security.web.csrf.CsrfFilter@7ca0b05e, org.springframework.security.web.authentication.logout.LogoutFilter@467421cc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1be3a294, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7359f3ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@506e382b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@729d1428, org.springframework.security.web.session.SessionManagementFilter@59700156, org.springframework.security.web.access.ExceptionTranslationFilter@544733a4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@296949c8]
+28-05-2021 01:53:00 INFO  [           main] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 12 endpoint(s) beneath base path '/application'
+28-05-2021 01:53:00 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:53:00 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat started on port(s): 8040 (http) with context path ''
+28-05-2021 01:53:00 INFO  [           main] [com.ss.sample.SampleApplication    ] - Started SampleApplication in 12.247 seconds (JVM running for 13.204)
+28-05-2021 01:53:00 INFO  [           main] [o.s.b.a.ApplicationAvailabilityBean] - Application availability state LivenessState changed to CORRECT
+28-05-2021 01:53:00 INFO  [           main] [o.s.b.a.ApplicationAvailabilityBean] - Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+28-05-2021 01:53:30 INFO  [nio-8040-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+28-05-2021 01:53:30 INFO  [nio-8040-exec-1] [o.s.web.servlet.DispatcherServlet  ] - Initializing Servlet 'dispatcherServlet'
+28-05-2021 01:53:30 INFO  [nio-8040-exec-1] [o.s.web.servlet.DispatcherServlet  ] - Completed initialization in 13 ms
+28-05-2021 01:53:30 WARN  [nio-8040-exec-1] [.s.w.s.r.ResourceHttpRequestHandler] - Path with "WEB-INF" or "META-INF": [WEB-INF/views/common/homePageTemplate.jsp]
+28-05-2021 01:53:30 WARN  [nio-8040-exec-1] [.s.w.s.r.ResourceHttpRequestHandler] - Path with "WEB-INF" or "META-INF": [WEB-INF/views/common/homePageTemplate.jsp]
+28-05-2021 01:55:34 INFO  [           main] [com.ss.sample.SampleApplication    ] - Starting SampleApplication using Java 1.8.0_121 on Lakshmi with PID 7408 (D:\Projects\sample\build\classes\java\main started by Sarma in D:\Projects\sample)
+28-05-2021 01:55:34 INFO  [           main] [com.ss.sample.SampleApplication    ] - No active profile set, falling back to default profiles: default
+28-05-2021 01:55:34 WARN  [kground-preinit] [s.h.c.j.Jackson2ObjectMapperBuilder] - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+28-05-2021 01:55:36 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+28-05-2021 01:55:36 INFO  [           main] [r.c.RepositoryConfigurationDelegate] - Finished Spring Data repository scanning in 137 ms. Found 3 JPA repository interfaces.
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2db33feb' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics-org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'management.metrics.export.simple-org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleConfig' of type [org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimplePropertiesConfigAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration' of type [org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'micrometerClock' of type [io.micrometer.core.instrument.Clock$1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'simpleMeterRegistry' of type [io.micrometer.core.instrument.simple.SimpleMeterRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'repositoryTagsProvider' of type [org.springframework.boot.actuate.metrics.data.DefaultRepositoryTagsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:37 INFO  [           main] [onDelegate$BeanPostProcessorChecker] - Bean 'metricsRepositoryMethodInvocationListener' of type [org.springframework.boot.actuate.metrics.data.MetricsRepositoryMethodInvocationListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+28-05-2021 01:55:38 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat initialized with port(s): 8040 (http)
+28-05-2021 01:55:38 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:55:38 INFO  [           main] [o.a.catalina.core.StandardService  ] - Starting service [Tomcat]
+28-05-2021 01:55:38 INFO  [           main] [o.a.catalina.core.StandardEngine   ] - Starting Servlet engine: [Apache Tomcat/9.0.46]
+28-05-2021 01:55:39 INFO  [           main] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring embedded WebApplicationContext
+28-05-2021 01:55:39 INFO  [           main] [.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 4466 ms
+28-05-2021 01:55:39 INFO  [           main] [o.h.jpa.internal.util.LogHelper    ] - HHH000204: Processing PersistenceUnitInfo [name: default]
+28-05-2021 01:55:39 INFO  [           main] [org.hibernate.Version              ] - HHH000412: Hibernate ORM core version 5.4.31.Final
+28-05-2021 01:55:39 INFO  [           main] [o.h.annotations.common.Version     ] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+28-05-2021 01:55:40 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Starting...
+28-05-2021 01:55:40 INFO  [           main] [com.zaxxer.hikari.HikariDataSource ] - HikariPool-1 - Start completed.
+28-05-2021 01:55:40 INFO  [           main] [org.hibernate.dialect.Dialect      ] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+28-05-2021 01:55:41 INFO  [           main] [o.h.e.t.j.p.i.JtaPlatformInitiator ] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+28-05-2021 01:55:41 INFO  [           main] [alContainerEntityManagerFactoryBean] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+28-05-2021 01:55:42 INFO  [           main] [org.apache.tiles.access.TilesAccess] - Publishing TilesContext for context: org.springframework.web.servlet.view.tiles3.SpringWildcardServletTilesApplicationContext
+28-05-2021 01:55:43 INFO  [           main] [o.s.s.w.DefaultSecurityFilterChain ] - Will secure Ant [pattern='/resources/**'] with []
+28-05-2021 01:55:43 INFO  [           main] [o.s.s.w.DefaultSecurityFilterChain ] - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5862ab28, org.springframework.security.web.context.SecurityContextPersistenceFilter@53a3fc8b, org.springframework.security.web.header.HeaderWriterFilter@779136bf, org.springframework.security.web.csrf.CsrfFilter@242c4a94, org.springframework.security.web.authentication.logout.LogoutFilter@256aabbe, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@755a90a6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@337e573b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1952ad9d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@21202507, org.springframework.security.web.session.SessionManagementFilter@f9ac719, org.springframework.security.web.access.ExceptionTranslationFilter@3adb4cc8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6464f017]
+28-05-2021 01:55:44 INFO  [           main] [o.s.b.a.e.web.EndpointLinksResolver] - Exposing 12 endpoint(s) beneath base path '/application'
+28-05-2021 01:55:44 INFO  [           main] [o.a.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8040"]
+28-05-2021 01:55:44 INFO  [           main] [o.s.b.w.e.tomcat.TomcatWebServer   ] - Tomcat started on port(s): 8040 (http) with context path ''
+28-05-2021 01:55:44 INFO  [           main] [com.ss.sample.SampleApplication    ] - Started SampleApplication in 11.599 seconds (JVM running for 12.572)
+28-05-2021 01:55:44 INFO  [           main] [o.s.b.a.ApplicationAvailabilityBean] - Application availability state LivenessState changed to CORRECT
+28-05-2021 01:55:44 INFO  [           main] [o.s.b.a.ApplicationAvailabilityBean] - Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+28-05-2021 01:55:52 INFO  [nio-8040-exec-1] [o.a.c.c.C.[Tomcat].[localhost].[/] ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+28-05-2021 01:55:52 INFO  [nio-8040-exec-1] [o.s.web.servlet.DispatcherServlet  ] - Initializing Servlet 'dispatcherServlet'
+28-05-2021 01:55:52 INFO  [nio-8040-exec-1] [o.s.web.servlet.DispatcherServlet  ] - Completed initialization in 3 ms
+28-05-2021 01:55:52 WARN  [nio-8040-exec-1] [.s.w.s.r.ResourceHttpRequestHandler] - Path with "WEB-INF" or "META-INF": [WEB-INF/views/common/homePageTemplate.jsp]
+28-05-2021 01:55:52 WARN  [nio-8040-exec-1] [.s.w.s.r.ResourceHttpRequestHandler] - Path with "WEB-INF" or "META-INF": [WEB-INF/views/common/homePageTemplate.jsp]

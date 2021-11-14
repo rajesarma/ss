@@ -54,7 +54,8 @@ spring:
 
 # LOGGING ================================================================================
 logging:
-  file: C:\\logs\\logs-debug.log
+#  file: C:\\logs\\logs-debug.log
+  file: app.log
   config: classpath:logback-access.xml
   #config: classpath:logback-file-only-appender.xml
   #path:
@@ -99,3 +100,8 @@ info:
     java:
       version: 8
     type: Spring Boot
+
+jdoodle:
+  client-id: 19e80d4d72411eac1fb3d28ad81b85ea
+  client-secret: ef1048f1c6124e1d800b2e3bdbc82b6e0d91b24d5ac2deef096d0ff2631267eb
+  host: https://api.jdoodle.com/v1/execute

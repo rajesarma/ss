@@ -38,15 +38,18 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/sample
-    username: sample
-    password: sample
+#    url: jdbc:postgresql://localhost:5432/sample
+#    username: sample
+#    password: sample
+    url: jdbc:postgres://krikjdizmdyfpi:e75ee293bf9412a22adb4f65aa37973bd5dc4a29c273977da9ad3e7b2f6df7bc@ec2-3-230-149-158.compute-1.amazonaws.com:5432/d2s8pa8nnq9gcn
+    username: krikjdizmdyfpi
+    password: e75ee293bf9412a22adb4f65aa37973bd5dc4a29c273977da9ad3e7b2f6df7bc
 
   #Set the SQL Dialect to “default” in your labels.properties to let Spring autodetect the different SQL Dialects of each datasource
   jpa:
     #show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

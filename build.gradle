@@ -22,6 +22,10 @@ jar {
 				'Main-Class': 'com.ss.sample.SampleApplication'
 		)
 	}
+
+	from {
+		(configurations.runtime).collect { it.isDirectory() ? it : zipTree(it) }
+	}
 }
 
 /*project(":web") {

@@ -2,11 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.5.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+//	id 'java-library'
 //	id 'jar'
 }
 
 group = 'com.ss'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -14,6 +15,21 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
+
+
+
+/*project(":web") {
+	description = "web"
+	archivesBaseName = "sample-" + getVersion()
+
+	jar {
+		// Will include every single one of your dependencies, project or not
+		from {
+			configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+		}
+	}
+}*/
+
 
 repositories {
 	mavenCentral()
@@ -54,15 +70,28 @@ test {
 	useJUnitPlatform()
 }
 
-task stage(type: Copy, dependsOn: [clean, build]) {
+/*jar{
+	baseName = 'sample'
+	version = version
+}*/
+
+/*jar {
+	manifest{
+		attributes ("Fw-Version" : "2.50.00", "${parent.manifestSectionName}")
+	}
+	archiveName 'sample.jar'
+}*/
+
+
+/*task stage(type: Copy, dependsOn: [clean, build]) {
 	from jar.archivePath
 	into project.rootDir
 	rename {
-		'app.jar'
+		'sample.jar'
 	}
 }
-stage.mustRunAfter(clean)
-
+stage.mustRunAfter(clean)*/
+/*
 clean << {
 	project.file('app.jar').delete()
-}
+}*/

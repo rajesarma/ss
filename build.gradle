@@ -2,9 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-//	id 'jar'
 	id 'war'
-//	id 'java-library'
 	id "com.heroku.sdk.heroku-gradle" version "2.0.0"
 }
 
@@ -58,7 +56,7 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 
-	compile 'com.github.jsimone:webapp-runner:8.5.11.3'
+//	compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 
 	/*compile('com.zaxxer:HikariCP:2.5.1') {
 		exclude group: 'org.hibernate', module: 'hibernate-core'
@@ -90,11 +88,12 @@ test {
 }
 
 
-task stage() {
+/*task stage() {
 	dependsOn clean, war
-}
-war.mustRunAfter clean
+}*/
+war.mustRunAfter build
 
+/*
 task copyToLib(type: Copy) {
 	into "$buildDir/server"
 	from(configurations.compile) {
@@ -102,4 +101,4 @@ task copyToLib(type: Copy) {
 	}
 }
 
-stage.dependsOn(copyToLib)
+stage.dependsOn(copyToLib)*/

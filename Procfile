@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar ${buildDir}/libs/sample-0.0.1-SNAPSHOT.jar $PORT target /*.war
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar sample/build/libs/sample-0.0.1-SNAPSHOT.jar $PORT target /*.war

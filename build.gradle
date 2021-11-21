@@ -58,6 +58,8 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 
+	compile 'com.github.jsimone:webapp-runner:8.5.11.3'
+
 	/*compile('com.zaxxer:HikariCP:2.5.1') {
 		exclude group: 'org.hibernate', module: 'hibernate-core'
 	}
@@ -86,3 +88,18 @@ heroku {
 test {
 	useJUnitPlatform()
 }
+
+
+task stage() {
+	dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+	into "$buildDir/server"
+	from(configurations.compile) {
+		include "webapp-runner*"
+	}
+}
+
+stage.dependsOn(copyToLib)

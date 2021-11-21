@@ -6,13 +6,13 @@ plugins {
 	id "com.heroku.sdk.heroku-gradle" version "2.0.0"
 }
 
-//apply plugin: 'war'
+apply plugin: 'war'
 
-/*war {
+war {
 	baseName = 'sample'
 	version =  '0.0.1-SNAPSHOT'
 	webAppDirName = file('src/main/webapp')
-}*/
+}
 
 group = 'com.ss'
 version = '0.0.1-SNAPSHOT'
@@ -69,7 +69,8 @@ dependencies {
 	}*/
 
 
-	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 /*heroku {
@@ -88,10 +89,10 @@ test {
 }
 
 
-/*task stage() {
+task stage() {
 	dependsOn clean, war
-}*/
-//war.mustRunAfter build
+}
+war.mustRunAfter clean
 
 /*
 task copyToLib(type: Copy) {

@@ -105,3 +105,7 @@ info:
     java:
       version: 8
     type: Spring Boot
+
+
+loader:
+  path: BOOT-INF/lib/

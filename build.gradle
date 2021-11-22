@@ -43,11 +43,11 @@ repositories {
 	version = '0.0.1-SNAPSHOT'
 }*/
 
-/*war {
+war {
 	baseName = 'sample'
 	version =  '0.0.1-SNAPSHOT'
 	webAppDirName = file('src/main/webapp')
-}*/
+}
 
 
 
@@ -137,13 +137,3 @@ task copyToLib(type: Copy) {
 }
 
 stage.dependsOn(copyToLib)
-
-/*
-task copyToLib(type: Copy) {
-	into "$buildDir/server"
-	from(configurations.compile) {
-		include "webapp-runner*"
-	}
-}
-
-stage.dependsOn(copyToLib)*/

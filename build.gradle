@@ -3,20 +3,26 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 //	id 'war'
-	id "com.heroku.sdk.heroku-gradle" version "2.0.0"
+//	id "com.heroku.sdk.heroku-gradle" version "2.0.0"
 }
 
 apply plugin: 'war'
 
-war {
+jar {
+	baseName = 'sample'
+	version = '0.0.1-SNAPSHOT'
+}
+
+/*war {
 	baseName = 'sample'
 	version =  '0.0.1-SNAPSHOT'
 	webAppDirName = file('src/main/webapp')
-}
+}*/
 
 group = 'com.ss'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 configurations {
 	compileOnly {
@@ -56,6 +62,9 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 
+	compile 'com.github.jsimone:webapp-runner:9.0.27.1'
+
+
 //	compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 
 	/*compile('com.zaxxer:HikariCP:2.5.1') {
@@ -93,6 +102,15 @@ task stage() {
 	dependsOn clean, war
 }
 war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+	into "$buildDir/server"
+	from(configurations.compile) {
+		include "webapp-runner*"
+	}
+}
+
+stage.dependsOn(copyToLib)
 
 /*
 task copyToLib(type: Copy) {

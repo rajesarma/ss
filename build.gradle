@@ -10,6 +10,8 @@ buildscript {
 	}
 }
 
+
+
 /*
 plugins {
 	id 'org.springframework.boot' version '2.5.0'
@@ -23,6 +25,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin:'maven'
 apply plugin: 'war'
 
 group = 'com.ss'

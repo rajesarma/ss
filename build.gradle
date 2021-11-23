@@ -19,7 +19,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'maven'
-//	id 'war'
+	id 'war'
 //	id "com.heroku.sdk.heroku-gradle" version "2.0.0"
 }
 
@@ -28,6 +28,11 @@ plugins {
 //apply plugin: 'io.spring.dependency-management'
 //apply plugin:'maven'
 apply plugin: 'war'
+
+jar {
+	baseName = 'sample'
+	version = '0.0.1-SNAPSHOT'
+}
 
 group = 'com.ss'
 version = '0.0.1-SNAPSHOT'
@@ -38,16 +43,11 @@ repositories {
 	mavenCentral()
 }
 
-/*jar {
-	baseName = 'sample'
-	version = '0.0.1-SNAPSHOT'
-}*/
-
-war {
+/*war {
 	baseName = 'sample'
 	version =  '0.0.1-SNAPSHOT'
 	webAppDirName = file('src/main/webapp')
-}
+}*/
 
 
 

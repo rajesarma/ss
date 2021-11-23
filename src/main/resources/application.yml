@@ -59,29 +59,29 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 # LOGGING ================================================================================
-logging:
-  file: C:\\logs\\logs-debug.log
-  config: classpath:logback-access.xml
+#logging:
+#  file: C:\\logs\\logs-debug.log
+#  config: classpath:logback-access.xml
   #config: classpath:logback-file-only-appender.xml
   #path:
-  pattern:
-    console:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
-    file:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
-  level:
-    root: INFO
-    com.ss.sample: INFO
-    org.springframework: INFO
-    org.springframework.core: INFO
-    org.springframework.web: INFO
-    org.springframework.data: INFO
-    org.springframework.security: INFO
-    org.springframework.boot.web.servlet.FilterRegistrationBean: WARN
-    org.springframework.boot.web.servlet.ServletRegistrationBean: WARN
-    org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: WARN
-    org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping: WARN
-    org.springframework.context.support.DefaultLifecycleProcessor: WARN
-    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN # url mappings
-    org.hibernate: INFO
+#  pattern:
+#    console:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
+#    file:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
+#  level:
+#    root: INFO
+#    com.ss.sample: INFO
+#    org.springframework: INFO
+#    org.springframework.core: INFO
+#    org.springframework.web: INFO
+#    org.springframework.data: INFO
+#    org.springframework.security: INFO
+#    org.springframework.boot.web.servlet.FilterRegistrationBean: WARN
+#    org.springframework.boot.web.servlet.ServletRegistrationBean: WARN
+#    org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: WARN
+#    org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping: WARN
+#    org.springframework.context.support.DefaultLifecycleProcessor: WARN
+#    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN # url mappings
+#    org.hibernate: INFO
 
 management:
   endpoint:

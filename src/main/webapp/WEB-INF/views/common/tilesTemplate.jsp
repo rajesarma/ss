@@ -29,14 +29,13 @@
 	<meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 
-	<link rel="icon" href="<c:url value="${pageContext.request.contextPath}/images/my_logo.jpg" />" type="image/x-icon" />
+	<link rel="icon" href="<c:url value="${pageContext.request.contextPath}/img/logo.png" />" type="image/x-icon" />
 	<link rel="stylesheet" href="<c:url
 		value="${pageContext.request.contextPath}/css/custom/loading.css" />" type="text/css" />
-	<link rel="shortcut icon" href="<c:url value="${pageContext.request.contextPath}/images/my_logo.jpg" />"
+	<link rel="shortcut icon" href="<c:url value="${pageContext.request.contextPath}/img/logo.png" />"
 		  type="image/x-icon" />
 
-	<%--<link rel="stylesheet" type="text/css"  href="<c:url
-	value="${pageContext.request.contextPath}/css/custom/index.css" />" />--%>
+	<%-- <link rel="stylesheet" type="text/css"  href="<c:url value="${pageContext.request.contextPath}/css/custom/index.css" />" /> --%>
 
 	<%--<link rel="stylesheet" type="text/css"  href="<c:url
 	value="${pageContext.request.contextPath}/css/custom/styles.css" />" />--%>

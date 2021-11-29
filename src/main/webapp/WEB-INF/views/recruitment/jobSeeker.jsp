@@ -11,13 +11,56 @@
 	<title>User</title>
 
 	<script>
-		function submitData(action, method)
-		{
+
+        var openFile = function(event) {
+            var input = event.target;
+            var output = document.getElementById('photoData');
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                output.src = reader.result;
+                output.width = 80;
+                output.height = 90;
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+
+		function submitData(action, method) {
 			var user = document.getElementById('jobSeeker');
 			user.action = action;
 			user.method = method;
 			user.submit();
 		}
+
+		function checkData(type,obj, targetId) {
+            if(obj.value.length > 0) {
+                var url = '/recruitment/jobSeeker/' + type + '/' + obj.value;
+                var message;
+                $.ajax( {
+                    type: "GET",
+                    url:url,
+                    cache: false,
+                    success: function(response) {
+                        $("#wait").html("");
+                        var response = jQuery.parseJSON(response);
+                        var valueExists = response.valueExists;
+                        if(valueExists == "true")
+                        {
+                            var message = response.message;
+                            $("#wait").html("<center style='font-size: 14px' ><span id='loading' style='font-size: 14px; color:red'><i class='fa fa-spinner fa-spin' style='font-size:24px'></i> <b>" + message + "</b></span></center>");
+                            document.getElementById(targetId).value = "";
+                        }
+
+                    }, error: function(response) {
+                        $("#wait").html("<center style='font-size: 14px' ><span id='loading' style='font-size: 14px; color:red'><i class='fa fa-spinner fa-spin' style='font-size:24px'></i> <b>" + response.error + "</b></span></center>");
+                    },
+                    beforeSend: function( event, ui ) {
+                        $("#wait").html("<center style='font-size: 14px' ><span id='loading' style='font-size: 14px; color:red'><i class='fa fa-spinner fa-spin' style='font-size:24px'></i> <b>Loading... </b></span></center>");
+                    }
+                });
+            }
+        }
+
 	</script>
 	<style>
 		.error {
@@ -41,7 +84,7 @@
 					<div class="span12">
 						<div class="centered">
 							<h3>
-								<spring:message code="jobSeeker.operations"/>
+								<spring:message code="jobSeeker.register"/>
 							</h3>
 						</div>
 					</div>
@@ -64,7 +107,7 @@
 					<div class="err-message" id="wait" ></div>
 				</div>
 
-				<div class="span6 offset4">
+				<div class="span6">
 					<div class="centered">
 
 						<div class="control-group">
@@ -76,6 +119,7 @@
 								<form:input path="fullName" name="fullName" id="fullName"
 											cssClass="span3" maxlength="25"
 											onkeyup="charOnly(this)" />
+
 								<span class="help-inline">
 									<form:errors path="fullName" cssClass="error" />
 								</span>
@@ -119,63 +163,166 @@
 							</label>
 
 							<div class="controls">
-
-								<%--<div class="input-prepend"> <span class="add-on"><i class="icon-envelope"></i></span>--%>
-								<form:input path="dob" name="dob" id="dob" maxlength="50" cssClass="span3" />
-								<span class="help-inline">
-									<form:errors path="dob" cssClass="error" />
-								</span>
-							</div>
+                                <form:input path="dob" name="dob" id="dob" maxlength="10"
+                                            cssClass="span2"
+                                            onkeyup="buildDate(this)" onblur="isValidDate(this);"/>
+                                <span class="help-inline date-format">
+                                    <spring:message code="dateFormat"/>
+                                </span>
+                                <span class="help-inline">
+                                    <form:errors path="dob" cssClass="error" />
+                                </span>
+                            </div>
 						</div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" for="mobile">
+                                <spring:message code="jobSeeker.mobile"/>
+                            </label>
+                            <div class="controls">
+                                <form:input path="mobile" name="mobile" id="mobile"
+                                            cssClass="span3" maxlength="10"
+                                            onkeyup="intOnly(this)"
+                                            onChange="checkData('mobileNo.', this, this.id)"
+                                />
+                                <span class="help-inline">
+                                    <form:errors path="mobile" cssClass="error" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" for="alternateNo">
+                                <spring:message code="jobSeeker.alternateNo"/>
+                            </label>
+                            <div class="controls">
+                                <form:input path="alternateNo" name="alternateNo"
+                                            id="alternateNo" maxlength="10"
+                                            cssClass="span3" onkeyup="intOnly(this)"/>
+                                <span class="help-inline">
+                                    <form:errors path="alternateNo" cssClass="error" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" for="aadhar">
+                                <spring:message code="jobSeeker.aadhar"/>
+                            </label>
+                            <div class="controls">
+                                <form:input path="aadhar" name="aadhar"
+                                            id="aadhar" maxlength="12"
+                                            cssClass="span3" onkeyup="intOnly(this)"
+                                onChange="checkData('aadhar', this, this.id)"
+                                />
+                                <span class="help-block">
+									<form:errors path="aadhar" cssClass="error" />
+								</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" for="email">
+                                <spring:message code="jobSeeker.email"/>
+                            </label>
+                            <div class="controls">
+                                <form:input path="email" name="email" id="email"
+                                            maxlength="50"
+                                            cssClass="span3" onblur="checkEmail(this);"
+                                            onChange="checkData('email', this, this.id)"
+                                />
+                                <span class="help-inline">
+                                    <form:errors path="email" cssClass="error" />
+                                </span>
+                            </div>
+                        </div>
 
 					</div>
 				</div>
 
-				<div class="span6 offset4">
+				<div class="span6">
+				    <div class="centered">
 
-				<div class="control-group">
 
-                    <label class="control-label align-left" for="mobile">
-                        <spring:message code="jobSeeker.mobile"/>
-                    </label>
-                    <div class="controls">
-                        <form:password path="mobile" name="mobile" id="mobile" maxlength="20" cssClass="span3" />
-                        <span class="help-inline">
-                            <form:errors path="mobile" cssClass="error" />
-                        </span>
+                        <div class="control-group">
+                            <label class="control-label align-left" >
+                                <spring:message code="jobSeeker.gender"/>
+                            </label>
+                            <div class="controls">
+                                <label class="radio inline" for="gender">
+                                    <form:radiobutton path="gender" value="MALE" id="gender"/> Male
+                                </label>
+                                <label class="radio inline" for="gender">
+                                    <form:radiobutton path="gender" value="FEMALE" id="gender"/> Female
+                                </label>
+                                <span class="help-inline">
+                                    <form:errors path="gender" cssClass="error" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" >
+                                <spring:message code="jobSeeker.address"/>
+                            </label>
+                            <div class="controls">
+                                <form:textarea path="address" name="address" id="address"
+                                               cssClass="span3" rows="3"
+                                               cssStyle="height: 100px"/>
+                                <span class="help-block">
+									<form:errors path="address" cssClass="error" />
+								</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" for="email">
+                                <spring:message code="jobSeeker.resume"/>
+                            </label>
+                            <div class="controls">
+                                <input type="file" name="resume" id="resume"
+                                       cssClass="span3" onchange="openFile(event)" />
+
+                                <span class="help-inline">
+                                    <form:errors path="resume" cssClass="error" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label align-left" for="email">
+                                <spring:message code="jobSeeker.photo"/>
+                            </label>
+                            <div class="controls">
+                                <input type="file" name="photo" id="photo"
+                                       cssClass="span3" onchange="openFile(event)" />
+                                <form:hidden path="photoData" name="photoData" id="photoData" />
+
+                                <div id="applicantPhotoName" ></div>
+                                <span class="help-inline">
+                                    <form:errors path="photo" cssClass="error" />
+                                </span>
+
+                                <c:if test="${empty photoData}">
+                                    <span class="help-inline">
+                                        <img src="data:photo;base64,${photoData }" id="photoData"
+                                             style='border: 1px solid black; visibility: collapse'
+                                             width='80px' class="img-polaroid"
+                                             height='80px'>
+                                    </span>
+                                </c:if>
+                                <c:if test="${not empty photoData}">
+                                    <span class="help-inline">
+                                        <img src="data:photo;base64,${photoData }" id="photoData"
+                                             style='border: 1px solid black; visibility: visible'
+                                             width='80px' class="img-polaroid"
+                                             height='80px'>
+                                    </span>
+                                </c:if>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="control-group">
-
-                    <label class="control-label align-left" for="alternateNo">
-                        <spring:message code="jobSeeker.alternateNo"/>
-                    </label>
-                    <div class="controls">
-                        <form:password path="alternateNo" name="alternateNo"
-                                id="alternateNo" maxlength="20"
-                                    cssClass="span3" />
-                        <span class="help-inline">
-                            <form:errors path="alternateNo" cssClass="error" />
-                        </span>
-                    </div>
-                </div>
-
-                <div class="control-group">
-
-                    <label class="control-label align-left" for="email">
-                        <spring:message code="jobSeeker.email"/>
-                    </label>
-                    <div class="controls">
-                        <form:password path="email" name="email"
-                                id="password" maxlength="20"
-                                    cssClass="span3" />
-                        <span class="help-inline">
-                            <form:errors path="email" cssClass="error" />
-                        </span>
-                    </div>
-                </div>
-
 				</div>
 
 				<div class="span12">
@@ -184,9 +331,7 @@
 							   onclick="submitData('${action}', '${method}')" />
 					</div>
 				</div>
-
 			</div>
-
 			</form:form>
 		</div>
 

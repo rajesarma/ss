@@ -28,8 +28,8 @@
 	<link rel="stylesheet" type="text/css"  href="<c:url
 	value="${pageContext.request.contextPath}/css/menu.css" />"/>
 
-	<link rel="icon" href="<c:url value="${pageContext.request.contextPath}/images/my_logo.jpg" />" type="image/x-icon" />
-	<link rel="shortcut icon" href="<c:url value="${pageContext.request.contextPath}/images/my_logo.jpg" />"
+	<link rel="icon" href="<c:url value="${pageContext.request.contextPath}/img/logo.png" />" type="image/x-icon" />
+	<link rel="shortcut icon" href="<c:url value="${pageContext.request.contextPath}/img/logo.png" />"
 		  type="image/x-icon" />
 
 	<%--<script src="<c:url value="${pageContext.request.contextPath}/js/custom/md5.js" />"></script>--%>
@@ -59,6 +59,19 @@
 
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<!-- logo -->
+					<a class="brand logo" href="/home"><img src="/img/logo.png" alt="" /></a>
+					<!-- end logo -->
+					<!-- top menu -->
+
+					<!-- end menu -->
+				</div>
+			</div>
+		</div>
 
 		<tiles:insertAttribute name="body" />
 

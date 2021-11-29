@@ -1,35 +1,14 @@
 package com.ss.sample.model;
 
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 
+@Data
 public class JobSeekerDto {
-
-	public JobSeekerDto() {
-
-	}
-
-	public JobSeekerDto(long id, @NotBlank(message = "User ID cannot be empty") String userId, @NotEmpty(message = "Password can not empty") String password, String fullName, String isActive, String createdOn, String gender, String mobile, String alternateNo, @NotEmpty(message = "Email can not empty") @Email String email, String address, String dob, String photo, String resume, String fatherName, String maritalStatus, String updtedOn, String lastLogin) {
-		this.id = id;
-		this.userId = userId;
-		this.password = password;
-		this.fullName = fullName;
-		this.isActive = isActive;
-		this.createdOn = createdOn;
-		this.gender = gender;
-		this.mobile = mobile;
-		this.alternateNo = alternateNo;
-		this.email = email;
-		this.address = address;
-		this.dob = dob;
-		this.photo = photo;
-		this.resume = resume;
-		this.fatherName = fatherName;
-		this.maritalStatus = maritalStatus;
-		this.updtedOn = updtedOn;
-		this.lastLogin = lastLogin;
-	}
 
 	private long id;
 	private String userId;
@@ -43,10 +22,7 @@ public class JobSeekerDto {
 	@NotBlank(message = "Father Name cannot be empty")
 	private String fatherName;
 
-	private String isActive;
-	private String createdOn;
-
-	private String gender;
+	private Gender gender = Gender.MALE;
 
 	@Pattern(regexp="[\\d]{10}")
 	private String mobile;
@@ -57,15 +33,30 @@ public class JobSeekerDto {
 	@NotEmpty(message = "Email can not empty")
 	@Email
 	private String email;
+
+	@NotEmpty(message = "Aadhar can not empty")
+	private String aadhar;
+
+	@NotEmpty(message = "Address can not empty")
 	private String address;
 
-//	@DateTimeFormat(pattern="MM/dd/yyyy")
-	private String dob;
-	private String photo;
-	private String resume;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Past
+	private LocalDate dob;
+
+	private String photoName=null;
+	private String photoData;
+	private MultipartFile photo;
+
+	private String resumeName=null;
+	private String resumeData;
+	private MultipartFile resume;
 
 	private String maritalStatus;
-	private String updtedOn;
+
+	private char isActive;
+	private String createdOn;
+	private String updatedOn;
 	private String lastLogin;
 //	private String shortlistedFlag;
 //	private String shortlistedDate;
@@ -101,11 +92,27 @@ public class JobSeekerDto {
 		this.password = password;
 	}
 
-	public String getIsActive() {
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getFatherName() {
+		return fatherName;
+	}
+
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
+	}
+
+	public char getIsActive() {
 		return isActive;
 	}
 
-	public void setIsActive(String isActive) {
+	public void setIsActive(char isActive) {
 		this.isActive = isActive;
 	}
 
@@ -117,11 +124,11 @@ public class JobSeekerDto {
 		this.createdOn = createdOn;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -149,6 +156,14 @@ public class JobSeekerDto {
 		this.email = email;
 	}
 
+	public String getAadhar() {
+		return aadhar;
+	}
+
+	public void setAadhar(String aadhar) {
+		this.aadhar = aadhar;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -157,36 +172,60 @@ public class JobSeekerDto {
 		this.address = address;
 	}
 
-	public String getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
-	public void setDob(String dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 
-	public String getPhoto() {
+	public String getPhotoName() {
+		return photoName;
+	}
+
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
+
+	public String getPhotoData() {
+		return photoData;
+	}
+
+	public void setPhotoData(String photoData) {
+		this.photoData = photoData;
+	}
+
+	public String getResumeName() {
+		return resumeName;
+	}
+
+	public MultipartFile getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(MultipartFile photo) {
 		this.photo = photo;
 	}
 
-	public String getResume() {
+	public void setResumeName(String resumeName) {
+		this.resumeName = resumeName;
+	}
+
+	public String getResumeData() {
+		return resumeData;
+	}
+
+	public void setResumeData(String resumeData) {
+		this.resumeData = resumeData;
+	}
+
+	public MultipartFile getResume() {
 		return resume;
 	}
 
-	public void setResume(String resume) {
+	public void setResume(MultipartFile resume) {
 		this.resume = resume;
-	}
-
-	public String getFatherName() {
-		return fatherName;
-	}
-
-	public void setFatherName(String fatherName) {
-		this.fatherName = fatherName;
 	}
 
 	public String getMaritalStatus() {
@@ -197,20 +236,12 @@ public class JobSeekerDto {
 		this.maritalStatus = maritalStatus;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getUpdatedOn() {
+		return updatedOn;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getUpdtedOn() {
-		return updtedOn;
-	}
-
-	public void setUpdtedOn(String updtedOn) {
-		this.updtedOn = updtedOn;
+	public void setUpdatedOn(String updatedOn) {
+		this.updatedOn = updatedOn;
 	}
 
 	public String getLastLogin() {

@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/js/*.js").permitAll()
 				.antMatchers("/js/**/**").permitAll()
 				.antMatchers("/webjars/**").permitAll()
+				.antMatchers("/recruitment/jobSeeker/**").permitAll()
 
 				.antMatchers(getUrlPattern(Urls.ADMIN)).access(hasRole(Roles.ADMIN_ROLE))
 				.antMatchers(getUrlPattern(Urls.MANAGEMENT)).access(hasRole(Roles.MANAGEMENT_ROLE, Roles.ADMIN_ROLE))

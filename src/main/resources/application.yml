@@ -45,7 +45,7 @@ spring:
 #    url: jdbc:postgres://ec2-3-230-149-158.compute-1.amazonaws.com:5432/d2s8pa8nnq9gcn  # In Heroku
 #    username: krikjdizmdyfpi  # In Heroku
 #    password: e75ee293bf9412a22adb4f65aa37973bd5dc4a29c273977da9ad3e7b2f6df7bc  # In Heroku
-    type: org.apache.tomcat.jdbc.pool.DataSource  # In Heroku
+#    type: org.apache.tomcat.jdbc.pool.DataSource  # In Heroku
 
   #Set the SQL Dialect to “default” in your labels.properties to let Spring autodetect the different SQL Dialects of each datasource
   jpa:
@@ -60,28 +60,10 @@ spring:
 
 # LOGGING ================================================================================
 logging:
-#  file: C:\\logs\\logs-debug.log
-  config: classpath:logback-access.xml
-  #config: classpath:logback-file-only-appender.xml
-  #path:
-#  pattern:
-#    console:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
-#    file:  "%d{yyyy-MM-dd HH:mm:ss} %-5level [%15.15thread] [%-35.35logger{35}] : %msg%n"
-#  level:
-#    root: INFO
-#    com.ss.sample: INFO
-#    org.springframework: INFO
-#    org.springframework.core: INFO
-#    org.springframework.web: INFO
-#    org.springframework.data: INFO
-#    org.springframework.security: INFO
-#    org.springframework.boot.web.servlet.FilterRegistrationBean: WARN
-#    org.springframework.boot.web.servlet.ServletRegistrationBean: WARN
-#    org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: WARN
-#    org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping: WARN
-#    org.springframework.context.support.DefaultLifecycleProcessor: WARN
-#    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN # url mappings
-#    org.hibernate: INFO
+  pattern:
+    console:  "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L : %msg%n"
+  level:
+    com.ss.sample: INFO
 
 management:
   endpoint:
@@ -105,3 +87,8 @@ info:
     java:
       version: 8
     type: Spring Boot
+
+jdoodle:
+  client-id: 19e80d4d72411eac1fb3d28ad81b85ea
+  client-secret: ef1048f1c6124e1d800b2e3bdbc82b6e0d91b24d5ac2deef096d0ff2631267eb
+  host: https://api.jdoodle.com/v1/execute

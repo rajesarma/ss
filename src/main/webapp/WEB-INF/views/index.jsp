@@ -131,11 +131,13 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label" for="username">
+										<a href="/recruitment/jobSeeker" class="bottom-text-w3ls">Sign Up</a>
+									</label>
 									<div class="controls">
 										<a href="#" class="bottom-text-w3ls">Forgot Password?</a>
 									</div>
 								</div>
-
 						</div>
 					</div>
 				</form:form>

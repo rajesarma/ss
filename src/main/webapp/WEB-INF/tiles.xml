@@ -84,4 +84,14 @@
         <put-attribute name="body" value="/WEB-INF/views/management/managementDashboard.jsp" />
     </definition>
 
+    <!--Recruitment-->
+
+    <definition name="compiler" extends="tilesTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/compiler.jsp" />
+    </definition>
+
+    <definition name="jobSeeker" extends="homePageTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/jobSeeker.jsp" />
+    </definition>
+
 </tiles-definitions>

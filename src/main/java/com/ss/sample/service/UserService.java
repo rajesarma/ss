@@ -92,8 +92,8 @@ public class UserService {
 									 String password, String newPassword) {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		Optional<UserEntity> userOptional =
-				userRepository.findByUsername(username.toLowerCase(Locale.US));
+//		Optional<UserEntity> userOptional = userRepository.findByUsername(username.toLowerCase(Locale.US));
+		Optional<UserEntity> userOptional = userRepository.findByUsername(username);
 
 		if(!userOptional.isPresent()) {
 
@@ -103,18 +103,18 @@ public class UserService {
 
 			return Optional.empty();
 		} else {
-			UserEntity user = userOptional.get();
-			if(encoder.matches(password, user.getPassword())) {
+			UserEntity userEntity = userOptional.get();
+			if(encoder.matches(password, userEntity.getPassword())) {
 
-				user.setPassword(encoder.encode(newPassword));
-				user.setLastPasswordChange(new Date());
-				UserEntity savedUser = userRepository.save(user);
+				userEntity.setPassword(encoder.encode(newPassword));
+				userEntity.setLastPasswordChange(new Date());
+				UserEntity savedUserEntity = userRepository.save(userEntity);
 
 				log.info("<UserEntity><USER:CHANGE_PASSWORD>"
 						+ "<User:" + request.getSession().getAttribute(StrConstants.SESSION_USER_NAME) + ">"
 						+ "<" + userOptional.get().getUsername() +" : Password updated>");
 
-				return Optional.of(UserConverter.convert(savedUser));
+				return Optional.of(UserConverter.convert(savedUserEntity));
 			} else {
 
 				log.info("<UserEntity><USER:CHANGE_PASSWORD>"

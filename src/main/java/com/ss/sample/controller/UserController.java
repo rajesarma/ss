@@ -132,11 +132,8 @@ public class UserController {
 		mav.addObject(method,"Post");
 
 		if(StringUtils.isNotEmpty(userDto.getNewPassword())) {
-			UserDto loggedInUserDto =
-					(UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-			Optional<UserDto> userOptional =
-					userService.changePassword(request, loggedInUserDto.getUsername(),
+			UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Optional<UserDto> userOptional = userService.changePassword(request, userEntity.getUsername(),
 							userDto.getPassword(), userDto.getNewPassword());
 
 			if(userOptional.isPresent() && userOptional.get().getUserId() > 0) {

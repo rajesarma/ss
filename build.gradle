@@ -29,33 +29,21 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
 
-	compile 'org.apache.tomcat:tomcat-jdbc'	// In Heroku
-
+	implementation 'org.hibernate.validator:hibernate-validator:6.1.1.Final'
 	implementation group: 'org.postgresql', name: 'postgresql'
 	implementation 'org.apache.commons:commons-lang3:3.7'
 	implementation 'org.json:json:20090211'
+//	compile 'org.apache.tomcat:tomcat-jdbc'	// In Heroku
 
 	implementation 'org.apache.tiles:tiles-core:3.0.7'
-
 	implementation 'org.apache.tiles:tiles-jsp:3.0.7'
 	implementation 'org.webjars:jquery:1.8.2'
 	implementation 'org.webjars:bootstrap:2.3.0'
-	implementation 'org.apache.commons:commons-lang3:3.7'
+
 	implementation 'org.springframework.boot:spring-boot-configuration-processor:2.1.4.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
-
-	/*compile('com.zaxxer:HikariCP:2.5.1') {
-		exclude group: 'org.hibernate', module: 'hibernate-core'
-	}
-
-	// Need this in order to get the HikariCPConnectionProvider
-	compile('org.hibernate:hibernate-hikaricp:5.2.11.Final') {
-		exclude group: 'com.zaxxer', module: 'HikariCP'
-		exclude group: 'org.hibernate', module: 'hibernate-core'
-	}*/
-
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

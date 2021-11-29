@@ -86,12 +86,21 @@
 
     <!--Recruitment-->
 
-    <definition name="compiler" extends="tilesTemplate">
-        <put-attribute name="body" value="/WEB-INF/views/recruitment/compiler.jsp" />
+
+    <definition name="jobSeekerNotAuthenticated" extends="homePageTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/jobSeeker.jsp" />
     </definition>
 
-    <definition name="jobSeeker" extends="homePageTemplate">
+    <definition name="jobSeeker" extends="tilesTemplate">
         <put-attribute name="body" value="/WEB-INF/views/recruitment/jobSeeker.jsp" />
+    </definition>
+
+    <definition name="jobSeekerPreferences" extends="tilesTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/jobSeekerPreferences.jsp" />
+    </definition>
+
+    <definition name="compiler" extends="tilesTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/compiler.jsp" />
     </definition>
 
 </tiles-definitions>

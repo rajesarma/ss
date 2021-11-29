@@ -15,4 +15,7 @@ public interface RecruitmentRepository extends CrudRepository<RecruitmentUserEnt
     Optional<RecruitmentUserEntity> findFirstByEmail(String email);
     Optional<RecruitmentUserEntity> findFirstByAadhar(String aadhar);
     Optional<RecruitmentUserEntity> findFirstByMobile(String mobile);
+
+    Optional<RecruitmentUserEntity> findByUserId(String userId);
+
 }

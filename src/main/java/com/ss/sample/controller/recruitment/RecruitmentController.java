@@ -2,6 +2,7 @@ package com.ss.sample.controller.recruitment;
 
 import com.ss.sample.model.JobSeekerDto;
 import com.ss.sample.service.recruitment.RecruitmentService;
+import com.ss.sample.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,11 +52,33 @@ public class RecruitmentController {
     }
 
     @GetMapping("/jobSeeker")
-    public ModelAndView getJobseekerPage() {
+    public ModelAndView getJobSeekerPage(
+            @RequestParam(required = false) String operation
+    ) {
 
         ModelAndView mav = new ModelAndView("jobSeeker", jobSeekerDtoStr, new JobSeekerDto());
-        mav.addObject("buttonValue", save);
         mav.addObject(action,"/recruitment/jobSeeker");
+
+        // If Authenticated User
+        if (Util.isAuthenticatedJobSeeker()) {
+
+            // For Editing operation
+            if(StringUtils.isNotEmpty(operation) && "edit".equalsIgnoreCase(operation)) {
+                Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.getDataByUserName();
+
+                if(jobSeekerDtoOptional.isPresent()) {
+                    mav = new ModelAndView("jobSeeker", jobSeekerDtoStr, jobSeekerDtoOptional.get());
+                } else {
+                    mav.addObject("message", "Problem in Fetching Data");
+                }
+            } else { // Without Editing. just login and continuing preferences page
+                return getJobseekerPreferencesPage();
+            }
+        } else { // Not Authenticated
+            mav = new ModelAndView("jobSeekerNotAuthenticated", jobSeekerDtoStr, new JobSeekerDto());
+        }
+
+        mav.addObject("buttonValue", save);
         mav.addObject(method,"Post");
         return mav;
     }
@@ -90,6 +113,29 @@ public class RecruitmentController {
         mav.addObject("jobSeekerDto", new JobSeekerDto());
         return mav;
     }
+
+    @GetMapping("/jobSeekerPreferences")
+    public ModelAndView getJobseekerPreferencesPage() {
+        ModelAndView mav;
+
+        Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.getDataByUserName();
+
+        if(jobSeekerDtoOptional.isPresent()) {
+            mav = new ModelAndView("jobSeekerPreferences", jobSeekerDtoStr, jobSeekerDtoOptional.get());
+            mav.addObject(action,"/recruitment/jobSeekerPreferences");
+        }
+        else {
+            mav = new ModelAndView("jobSeeker", jobSeekerDtoStr, new JobSeekerDto());
+            mav.addObject(action,"/recruitment/jobSeeker");
+        }
+
+        mav.addObject("buttonValue", save);
+        mav.addObject(method,"Post");
+        return mav;
+    }
+
+
+
 
     @GetMapping(value = "/jobSeeker/{type}/{value}")
     public ResponseEntity<?> find(@PathVariable("type") String type,

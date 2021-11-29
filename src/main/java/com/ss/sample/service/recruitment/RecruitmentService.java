@@ -13,6 +13,7 @@ import com.ss.sample.util.UserConverter;
 import com.ss.sample.util.recruitment.JDoodleCompilerTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,17 @@ public class RecruitmentService {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.jDoodleCompilerTest = jDoodleCompilerTest;
+    }
+
+    public Optional<JobSeekerDto> getDataByUserName() {
+
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Optional<RecruitmentUserEntity> savedRecruitmentUser = recruitmentRepository.findByUserId(userEntity.getUsername());
+        if(savedRecruitmentUser.isPresent()) {
+            return Optional.of(convert(savedRecruitmentUser.get()));
+        }
+        return Optional.empty();
     }
 
     public Optional<JobSeekerDto> save(JobSeekerDto jobSeekerDto) {

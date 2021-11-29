@@ -104,7 +104,7 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 		if(role.length() == 0){
 			throw new IllegalArgumentException("Role should be passed");
 		} else {
-			return "ROLE_" + role;
+			return "JobSeekerDto" + role;
 		}
 	}
 }

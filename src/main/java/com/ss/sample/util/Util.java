@@ -1,5 +1,7 @@
 package com.ss.sample.util;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.time.LocalDateTime;
@@ -32,5 +34,13 @@ public class Util {
 	public static String getBcryptPassword(String password) {
 
 		return BCrypt.hashpw(password, BCrypt.gensalt(11));
+	}
+
+	public static boolean isAuthenticatedJobSeeker () {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 return (auth != null &&
+				auth.getPrincipal() != null &&
+				auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()))
+		);
 	}
 }

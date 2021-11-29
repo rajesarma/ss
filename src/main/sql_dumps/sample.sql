@@ -1134,11 +1134,12 @@ COPY role_services (role_id, service_id) FROM stdin;
 1	92
 1	93
 9	1
+9	15
 9	18
 9	91
 9	92
 9	93
-9	15
+9	94
 \.
 
 
@@ -1176,8 +1177,9 @@ COPY services (service_id, service_url, service_name, disabled, parent_id, displ
 29	/super/roleServices	Role Services Mapping	f	16	4	t
 37	/management/managementDashboard	Management Dashboard	f	23	38	t
 91	/home	Recruitment	f	0	9	t
-92	/recruitment/compiler	Compiler Test	f	91	1	t
-93	/recruitment/jobSeeker	Job Seeker	f	91	2	t
+92	/recruitment/compiler	Compiler Test	f	91	3	t
+93	/recruitment/jobSeeker	Registration	f	91	1	t
+94	/recruitment/jobSeekerPreferences	Registration Preferences	f	91	2	f
 \.
 
 
@@ -1230,8 +1232,8 @@ COPY users (id, user_name, password, disabled, user_desc, email, last_login, fai
 2	management	$2a$10$/Vq9fiMAIpZj7yd8MO46I.V0G0scg3wEuLNhoy91kyCqol1dNeNFG	f	Management Login	\N	2019-08-02 04:55:09	0	2019-05-03 05:32:11
 4	super	$2a$10$WvPD/76KaGt3Bny6OXdRTeXBI6GThwE.eeqFXLODkb58yBLKuITgm	f	Supervizor Login	\N	2019-06-03 04:55:26	0	\N
 13	SAMPLE000001	$2a$10$fzNoZcaBx63CsMyPoxUuCOjccLZDeLhuZH3EC492uMtQn/Zl7giHS	f	Lakshmi Rajeswara Rao	dd@dd.com	2021-11-29 18:09:23.078	0	\N
-1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-11-29 18:39:47.99	0	2019-05-02 13:00:00
-14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-11-29 18:45:00.299	0	2021-11-29 18:44:49.385
+1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-11-29 21:47:46.366	0	2019-05-02 13:00:00
+14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-11-29 23:51:35.275	0	2021-11-29 18:44:49.385
 \.
 
 

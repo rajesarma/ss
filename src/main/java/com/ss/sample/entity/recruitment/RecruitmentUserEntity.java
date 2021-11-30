@@ -6,16 +6,18 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "recruitment_user")
-public class RecruitmentUserEntity {
+public class RecruitmentUserEntity implements Serializable {
 
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "user_id")
 //    @GeneratedValue(strategy=GenerationType.AUTO)
@@ -91,13 +93,8 @@ public class RecruitmentUserEntity {
     @UpdateTimestamp
     private LocalDateTime lastLogin;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recruitmentUser")
+    private List<RecruitmentUserExpEntity> userExperiences;
 
     public String getUserId() {
         return userId;
@@ -253,5 +250,21 @@ public class RecruitmentUserEntity {
 
     public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<RecruitmentUserExpEntity> getUserExperiences() {
+        return userExperiences;
+    }
+
+    public void setUserExperiences(List<RecruitmentUserExpEntity> userExperiences) {
+        this.userExperiences = userExperiences;
     }
 }

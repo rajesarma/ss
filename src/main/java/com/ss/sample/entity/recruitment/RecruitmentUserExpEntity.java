@@ -1,0 +1,92 @@
+package com.ss.sample.entity.recruitment;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "recruitment_user_experiences")
+public class RecruitmentUserExpEntity implements Serializable {
+
+    @Id
+    @Column(name = "id")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recruitment_user_experiences_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_exp_generator")
+    @SequenceGenerator(name = "user_exp_generator", sequenceName = "recruitment_user_experiences_id_seq", allocationSize = 1)
+    private Long id;
+
+    /*@Column(name = "user_id")
+    private String userId;*/
+
+    @Column(name = "company")
+    private String company;
+
+    @Column(name = "exp_months")
+    private Integer expMonths;
+
+    @Column(name = "from_date")
+    private LocalDate fromDate;
+
+    @Column(name = "to_date")
+    private LocalDate toDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private RecruitmentUserEntity recruitmentUser;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /*public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }*/
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public Integer getExpMonths() {
+        return expMonths;
+    }
+
+    public void setExpMonths(Integer expMonths) {
+        this.expMonths = expMonths;
+    }
+
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public LocalDate getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(LocalDate toDate) {
+        this.toDate = toDate;
+    }
+
+    public RecruitmentUserEntity getRecruitmentUser() {
+        return recruitmentUser;
+    }
+
+    public void setRecruitmentUser(RecruitmentUserEntity recruitmentUser) {
+        this.recruitmentUser = recruitmentUser;
+    }
+}

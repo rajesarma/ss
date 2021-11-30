@@ -40,7 +40,10 @@ public class Util {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 return (auth != null &&
 				auth.getPrincipal() != null &&
-				auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()))
+				auth.getAuthorities().stream().anyMatch(a ->
+						a.getAuthority().equals("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()) ||
+						a.getAuthority().equals("ROLE_" + Constants.Roles.ADMIN_ROLE.toUpperCase())
+				)
 		);
 	}
 }

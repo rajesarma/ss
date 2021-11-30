@@ -38,6 +38,10 @@
 	<script src="<c:url value="${pageContext.request.contextPath}/webjars/jquery/3.3.1-1/jquery.min.js" />"></script>
 	<script src="<c:url value="${pageContext.request.contextPath}/webjars/bootstrap/4.1.1/js/bootstrap.min.js" />"></script>--%>
 
+	<script
+			src="<c:url value="${pageContext.request.contextPath}/js/form_validations.js" />"></script>
+	<script
+			src="<c:url value="${pageContext.request.contextPath}/js/date_validations.js"/>"></script>
 
 	<link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/css/bootstrap.css" />">
 	<link href="<c:url value="${pageContext.request.contextPath}/css/bootstrap-responsive.css" />" rel="stylesheet">
@@ -49,6 +53,9 @@
 
 	<%--<script src="<c:url value="${pageContext.request.contextPath}/webjars/jquery/3.3.1-1/jquery.min.js" />"></script>
 	<script src="<c:url value="${pageContext.request.contextPath}/webjars/bootstrap/4.1.1/js/bootstrap.min.js" />"></script>--%>
+
+	<link href="<c:url value="${pageContext.request.contextPath}/css/sweetalert.min.css" />" rel="stylesheet">
+	<script src="<c:url value="${pageContext.request.contextPath}/js/sweetalert.min.js"/>"></script>
 
 	<script
 			src="<c:url value="${pageContext.request.contextPath}/js/jquery.min.js" />"></script>

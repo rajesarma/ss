@@ -15,6 +15,7 @@
         var openFile = function(event) {
             var input = event.target;
             var output = document.getElementById('photoData');
+            $('#photoData').attr('style','visibility: visible');
 
             var reader = new FileReader();
             reader.onload = function() {
@@ -296,7 +297,7 @@
                             <div class="controls">
                                 <input type="file" name="photo" id="photo"
                                        cssClass="span3" onchange="openFile(event)" />
-                                <form:hidden path="photoData" name="photoData" id="photoData" />
+                                <!--<form:hidden path="photoData" name="photoData" id="photoData" />-->
 
                                 <div id="applicantPhotoName" ></div>
                                 <span class="help-inline">

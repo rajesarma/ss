@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class JobSeekerDto {
@@ -67,6 +68,7 @@ public class JobSeekerDto {
 //	private String offerLetterGenerated;
 //	private String offerLetterGeneratedDate;
 
+	private List<JobSeekerExpDto> userExperiences;
 
 	public long getId() {
 		return id;
@@ -250,5 +252,13 @@ public class JobSeekerDto {
 
 	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public List<JobSeekerExpDto> getUserExperiences() {
+		return userExperiences;
+	}
+
+	public void setUserExperiences(List<JobSeekerExpDto> userExperiences) {
+		this.userExperiences = userExperiences;
 	}
 }

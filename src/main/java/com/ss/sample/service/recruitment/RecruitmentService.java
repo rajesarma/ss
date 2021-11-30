@@ -2,8 +2,10 @@ package com.ss.sample.service.recruitment;
 
 import com.ss.sample.entity.UserEntity;
 import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
+import com.ss.sample.entity.recruitment.RecruitmentUserExpEntity;
 import com.ss.sample.model.Gender;
 import com.ss.sample.model.JobSeekerDto;
+import com.ss.sample.model.JobSeekerExpDto;
 import com.ss.sample.model.UserDto;
 import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.UserRepository;
@@ -13,6 +15,7 @@ import com.ss.sample.util.UserConverter;
 import com.ss.sample.util.recruitment.JDoodleCompilerTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +25,12 @@ import java.io.IOException;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -52,6 +60,21 @@ public class RecruitmentService {
         if(savedRecruitmentUser.isPresent()) {
             return Optional.of(convert(savedRecruitmentUser.get()));
         }
+        return Optional.empty();
+    }
+
+    public Optional<JobSeekerDto> updatePreferences(JobSeekerDto jobSeekerDto) {
+
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<RecruitmentUserEntity> existingEntityOptional = recruitmentRepository.findByUserId(userEntity.getUsername());
+
+        if (existingEntityOptional.isPresent()) {
+            RecruitmentUserEntity existingUserEntity = existingEntityOptional.get();
+            updateUserExperiences(jobSeekerDto, existingUserEntity);
+            RecruitmentUserEntity savedEntity = recruitmentRepository.save(existingUserEntity);
+            return Optional.of(convert(savedEntity));
+        }
+
         return Optional.empty();
     }
 
@@ -119,12 +142,27 @@ public class RecruitmentService {
         return Optional.empty();
     }
 
-    public RecruitmentUserEntity convert(final JobSeekerDto jobSeekerDto) {
-        RecruitmentUserEntity recruitmentUserEntity = new RecruitmentUserEntity();
+    /*private String getUserId () {
 
+    }*/
+
+    public RecruitmentUserEntity convert(final JobSeekerDto jobSeekerDto) {
         Long id = recruitmentRepository.getMaxId();
         String userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
 
+        /*
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<RecruitmentUserEntity> savedRecruitmentUserOptional = recruitmentRepository.findByUserId(userEntity.getUsername());
+
+        if (savedRecruitmentUserOptional.isPresent()) {
+            id = savedRecruitmentUserOptional.get().getId();
+            userId = savedRecruitmentUserOptional.get().getUserId();
+        } else {
+            id = recruitmentRepository.getMaxId();
+            userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
+        }*/
+
+        RecruitmentUserEntity recruitmentUserEntity = new RecruitmentUserEntity();
         recruitmentUserEntity.setId(id);
         recruitmentUserEntity.setUserId(userId);
         recruitmentUserEntity.setFullName(jobSeekerDto.getFullName());
@@ -158,13 +196,59 @@ public class RecruitmentService {
             e.printStackTrace();
         }
 
+        updateUserExperiences(jobSeekerDto, recruitmentUserEntity);
+
         return recruitmentUserEntity;
+    }
+
+    private void updateUserExperiences(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
+        if(Objects.nonNull(jobSeekerDto.getUserExperiences()) &&  !jobSeekerDto.getUserExperiences().isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            // If Existing User Experiences are present, Update them
+            if(Objects.nonNull(recruitmentUserEntity.getUserExperiences()) &&  !recruitmentUserEntity.getUserExperiences().isEmpty()) {
+                List<Long> existingIds = new ArrayList<>();
+
+                for (JobSeekerExpDto js : jobSeekerDto.getUserExperiences()) {
+                    recruitmentUserEntity.getUserExperiences()
+                            .forEach(exp -> {
+                                if (js.getId() == exp.getId()) {
+                                    exp.setCompany(js.getCompany());
+                                    exp.setExpMonths(js.getExpMonths());
+                                    exp.setFromDate(LocalDate.parse(js.getFromDate(), formatter));
+                                    exp.setToDate(LocalDate.parse(js.getToDate(), formatter));
+                                    exp.setRecruitmentUser(recruitmentUserEntity);
+                                    existingIds.add(js.getId());
+                                }
+                            });
+                }
+                jobSeekerDto.getUserExperiences().removeIf(js -> existingIds.stream().anyMatch( eid -> js.getId() == eid));
+            }
+
+            List<RecruitmentUserExpEntity> userExps = jobSeekerDto.getUserExperiences()
+                    .stream()
+                    .map(jobSeekerExpDto -> {
+                        RecruitmentUserExpEntity exp = new RecruitmentUserExpEntity();
+                        exp.setCompany(jobSeekerExpDto.getCompany());
+                        exp.setExpMonths(jobSeekerExpDto.getExpMonths());
+                        exp.setFromDate(LocalDate.parse(jobSeekerExpDto.getFromDate(), formatter));
+                        exp.setToDate(LocalDate.parse(jobSeekerExpDto.getToDate(), formatter));
+                        exp.setRecruitmentUser(recruitmentUserEntity);
+                        return exp;
+                    }).collect(Collectors.toList());
+
+            // If records present, then add them to exisiting, else create new records
+            if(Objects.nonNull(recruitmentUserEntity.getUserExperiences())) {
+                recruitmentUserEntity.getUserExperiences().addAll(userExps);
+            } else {
+                recruitmentUserEntity.setUserExperiences(userExps);
+            }
+        }
     }
 
     public JobSeekerDto convert(final RecruitmentUserEntity recruitmentUserEntity) {
         JobSeekerDto jobSeekerDto = new JobSeekerDto();
 
-//        jobSeekerDto.setIsActive('A');
         jobSeekerDto.setId(recruitmentUserEntity.getId());
         jobSeekerDto.setUserId(recruitmentUserEntity.getUserId());
         jobSeekerDto.setFullName(recruitmentUserEntity.getFullName());
@@ -186,6 +270,22 @@ public class RecruitmentService {
         if (recruitmentUserEntity.getResume() != null && recruitmentUserEntity.getResume().length > 0) {
             jobSeekerDto.setResumeData(new String(java.util.Base64.getEncoder().encode(recruitmentUserEntity.getResume())));
             jobSeekerDto.setResumeName(recruitmentUserEntity.getResumeName());
+        }
+
+        if(Objects.nonNull(recruitmentUserEntity.getUserExperiences()) &&  !recruitmentUserEntity.getUserExperiences().isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            List<JobSeekerExpDto> userExps = recruitmentUserEntity.getUserExperiences()
+                    .stream()
+                    .map(expEntity -> {
+                        JobSeekerExpDto exp = new JobSeekerExpDto();
+                        exp.setId(expEntity.getId());
+                        exp.setCompany(expEntity.getCompany());
+                        exp.setExpMonths(expEntity.getExpMonths());
+                        exp.setFromDate(expEntity.getFromDate().format(formatter));
+                        exp.setToDate(expEntity.getToDate().format(formatter));
+                        return exp;
+                    }).collect(Collectors.toList());
+            jobSeekerDto.setUserExperiences(userExps);
         }
 
         return jobSeekerDto;

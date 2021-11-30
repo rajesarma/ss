@@ -27,8 +27,8 @@
 				var str="";
 				str+="<tr>";
 				str+="<td>"+(lastRow+1)+"</td>";
-				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
-				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span2\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
+				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span3\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
+				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].fromDate\" name=\"userExperiences["+lastRow+"].fromDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].toDate\" name=\"userExperiences["+lastRow+"].toDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
 				str+="</tr>";

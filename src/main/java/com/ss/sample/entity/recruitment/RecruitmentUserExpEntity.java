@@ -10,13 +10,9 @@ public class RecruitmentUserExpEntity implements Serializable {
 
     @Id
     @Column(name = "id")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recruitment_user_experiences_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_exp_generator")
     @SequenceGenerator(name = "user_exp_generator", sequenceName = "recruitment_user_experiences_id_seq", allocationSize = 1)
     private Long id;
-
-    /*@Column(name = "user_id")
-    private String userId;*/
 
     @Column(name = "company")
     private String company;
@@ -41,14 +37,6 @@ public class RecruitmentUserExpEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    /*public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }*/
 
     public String getCompany() {
         return company;

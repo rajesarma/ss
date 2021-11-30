@@ -69,6 +69,7 @@ public class JobSeekerDto {
 //	private String offerLetterGeneratedDate;
 
 	private List<JobSeekerExpDto> userExperiences;
+	private List<JobSeekerQlyDto> userQualifications;
 
 	public long getId() {
 		return id;
@@ -260,5 +261,13 @@ public class JobSeekerDto {
 
 	public void setUserExperiences(List<JobSeekerExpDto> userExperiences) {
 		this.userExperiences = userExperiences;
+	}
+
+	public List<JobSeekerQlyDto> getUserQualifications() {
+		return userQualifications;
+	}
+
+	public void setUserQualifications(List<JobSeekerQlyDto> userQualifications) {
+		this.userQualifications = userQualifications;
 	}
 }

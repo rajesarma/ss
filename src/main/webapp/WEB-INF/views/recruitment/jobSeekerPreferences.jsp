@@ -20,20 +20,33 @@
 			user.submit();
 		}
 
-<!--			str+="<td>"+lastRow+"<input type=\"hidden\" id=\"userExperiences["+lastRow+"].id\" name=\"userExperiences["+lastRow+"].id\" ></td>";-->
+		function addRow(id) {
+			if(id == 'jobSeekerExperiences') {
+				var tbl = document.getElementById(id);
+				var lastRow = tbl.rows.length-1;
+				var str="";
+				str+="<tr>";
+				str+="<td>"+(lastRow+1)+"</td>";
+				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
+				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span2\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
+				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].fromDate\" name=\"userExperiences["+lastRow+"].fromDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
+				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].toDate\" name=\"userExperiences["+lastRow+"].toDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
+				str+="</tr>";
+				$("#jobSeekerExperiences > tbody").append(str);
 
-		function addRow (id) {
-			var tbl = document.getElementById(id);
-		   	var lastRow = tbl.rows.length-1;
-		   	var str="";
-			str+="<tr>";
-			str+="<td>"+(lastRow+1)+"</td>";
-			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
-			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span2\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
-			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].fromDate\" name=\"userExperiences["+lastRow+"].fromDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
-			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].toDate\" name=\"userExperiences["+lastRow+"].toDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
-			str+="</tr>";
-			$("#jobSeekerExperiences > tbody").append(str);
+			}
+			else if(id == 'jobSeekerQualifications') {
+				var tbl = document.getElementById(id);
+				var lastRow = tbl.rows.length-1;
+				var str="";
+				str+="<tr>";
+				str+="<td>"+(lastRow+1)+"</td>";
+				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].qualification\" name=\"userQualifications["+lastRow+"].qualification\" class=\"span3\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
+				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].percentage\" name=\"userQualifications["+lastRow+"].percentage\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"5\"> </td>";
+				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].boardUniversity\" name=\"userQualifications["+lastRow+"].boardUniversity\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
+				str+="</tr>";
+				$("#jobSeekerQualifications > tbody").append(str);
+			}
 		}
 
 	</script>
@@ -117,7 +130,60 @@
 						<div class="widget">
 							<h4>Your Qualifications</h4>
 							<ul>
-								<li><label><strong>Qualification : </strong>${jobSeekerDto.fullName}</label></li>
+								<table class="table table-striped table-bordered table-hover table-condensed" id="jobSeekerQualifications">
+									<thead>
+									<tr>
+										<th>#</th>
+										<th>Qualification</th>
+										<th>Percentage</th>
+										<th>Board / University</th>
+										<th><input type="button" value="Add Row" onclick="addRow('jobSeekerQualifications')" class="btn btn-primary buttony .inputy" /></th>
+									</tr>
+									</thead>
+									<tbody>
+									<c:forEach items="${jobSeekerDto.userQualifications}" var="qly" varStatus="row">
+										<tr>
+											<td align="center">
+												${row.count}
+												<form:hidden path="userQualifications[${row.index}].id"
+															 name="userQualifications[${row.index}].id"
+															 id="userQualifications[${row.index}].id"
+															 value="${qly.id}"
+												/>
+											</td>
+											<td>
+												<form:input path="userQualifications[${row.index}].qualification"
+															name="userQualifications[${row.index}].qualification"
+															id="userQualifications[${row.index}].qualification"
+															value="${qly.qualification}"
+															maxlength="100"
+															cssClass="span3"
+															onkeyup="charOnly(this)"
+												/>
+											</td>
+											<td>
+												<form:input path="userQualifications[${row.index}].percentage"
+															name="userQualifications[${row.index}].percentage"
+															id="userQualifications[${row.index}].percentage"
+															value="${qly.percentage}"
+															maxlength="5"
+															cssClass="span1"
+															onkeyup="intOnly(this)"
+												/>
+											</td>
+											<td>
+												<form:input path="userQualifications[${row.index}].boardUniversity"
+															name="userQualifications[${row.index}].boardUniversity"
+															id="userQualifications[${row.index}].boardUniversity"
+															value="${qly.boardUniversity}"
+															cssClass="span2"
+															onkeyup="charOnly(this)"
+												/>
+											</td>
+										</tr>
+									</c:forEach>
+									</tbody>
+								</table>
 							</ul>
 						</div>
 

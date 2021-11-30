@@ -3,10 +3,8 @@ package com.ss.sample.service.recruitment;
 import com.ss.sample.entity.UserEntity;
 import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
 import com.ss.sample.entity.recruitment.RecruitmentUserExpEntity;
-import com.ss.sample.model.Gender;
-import com.ss.sample.model.JobSeekerDto;
-import com.ss.sample.model.JobSeekerExpDto;
-import com.ss.sample.model.UserDto;
+import com.ss.sample.entity.recruitment.RecruitmentUserQlyEntity;
+import com.ss.sample.model.*;
 import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.UserRepository;
 import com.ss.sample.repository.recruitment.RecruitmentRepository;
@@ -71,6 +69,7 @@ public class RecruitmentService {
         if (existingEntityOptional.isPresent()) {
             RecruitmentUserEntity existingUserEntity = existingEntityOptional.get();
             updateUserExperiences(jobSeekerDto, existingUserEntity);
+            updateUserQualifications(jobSeekerDto, existingUserEntity);
             RecruitmentUserEntity savedEntity = recruitmentRepository.save(existingUserEntity);
             return Optional.of(convert(savedEntity));
         }
@@ -142,9 +141,92 @@ public class RecruitmentService {
         return Optional.empty();
     }
 
-    /*private String getUserId () {
+    private void updateUserExperiences(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
+        if(Objects.nonNull(jobSeekerDto.getUserExperiences()) &&  !jobSeekerDto.getUserExperiences().isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    }*/
+            // If Existing User Experiences are present, Update them
+            if(Objects.nonNull(recruitmentUserEntity.getUserExperiences()) &&  !recruitmentUserEntity.getUserExperiences().isEmpty()) {
+                List<Long> existingIds = new ArrayList<>();
+
+                for (JobSeekerExpDto js : jobSeekerDto.getUserExperiences()) {
+                    recruitmentUserEntity.getUserExperiences()
+                            .forEach(exp -> {
+                                if (js.getId() == exp.getId()) {
+                                    exp.setCompany(js.getCompany());
+                                    exp.setExpMonths(js.getExpMonths());
+                                    exp.setFromDate(LocalDate.parse(js.getFromDate(), formatter));
+                                    exp.setToDate(LocalDate.parse(js.getToDate(), formatter));
+                                    exp.setRecruitmentUser(recruitmentUserEntity);
+                                    existingIds.add(js.getId());
+                                }
+                            });
+                }
+                jobSeekerDto.getUserExperiences().removeIf(js -> existingIds.stream().anyMatch( eid -> js.getId() == eid));
+            }
+
+            List<RecruitmentUserExpEntity> userExps = jobSeekerDto.getUserExperiences()
+                    .stream()
+                    .map(jobSeekerExpDto -> {
+                        RecruitmentUserExpEntity exp = new RecruitmentUserExpEntity();
+                        exp.setCompany(jobSeekerExpDto.getCompany());
+                        exp.setExpMonths(jobSeekerExpDto.getExpMonths());
+                        exp.setFromDate(LocalDate.parse(jobSeekerExpDto.getFromDate(), formatter));
+                        exp.setToDate(LocalDate.parse(jobSeekerExpDto.getToDate(), formatter));
+                        exp.setRecruitmentUser(recruitmentUserEntity);
+                        return exp;
+                    }).collect(Collectors.toList());
+
+            // If records present, then add them to exisiting, else create new records
+            if(Objects.nonNull(recruitmentUserEntity.getUserExperiences())) {
+                recruitmentUserEntity.getUserExperiences().addAll(userExps);
+            } else {
+                recruitmentUserEntity.setUserExperiences(userExps);
+            }
+        }
+    }
+
+    private void updateUserQualifications(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
+        if(Objects.nonNull(jobSeekerDto.getUserQualifications()) &&  !jobSeekerDto.getUserQualifications().isEmpty()) {
+            // If Existing User Qualifications are present, Update them
+            if(Objects.nonNull(recruitmentUserEntity.getUserQualifications()) &&  !recruitmentUserEntity.getUserQualifications().isEmpty()) {
+                List<Long> existingIds = new ArrayList<>();
+
+                for (JobSeekerQlyDto js : jobSeekerDto.getUserQualifications()) {
+                    recruitmentUserEntity.getUserQualifications()
+                            .forEach(qly -> {
+                                if (js.getId() == qly.getId()) {
+                                    qly.setQualification(js.getQualification());
+                                    qly.setPercentage(js.getPercentage());
+                                    qly.setBoardUniversity(js.getBoardUniversity());
+                                    qly.setRecruitmentUser(recruitmentUserEntity);
+                                    existingIds.add(js.getId());
+                                }
+                            });
+                }
+                jobSeekerDto.getUserQualifications().removeIf(js -> existingIds.stream().anyMatch( eid -> js.getId() == eid));
+            }
+
+            List<RecruitmentUserQlyEntity> userQlys = jobSeekerDto.getUserQualifications()
+                    .stream()
+                    .map(jobSeekerQlyDto -> {
+                        RecruitmentUserQlyEntity qly = new RecruitmentUserQlyEntity();
+                        qly.setQualification(jobSeekerQlyDto.getQualification());
+                        qly.setPercentage(jobSeekerQlyDto.getPercentage());
+                        qly.setBoardUniversity(jobSeekerQlyDto.getBoardUniversity());
+                        qly.setRecruitmentUser(recruitmentUserEntity);
+                        return qly;
+                    }).collect(Collectors.toList());
+
+            // If records present, then add them to exisiting, else create new records
+            if(Objects.nonNull(recruitmentUserEntity.getUserQualifications())) {
+                recruitmentUserEntity.getUserQualifications().addAll(userQlys);
+            } else {
+                recruitmentUserEntity.setUserQualifications(userQlys);
+            }
+        }
+    }
+
 
     public RecruitmentUserEntity convert(final JobSeekerDto jobSeekerDto) {
         Long id = recruitmentRepository.getMaxId();
@@ -197,53 +279,9 @@ public class RecruitmentService {
         }
 
         updateUserExperiences(jobSeekerDto, recruitmentUserEntity);
+        updateUserQualifications(jobSeekerDto, recruitmentUserEntity);
 
         return recruitmentUserEntity;
-    }
-
-    private void updateUserExperiences(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
-        if(Objects.nonNull(jobSeekerDto.getUserExperiences()) &&  !jobSeekerDto.getUserExperiences().isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-            // If Existing User Experiences are present, Update them
-            if(Objects.nonNull(recruitmentUserEntity.getUserExperiences()) &&  !recruitmentUserEntity.getUserExperiences().isEmpty()) {
-                List<Long> existingIds = new ArrayList<>();
-
-                for (JobSeekerExpDto js : jobSeekerDto.getUserExperiences()) {
-                    recruitmentUserEntity.getUserExperiences()
-                            .forEach(exp -> {
-                                if (js.getId() == exp.getId()) {
-                                    exp.setCompany(js.getCompany());
-                                    exp.setExpMonths(js.getExpMonths());
-                                    exp.setFromDate(LocalDate.parse(js.getFromDate(), formatter));
-                                    exp.setToDate(LocalDate.parse(js.getToDate(), formatter));
-                                    exp.setRecruitmentUser(recruitmentUserEntity);
-                                    existingIds.add(js.getId());
-                                }
-                            });
-                }
-                jobSeekerDto.getUserExperiences().removeIf(js -> existingIds.stream().anyMatch( eid -> js.getId() == eid));
-            }
-
-            List<RecruitmentUserExpEntity> userExps = jobSeekerDto.getUserExperiences()
-                    .stream()
-                    .map(jobSeekerExpDto -> {
-                        RecruitmentUserExpEntity exp = new RecruitmentUserExpEntity();
-                        exp.setCompany(jobSeekerExpDto.getCompany());
-                        exp.setExpMonths(jobSeekerExpDto.getExpMonths());
-                        exp.setFromDate(LocalDate.parse(jobSeekerExpDto.getFromDate(), formatter));
-                        exp.setToDate(LocalDate.parse(jobSeekerExpDto.getToDate(), formatter));
-                        exp.setRecruitmentUser(recruitmentUserEntity);
-                        return exp;
-                    }).collect(Collectors.toList());
-
-            // If records present, then add them to exisiting, else create new records
-            if(Objects.nonNull(recruitmentUserEntity.getUserExperiences())) {
-                recruitmentUserEntity.getUserExperiences().addAll(userExps);
-            } else {
-                recruitmentUserEntity.setUserExperiences(userExps);
-            }
-        }
     }
 
     public JobSeekerDto convert(final RecruitmentUserEntity recruitmentUserEntity) {
@@ -286,6 +324,20 @@ public class RecruitmentService {
                         return exp;
                     }).collect(Collectors.toList());
             jobSeekerDto.setUserExperiences(userExps);
+        }
+
+        if(Objects.nonNull(recruitmentUserEntity.getUserQualifications()) &&  !recruitmentUserEntity.getUserQualifications().isEmpty()) {
+            List<JobSeekerQlyDto> userQlys = recruitmentUserEntity.getUserQualifications()
+                    .stream()
+                    .map(qlyEntity -> {
+                        JobSeekerQlyDto qly = new JobSeekerQlyDto();
+                        qly.setId(qlyEntity.getId());
+                        qly.setQualification(qlyEntity.getQualification());
+                        qly.setPercentage(qlyEntity.getPercentage());
+                        qly.setBoardUniversity(qlyEntity.getBoardUniversity());
+                        return qly;
+                    }).collect(Collectors.toList());
+            jobSeekerDto.setUserQualifications(userQlys);
         }
 
         return jobSeekerDto;

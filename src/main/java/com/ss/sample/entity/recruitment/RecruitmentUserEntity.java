@@ -1,11 +1,12 @@
 package com.ss.sample.entity.recruitment;
 
 import com.ss.sample.model.Gender;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -94,7 +95,12 @@ public class RecruitmentUserEntity implements Serializable {
     private LocalDateTime lastLogin;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recruitmentUser")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<RecruitmentUserExpEntity> userExperiences;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recruitmentUser")
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<RecruitmentUserQlyEntity> userQualifications;
 
     public String getUserId() {
         return userId;
@@ -266,5 +272,13 @@ public class RecruitmentUserEntity implements Serializable {
 
     public void setUserExperiences(List<RecruitmentUserExpEntity> userExperiences) {
         this.userExperiences = userExperiences;
+    }
+
+    public List<RecruitmentUserQlyEntity> getUserQualifications() {
+        return userQualifications;
+    }
+
+    public void setUserQualifications(List<RecruitmentUserQlyEntity> userQualifications) {
+        this.userQualifications = userQualifications;
     }
 }

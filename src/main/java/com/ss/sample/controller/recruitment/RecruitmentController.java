@@ -2,6 +2,7 @@ package com.ss.sample.controller.recruitment;
 
 import com.ss.sample.model.JobSeekerDto;
 import com.ss.sample.model.JobSeekerExpDto;
+import com.ss.sample.model.JobSeekerQlyDto;
 import com.ss.sample.service.recruitment.RecruitmentService;
 import com.ss.sample.util.Util;
 import lombok.extern.slf4j.Slf4j;
@@ -136,15 +137,17 @@ public class RecruitmentController {
 
             // For the user, if no records available, we can show a single record
             if (Objects.isNull(jobSeekerDto.getUserExperiences()) || jobSeekerDto.getUserExperiences().isEmpty()) {
-                JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
-                /*jobSeekerExpDto.setCompany("Company");
-                jobSeekerExpDto.setExpMonths(10);
-                jobSeekerExpDto.setFromDate(LocalDate.of(2005,12,15));
-                jobSeekerExpDto.setToDate(LocalDate.of(2008,8,31));*/
-
                 List<JobSeekerExpDto> jobSeekerExperiences = new ArrayList<>();
+                JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
                 jobSeekerExperiences.add(jobSeekerExpDto);
                 jobSeekerDto.setUserExperiences(jobSeekerExperiences);
+            }
+
+            if (Objects.isNull(jobSeekerDto.getUserQualifications()) || jobSeekerDto.getUserQualifications().isEmpty()) {
+                List<JobSeekerQlyDto> jobSeekerQualifications = new ArrayList<>();
+                JobSeekerQlyDto jobSeekerQlyDto = new JobSeekerQlyDto();
+                jobSeekerQualifications.add(jobSeekerQlyDto);
+                jobSeekerDto.setUserQualifications(jobSeekerQualifications);
             }
 
             mav = new ModelAndView("jobSeekerPreferences", jobSeekerDtoStr, jobSeekerDto);
@@ -152,15 +155,14 @@ public class RecruitmentController {
             mav.addObject(method,"Post");
         } else {
             List<JobSeekerExpDto> jobSeekerExperiences = new ArrayList<>();
-
             JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
-//            jobSeekerExpDto.setCompany("Company");
-//            jobSeekerExpDto.setExpMonths(10);
-//            jobSeekerExpDto.setFromDate(LocalDate.of(2005,12,15));
-//            jobSeekerExpDto.setToDate(LocalDate.of(2008,8,31));
-
             jobSeekerExperiences.add(jobSeekerExpDto);
             jobSeekerDto.setUserExperiences(jobSeekerExperiences);
+
+            List<JobSeekerQlyDto> jobSeekerQualifications = new ArrayList<>();
+            JobSeekerQlyDto jobSeekerQlyDto = new JobSeekerQlyDto();
+            jobSeekerQualifications.add(jobSeekerQlyDto);
+            jobSeekerDto.setUserQualifications(jobSeekerQualifications);
 
             mav = new ModelAndView("jobSeeker", jobSeekerDtoStr, jobSeekerDto);
             mav.addObject(action,"/recruitment/jobSeeker");

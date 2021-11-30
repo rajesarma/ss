@@ -20,6 +20,22 @@
 			user.submit();
 		}
 
+<!--			str+="<td>"+lastRow+"<input type=\"hidden\" id=\"userExperiences["+lastRow+"].id\" name=\"userExperiences["+lastRow+"].id\" ></td>";-->
+
+		function addRow (id) {
+			var tbl = document.getElementById(id);
+		   	var lastRow = tbl.rows.length-1;
+		   	var str="";
+			str+="<tr>";
+			str+="<td>"+(lastRow+1)+"</td>";
+			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
+			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span2\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
+			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].fromDate\" name=\"userExperiences["+lastRow+"].fromDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
+			str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].toDate\" name=\"userExperiences["+lastRow+"].toDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
+			str+="</tr>";
+			$("#jobSeekerExperiences > tbody").append(str);
+		}
+
 	</script>
 	<style>
 		.error {
@@ -57,7 +73,18 @@
 			<form:form action="/recuitment/jobSeekerPreferences" id="jobSeeker" method="${method}"
 					   modelAttribute="jobSeekerDto" enctype="multipart/form-data"
 					   cssClass="form-horizontal">
+
 			<form:hidden path="id" name="id" id="id" />
+			<form:hidden path="fullName" name="fullName" id="fullName" />
+			<form:hidden path="password" name="password" id="password" />
+			<form:hidden path="fatherName" name="fatherName" id="fatherName" />
+			<form:hidden path="dob" name="dob" id="dob" />
+			<form:hidden path="mobile" name="mobile" id="mobile" />
+			<form:hidden path="alternateNo" name="alternateNo" id="alternateNo" />
+			<form:hidden path="aadhar" name="aadhar" id="aadhar" />
+			<form:hidden path="email" name="email" id="email" />
+			<form:hidden path="gender" name="gender" id="gender" />
+			<form:hidden path="address" name="address" id="address" />
 
 			<div class="row ">
 				<div class="span12">
@@ -82,7 +109,6 @@
 								<li><label><strong>Address : </strong>${jobSeekerDto.address}</label></li>
 							</ul>
 						</div>
-
 					</aside>
 				</div>
 
@@ -98,7 +124,72 @@
 						<div class="widget">
 							<h4>Your Experiences</h4>
 							<ul>
-								<li><label><strong>Experience : </strong>${jobSeekerDto.fullName}</label></li>
+								<table class="table table-striped table-bordered table-hover table-condensed" id="jobSeekerExperiences">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Company</th>
+											<th>Exp. in Months</th>
+											<th>From Date <spring:message code="dateFormat"/></th>
+											<th>To Date <spring:message code="dateFormat"/></th>
+											<th><input type="button" value="Add Row" onclick="addRow('jobSeekerExperiences')" class="btn btn-primary buttony .inputy" /></th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${jobSeekerDto.userExperiences}" var="exp" varStatus="row">
+											<tr>
+												<td align="center">
+													${row.count}
+													<form:hidden path="userExperiences[${row.index}].id"
+																 name="userExperiences[${row.index}].id"
+																 id="userExperiences[${row.index}].id"
+																 value="${exp.id}"
+													/>
+												</td>
+												<td>
+													<form:input path="userExperiences[${row.index}].company"
+																name="userExperiences[${row.index}].company"
+																id="userExperiences[${row.index}].company"
+																value="${exp.company}"
+																maxlength="100"
+																cssClass="span3"
+																onkeyup="charOnly(this)"
+													/>
+												</td>
+												<td>
+													<form:input path="userExperiences[${row.index}].expMonths"
+																name="userExperiences[${row.index}].expMonths"
+																id="userExperiences[${row.index}].expMonths"
+																value="${exp.expMonths}"
+																maxlength="3"
+																cssClass="span1"
+																onkeyup="intOnly(this)"
+													/>
+												</td>
+												<td>
+													<form:input path="userExperiences[${row.index}].fromDate"
+																name="userExperiences[${row.index}].fromDate"
+																id="userExperiences[${row.index}].fromDate"
+																value="${exp.fromDate}"
+																cssClass="span2"
+																onkeyup="buildDate(this)"
+																onblur="isValidDate(this);"
+													/>
+												</td>
+												<td>
+													<form:input path="userExperiences[${row.index}].toDate"
+																name="userExperiences[${row.index}].toDate"
+																id="userExperiences[${row.index}].toDate"
+																value="${exp.toDate}"
+																cssClass="span2"
+																onkeyup="buildDate(this)"
+																onblur="isValidDate(this);"
+													/>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</ul>
 						</div>
 					</aside>

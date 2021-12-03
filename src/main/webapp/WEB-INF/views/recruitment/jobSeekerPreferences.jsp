@@ -14,10 +14,10 @@
 
 
 		function submitData(action, method) {
-			var user = document.getElementById('jobSeeker');
-			user.action = action;
-			user.method = method;
-			user.submit();
+			var form = document.getElementById('jobSeekerPreferences');
+			form.action = action;
+			form.method = method;
+			form.submit();
 		}
 
 		function addRow(id) {
@@ -25,12 +25,15 @@
 				var tbl = document.getElementById(id);
 				var lastRow = tbl.rows.length-1;
 				var str="";
-				str+="<tr>";
+				str+="<tr id=\"expRow"+(lastRow+1)+"\">";
 				str+="<td>"+(lastRow+1)+"</td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span3\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].fromDate\" name=\"userExperiences["+lastRow+"].fromDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].toDate\" name=\"userExperiences["+lastRow+"].toDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
+				str+="<td style=\"text-align:center\">";
+				str+="<a href='javaScript:void()' onclick=\"submitData('${action}', '${method}')\"><i class=\"icon-ok\" style=\"color:green\"></i></a>";
+				str+="<a href='javaScript:void()' onclick=\"deleteRow('jobSeekerExperiences', "+(lastRow+1)+")\"><i class=\"icon-trash\" style=\"color:red\"></i></a></td>";
 				str+="</tr>";
 				$("#jobSeekerExperiences > tbody").append(str);
 
@@ -39,15 +42,57 @@
 				var tbl = document.getElementById(id);
 				var lastRow = tbl.rows.length-1;
 				var str="";
-				str+="<tr>";
+				str+="<tr id=\"qlyRow"+(lastRow+1)+"\">";
 				str+="<td>"+(lastRow+1)+"</td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].qualification\" name=\"userQualifications["+lastRow+"].qualification\" class=\"span3\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].percentage\" name=\"userQualifications["+lastRow+"].percentage\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"5\"> </td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].boardUniversity\" name=\"userQualifications["+lastRow+"].boardUniversity\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
+				str+="<td style=\"text-align:center\">";
+				str+="<a href='javaScript:void()' onclick=\"submitData('${action}', '${method}')\"><i class=\"icon-ok\" style=\"color:green\"></i></a>";
+				str+="<a href='javaScript:void()' onclick=\"deleteRow('jobSeekerQualifications', "+(lastRow+1)+")\"><i class=\"icon-trash\" style=\"color:red\"></i></a></td>";
+
 				str+="</tr>";
 				$("#jobSeekerQualifications > tbody").append(str);
 			}
 		}
+
+		function deleteRow(type, index)
+		{
+			var lastRow;
+			var tb1 = document.getElementById(type);
+
+			lastRow = tb1.rows.length-1;
+
+			if(lastRow==1) {
+				alert("You Cann\'t Delete This Row");
+				return false;
+			} else {
+				// if id present for a row, then send request to controller, else just remove the row
+				if(type == 'jobSeekerQualifications') {
+					var element =  document.getElementById("userQualifications["+(index-1)+"].id");
+					if (typeof(element) != 'undefined' && element != null) {
+						updatePreferences(type, element.value);
+					} else {
+						$("#qlyRow"+index).remove();
+					}
+				} else if(type == 'jobSeekerExperiences') {
+					var element =  document.getElementById("userExperiences["+(index-1)+"].id");
+					if (typeof(element) != 'undefined' && element != null) {
+						updatePreferences(type, element.value);
+					} else {
+						$("#expRow"+index).remove();
+					}
+				}
+			}
+		}
+
+		function updatePreferences(type, id) {
+
+			var form = document.getElementById('jobSeekerPreferences');
+			form.action = '/recruitment/jobSeekerPreferences/' + type + '/' + id;
+			form.method = "POST";
+			form.submit();
+        }
 
 	</script>
 	<style>
@@ -83,7 +128,7 @@
 
 	<section id="maincontent">
 		<div class="container">
-			<form:form action="/recuitment/jobSeekerPreferences" id="jobSeeker" method="${method}"
+			<form:form action="/recuitment/jobSeekerPreferences" id="jobSeekerPreferences" method="${method}"
 					   modelAttribute="jobSeekerDto" enctype="multipart/form-data"
 					   cssClass="form-horizontal">
 
@@ -142,7 +187,7 @@
 									</thead>
 									<tbody>
 									<c:forEach items="${jobSeekerDto.userQualifications}" var="qly" varStatus="row">
-										<tr>
+										<tr id="qlyRow${row.count}">
 											<td align="center">
 												${row.count}
 												<form:hidden path="userQualifications[${row.index}].id"
@@ -180,6 +225,10 @@
 															onkeyup="charOnly(this)"
 												/>
 											</td>
+											<td style="text-align:center">
+												<a href='javaScript:void()' onclick="submitData('${action}', '${method}')"><i class="icon-ok" style="color:green"></i></a>
+												<a href='javaScript:void()' onclick="deleteRow('jobSeekerQualifications', ${row.count})"><i class="icon-trash" style="color:red"></i></a>
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -203,7 +252,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${jobSeekerDto.userExperiences}" var="exp" varStatus="row">
-											<tr>
+											<tr id="expRow${row.count}">
 												<td align="center">
 													${row.count}
 													<form:hidden path="userExperiences[${row.index}].id"
@@ -251,6 +300,10 @@
 																onkeyup="buildDate(this)"
 																onblur="isValidDate(this);"
 													/>
+												</td>
+												<td style="text-align:center">
+													<a href='javaScript:void()' onclick="submitData('${action}', '${method}')"><i class="icon-ok" style="color:green"></i></a>
+													<a href='javaScript:void()' onclick="deleteRow('jobSeekerExperiences', ${row.count})"><i class="icon-trash" style="color:red"></i></a>
 												</td>
 											</tr>
 										</c:forEach>

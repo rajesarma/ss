@@ -61,7 +61,30 @@ public class RecruitmentService {
         return Optional.empty();
     }
 
-    public Optional<JobSeekerDto> updatePreferences(JobSeekerDto jobSeekerDto) {
+    public Optional<JobSeekerDto> updatePreferences(String type, long id) {
+
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<RecruitmentUserEntity> existingEntityOptional = recruitmentRepository.findByUserId(userEntity.getUsername());
+
+        if (existingEntityOptional.isPresent()) {
+            RecruitmentUserEntity existingUserEntity = existingEntityOptional.get();
+
+            if( "jobSeekerQualifications".equalsIgnoreCase(type)) {
+                existingUserEntity.getUserQualifications().removeIf(js ->  js.getId() == id);
+            }
+
+            if( "jobSeekerExperiences".equalsIgnoreCase(type)) {
+                existingUserEntity.getUserExperiences().removeIf(js ->  js.getId() == id);
+            }
+
+            RecruitmentUserEntity savedEntity = recruitmentRepository.save(existingUserEntity);
+            return Optional.of(convert(savedEntity));
+        }
+
+        return Optional.empty();
+    }
+
+    public Optional<JobSeekerDto> savePreferences(JobSeekerDto jobSeekerDto) {
 
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<RecruitmentUserEntity> existingEntityOptional = recruitmentRepository.findByUserId(userEntity.getUsername());

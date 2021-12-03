@@ -94,11 +94,11 @@ public class RecruitmentUserEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime lastLogin;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recruitmentUser")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<RecruitmentUserExpEntity> userExperiences;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "recruitmentUser")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<RecruitmentUserQlyEntity> userQualifications;
 

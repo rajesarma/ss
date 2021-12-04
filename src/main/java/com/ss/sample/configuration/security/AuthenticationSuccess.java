@@ -76,6 +76,7 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 				.collect(Collectors.toList());
 
 		session.setAttribute("servicesMenu", new JSONArray(serviceUrls));
+		session.setAttribute("services1", services);
 
 //		response.sendRedirect("/home");
 

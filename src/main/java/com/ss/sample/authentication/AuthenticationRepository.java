@@ -117,7 +117,7 @@ public class AuthenticationRepository {
 					" order by parent_id, service_id";*/
 
 			String sql = "select s.service_id, s.service_url, s.service_name, " +
-					" s.parent_id, s.display_order, s.menu_display" +
+					" s.parent_id, s.display_order, s.menu_display, s.has_childs" +
 					" from users u" +
 					" join user_roles ur on (u.id = ur.user_id)" +
 					" join roles r on (r.role_id = ur.role_id)" +
@@ -139,7 +139,7 @@ public class AuthenticationRepository {
 				serviceMap.put("parentId", rs.getString("parent_id"));
 				serviceMap.put("displayOrder", rs.getString("display_order"));
 				serviceMap.put("menuDisplay", rs.getString("menu_display"));
-
+				serviceMap.put("hasChilds", rs.getString("has_childs"));
 				services.add(serviceMap);
 			}
 		}
@@ -168,7 +168,7 @@ public class AuthenticationRepository {
 					" order by parent_id, service_id";*/
 
 			String sql = "select s.service_id, s.service_url, s.service_name, " +
-					" s.parent_id, s.display_order, s.menu_display" +
+					" s.parent_id, s.display_order, s.menu_display, s.has_childs" +
 					" from users u" +
 					" join user_roles ur on (u.id = ur.user_id)" +
 					" join roles r on (r.role_id = ur.role_id)" +
@@ -189,6 +189,7 @@ public class AuthenticationRepository {
 				serviceMap.put("parentId", rs.getString("parent_id"));
 				serviceMap.put("displayOrder", rs.getString("display_order"));
 				serviceMap.put("menuDisplay", rs.getString("menu_display"));
+				serviceMap.put("hasChilds", rs.getString("has_childs"));
 
 				services.add(serviceMap);
 			}

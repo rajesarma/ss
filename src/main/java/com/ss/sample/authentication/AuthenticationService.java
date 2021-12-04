@@ -59,10 +59,10 @@ public class AuthenticationService {
 				.filter(serviceMap -> "1".equalsIgnoreCase(serviceMap.get("menuDisplay")))
 				.collect(Collectors.toList());
 
-//		System.out.println(servicesShowList);
+		System.out.println("servicesShowList:"+servicesShowList);
 		session.setAttribute("servicesMenu", new JSONArray(servicesShowList)); // Show
 		// in menu only services which are allowed to show in menu
-
+		session.setAttribute("servicesDisplay", servicesShowList); // Show
 		return servicesList;
 	}
 

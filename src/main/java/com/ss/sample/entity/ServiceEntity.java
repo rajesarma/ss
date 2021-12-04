@@ -31,8 +31,23 @@ public class ServiceEntity implements Serializable {
 	@Column(name = "display_order")
 	private Long displayOrder;
 
-	@Column(name = "menu_display")
+	@Column(name = "has_childs")
+	private Boolean hasChilds;
+
+	@Column(name="menu_display")
 	private Boolean menuDisplay;
+
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public Boolean getHasChilds() {
+		return hasChilds;
+	}
+
+	public void setHasChilds(Boolean hasChilds) {
+		this.hasChilds = hasChilds;
+	}
 
 	public Long getServiceId() {
 		return serviceId;

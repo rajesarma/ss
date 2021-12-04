@@ -1,44 +1,242 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-		 pageEncoding="ISO-8859-1" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html>
-<head>
-	<meta charset="ISO-8859-1">
-	<title>Menu</title>
-
-</head>
-<body >
-	<header>
-		<!-- Navbar
-		================================================== -->
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<!-- logo -->
-					<a class="brand logo" href="/home"><img src="/img/logo.png" alt="" /></a>
-					<!-- end logo -->
-					<!-- top menu -->
-
-					<!-- end menu -->
-					<div style="vertical-align: baseline !important;">
-						<div class="navigation pull-right" >
-							<nav id="menu">
-
-							</nav>
-						</div>
-					</div>
-				</div>
+<nav class="page-sidebar" id="sidebar">
+	<div id="sidebar-collapse">
+		<div class="admin-block d-flex">
+			<div>
+				<!--<img src="./assets/img/admin-avatar.png" width="45px" /> -->
+			</div>
+			<div class="admin-info">
+				<div class="font-strong">James Brown</div>
+				<small>Administrator</small>
 			</div>
 		</div>
-	</header>
+		<%=request.getSession().getAttribute("services") %>
+		SERVICES :: ${sessionScope.servicesDisplay}
+		SERVICES2 :: ${servicesDisplay}
+		SERVICES3 :: ${services}
+		SERVICES4 :: ${sessionScope.services}
+		<ul class="side-menu metismenu">
+			<c:forEach items="${sessionScope.services}" var="service">
 
-<%--
-	<div class="user-info" >
-		Welcome : ${user_desc }
+			        <c:if test="${service.parent_id eq 0 && service.has_childs eq true}">
 
-		<span style="padding: 10px"></span>
-		<a href="/logout">Log Out</a>
-	</div>--%>
-</body>
-</html>
+						<li><a href="javascript:;"><i
+								class="sidebar-item-icon fa fa-file-text"></i> <span
+								class="nav-label">${service.service_name}</span><i
+								class="fa fa-angle-left arrow"></i></a>
+							<ul class="nav-2-level collapse">
+                                <c:forEach items="${sessionScope.services}" var="inner_service">
+
+									<c:if test="${service.service_id eq inner_service.parent_id }">
+										<li><a href="${inner_service.service_url }"><i
+												class="sidebar-item-icon fa fa-file-text"></i>
+												${inner_service.service_name}</a></li>
+									</c:if>
+								</c:forEach>
+							</ul>
+						</li>
+					</c:if>
+					<c:if test="${service.parent_id eq 0 && service.has_child eq false}">
+
+						<li><a href="${service.target }"><i
+								class="sidebar-item-icon fa fa-th-large"></i> <span
+								class="nav-label">${service.service_name}</span> </a></li>
+                    </c:if>
+            </c:forEach>
+		</ul>
+	</div>
+</nav>
+
+<!--
+<nav class="page-sidebar" id="sidebar">
+            <div id="sidebar-collapse">
+                <div class="admin-block d-flex">
+                    <div>
+                        <img src="./assets/img/admin-avatar.png" width="45px" />
+                    </div>
+                    <div class="admin-info">
+                        <div class="font-strong">James Brown</div><small>Administrator</small></div>
+                </div>
+                <ul class="side-menu metismenu">
+                    <li>
+                        <a href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
+                            <span class="nav-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="heading">FEATURES</li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                            <span class="nav-label">Basic UI</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="colors.html">Colors</a>
+                            </li>
+                            <li>
+                                <a href="typography.html">Typography</a>
+                            </li>
+                            <li>
+                                <a href="panels.html">Panels</a>
+                            </li>
+                            <li>
+                                <a href="buttons.html">Buttons</a>
+                            </li>
+                            <li>
+                                <a href="tabs.html">Tabs</a>
+                            </li>
+                            <li>
+                                <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
+                            </li>
+                            <li>
+                                <a href="badges_progress.html">Badges &amp; Progress</a>
+                            </li>
+                            <li>
+                                <a href="lists.html">List</a>
+                            </li>
+                            <li>
+                                <a href="cards.html">Card</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                            <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="form_basic.html">Basic Forms</a>
+                            </li>
+                            <li>
+                                <a href="form_advanced.html">Advanced Plugins</a>
+                            </li>
+                            <li>
+                                <a href="form_masks.html">Form input masks</a>
+                            </li>
+                            <li>
+                                <a href="form_validation.html">Form Validation</a>
+                            </li>
+                            <li>
+                                <a href="text_editors.html">Text Editors</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
+                            <span class="nav-label">Tables</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="table_basic.html">Basic Tables</a>
+                            </li>
+                            <li>
+                                <a href="datatables.html">Datatables</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
+                            <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="charts_flot.html">Flot Charts</a>
+                            </li>
+                            <li>
+                                <a href="charts_morris.html">Morris Charts</a>
+                            </li>
+                            <li>
+                                <a href="chartjs.html">Chart.js</a>
+                            </li>
+                            <li>
+                                <a href="charts_sparkline.html">Sparkline Charts</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
+                            <span class="nav-label">Maps</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="maps_vector.html">Vector maps</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="icons.html"><i class="sidebar-item-icon fa fa-smile-o"></i>
+                            <span class="nav-label">Icons</span>
+                        </a>
+                    </li>
+                    <li class="heading">PAGES</li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-envelope"></i>
+                            <span class="nav-label">Mailbox</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="mailbox.html">Inbox</a>
+                            </li>
+                            <li>
+                                <a href="mail_view.html">Mail view</a>
+                            </li>
+                            <li>
+                                <a href="mail_compose.html">Compose mail</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="calendar.html"><i class="sidebar-item-icon fa fa-calendar"></i>
+                            <span class="nav-label">Calendar</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
+                            <span class="nav-label">Pages</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse in">
+                            <li>
+                                <a class="active" href="invoice.html">Invoice</a>
+                            </li>
+                            <li>
+                                <a href="profile.html">Profile</a>
+                            </li>
+                            <li>
+                                <a href="login.html">Login</a>
+                            </li>
+                            <li>
+                                <a href="register.html">Register</a>
+                            </li>
+                            <li>
+                                <a href="lockscreen.html">Lockscreen</a>
+                            </li>
+                            <li>
+                                <a href="forgot_password.html">Forgot password</a>
+                            </li>
+                            <li>
+                                <a href="error_404.html">404 error</a>
+                            </li>
+                            <li>
+                                <a href="error_500.html">500 error</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
+                            <span class="nav-label">Menu Levels</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="javascript:;">Level 2</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <span class="nav-label">Level 2</span><i class="fa fa-angle-left arrow"></i></a>
+                                <ul class="nav-3-level collapse">
+                                    <li>
+                                        <a href="javascript:;">Level 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Level 3</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+-->

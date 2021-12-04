@@ -1,5 +1,6 @@
 package com.ss.sample.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 @RequestMapping(produces = "application/vnd.error+json")
 //@RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler
@@ -31,7 +33,7 @@ public class GlobalExceptionHandler {
 	public ModelAndView handleNullPointerException(NullPointerException ex) {
 		ModelAndView mav = new ModelAndView("error");	// shows 404.jsp
 //		mav.addObject("message", ex.toString());
-
+		log.info(ex.getMessage());
 		mav.addObject("message", "Something went wrong. Please contact support");
 		return mav;
 

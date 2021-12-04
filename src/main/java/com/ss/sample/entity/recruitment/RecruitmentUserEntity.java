@@ -10,11 +10,14 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "recruitment_user")
 public class RecruitmentUserEntity implements Serializable {
+
+
 
     @Id
     @Column(name = "id")
@@ -57,6 +60,9 @@ public class RecruitmentUserEntity implements Serializable {
     @Column(name ="address")
     private String address;
 
+    @Column(name ="postal_code")
+    private String postalCode;
+
     @Column(name ="dob")
     private LocalDate dob;
 
@@ -94,6 +100,12 @@ public class RecruitmentUserEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime lastLogin;
 
+    @Column(name ="sms_notification_active")
+    private Character smsNotificationActive = 'A';  // TODO Requirement Pending for this
+
+    @Column(name ="email_notification_active")
+    private Character emailNotificationActive = 'A'; // TODO Requirement Pending for this
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<RecruitmentUserExpEntity> userExperiences;
@@ -101,6 +113,9 @@ public class RecruitmentUserEntity implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<RecruitmentUserQlyEntity> userQualifications;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
+    private List<RecruitmentUserSkillEntity> userSkills = new ArrayList<>();
 
     public String getUserId() {
         return userId;
@@ -280,5 +295,37 @@ public class RecruitmentUserEntity implements Serializable {
 
     public void setUserQualifications(List<RecruitmentUserQlyEntity> userQualifications) {
         this.userQualifications = userQualifications;
+    }
+
+    public List<RecruitmentUserSkillEntity> getUserSkills() {
+        return userSkills;
+    }
+
+    public void setUserSkills(List<RecruitmentUserSkillEntity> userSkills) {
+        this.userSkills = userSkills;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public Character getSmsNotificationActive() {
+        return smsNotificationActive;
+    }
+
+    public void setSmsNotificationActive(Character smsNotificationActive) {
+        this.smsNotificationActive = smsNotificationActive;
+    }
+
+    public Character getEmailNotificationActive() {
+        return emailNotificationActive;
+    }
+
+    public void setEmailNotificationActive(Character emailNotificationActive) {
+        this.emailNotificationActive = emailNotificationActive;
     }
 }

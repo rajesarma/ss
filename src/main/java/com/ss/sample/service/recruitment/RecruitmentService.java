@@ -180,6 +180,9 @@ public class RecruitmentService {
                                     exp.setExpMonths(js.getExpMonths());
                                     exp.setFromDate(LocalDate.parse(js.getFromDate(), formatter));
                                     exp.setToDate(LocalDate.parse(js.getToDate(), formatter));
+                                    exp.setDesignation(js.getDesignation());
+                                    exp.setJobLocation(js.getJobLocation());
+                                    exp.setIsCurrentJob(js.getIsCurrentJob() ? 'Y' : 'N');
                                     exp.setRecruitmentUser(recruitmentUserEntity);
                                     existingIds.add(js.getId());
                                 }
@@ -196,6 +199,9 @@ public class RecruitmentService {
                         exp.setExpMonths(jobSeekerExpDto.getExpMonths());
                         exp.setFromDate(LocalDate.parse(jobSeekerExpDto.getFromDate(), formatter));
                         exp.setToDate(LocalDate.parse(jobSeekerExpDto.getToDate(), formatter));
+                        exp.setDesignation(jobSeekerExpDto.getDesignation());
+                        exp.setJobLocation(jobSeekerExpDto.getJobLocation());
+                        exp.setIsCurrentJob(jobSeekerExpDto.getIsCurrentJob() ? 'Y' : 'N');
                         exp.setRecruitmentUser(recruitmentUserEntity);
                         return exp;
                     }).collect(Collectors.toList());
@@ -211,19 +217,24 @@ public class RecruitmentService {
 
     private void updateUserQualifications(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
         if(Objects.nonNull(jobSeekerDto.getUserQualifications()) &&  !jobSeekerDto.getUserQualifications().isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             // If Existing User Qualifications are present, Update them
             if(Objects.nonNull(recruitmentUserEntity.getUserQualifications()) &&  !recruitmentUserEntity.getUserQualifications().isEmpty()) {
                 List<Long> existingIds = new ArrayList<>();
 
-                for (JobSeekerQlyDto js : jobSeekerDto.getUserQualifications()) {
+                for (JobSeekerQlyDto jobSeekerQlyDto : jobSeekerDto.getUserQualifications()) {
                     recruitmentUserEntity.getUserQualifications()
                             .forEach(qly -> {
-                                if (js.getId() == qly.getId()) {
-                                    qly.setQualification(js.getQualification());
-                                    qly.setPercentage(js.getPercentage());
-                                    qly.setBoardUniversity(js.getBoardUniversity());
+                                if (jobSeekerQlyDto.getId() == qly.getId()) {
+                                    qly.setQualification(jobSeekerQlyDto.getQualification());
+                                    qly.setSpecialization(jobSeekerQlyDto.getSpecialization());
+                                    qly.setInstituteName(jobSeekerQlyDto.getInstituteName());
+                                    qly.setBoardUniversity(jobSeekerQlyDto.getBoardUniversity());
+                                    qly.setPercentage(jobSeekerQlyDto.getPercentage());
+                                    qly.setStartDate(StringUtils.isNotEmpty(jobSeekerQlyDto.getStartDate()) ? LocalDate.parse(jobSeekerQlyDto.getStartDate(), formatter) : null);
+                                    qly.setCompletionDate(StringUtils.isNotEmpty(jobSeekerQlyDto.getCompletionDate()) ? LocalDate.parse(jobSeekerQlyDto.getCompletionDate(), formatter) : null);
                                     qly.setRecruitmentUser(recruitmentUserEntity);
-                                    existingIds.add(js.getId());
+                                    existingIds.add(jobSeekerQlyDto.getId());
                                 }
                             });
                 }
@@ -235,8 +246,12 @@ public class RecruitmentService {
                     .map(jobSeekerQlyDto -> {
                         RecruitmentUserQlyEntity qly = new RecruitmentUserQlyEntity();
                         qly.setQualification(jobSeekerQlyDto.getQualification());
-                        qly.setPercentage(jobSeekerQlyDto.getPercentage());
+                        qly.setSpecialization(jobSeekerQlyDto.getSpecialization());
+                        qly.setInstituteName(jobSeekerQlyDto.getInstituteName());
                         qly.setBoardUniversity(jobSeekerQlyDto.getBoardUniversity());
+                        qly.setPercentage(jobSeekerQlyDto.getPercentage());
+                        qly.setStartDate(StringUtils.isNotEmpty(jobSeekerQlyDto.getStartDate()) ? LocalDate.parse(jobSeekerQlyDto.getStartDate(), formatter) : null);
+                        qly.setCompletionDate(StringUtils.isNotEmpty(jobSeekerQlyDto.getCompletionDate()) ? LocalDate.parse(jobSeekerQlyDto.getCompletionDate(), formatter) : null);
                         qly.setRecruitmentUser(recruitmentUserEntity);
                         return qly;
                     }).collect(Collectors.toList());
@@ -278,6 +293,7 @@ public class RecruitmentService {
         recruitmentUserEntity.setEmail(jobSeekerDto.getEmail());
         recruitmentUserEntity.setAadhar(jobSeekerDto.getAadhar());
         recruitmentUserEntity.setAddress(jobSeekerDto.getAddress());
+        recruitmentUserEntity.setPostalCode(jobSeekerDto.getPostalCode());
         recruitmentUserEntity.setDob(jobSeekerDto.getDob());
         recruitmentUserEntity.setMaritalStatus(jobSeekerDto.getMaritalStatus());
 
@@ -320,6 +336,7 @@ public class RecruitmentService {
         jobSeekerDto.setEmail(recruitmentUserEntity.getEmail());
         jobSeekerDto.setAadhar(recruitmentUserEntity.getAadhar());
         jobSeekerDto.setAddress(recruitmentUserEntity.getAddress());
+        jobSeekerDto.setPostalCode(recruitmentUserEntity.getPostalCode());
         jobSeekerDto.setDob(recruitmentUserEntity.getDob());
         jobSeekerDto.setMaritalStatus(recruitmentUserEntity.getMaritalStatus());
 
@@ -342,27 +359,34 @@ public class RecruitmentService {
                         exp.setId(expEntity.getId());
                         exp.setCompany(expEntity.getCompany());
                         exp.setExpMonths(expEntity.getExpMonths());
-                        exp.setFromDate(expEntity.getFromDate().format(formatter));
-                        exp.setToDate(expEntity.getToDate().format(formatter));
+                        exp.setFromDate(Objects.nonNull(expEntity.getFromDate()) ? expEntity.getFromDate().format(formatter) : null);
+                        exp.setToDate(Objects.nonNull(expEntity.getToDate()) ? expEntity.getToDate().format(formatter) : null);
+                        exp.setDesignation(expEntity.getDesignation());
+                        exp.setJobLocation(expEntity.getJobLocation());
+                        exp.setIsCurrentJob(Objects.nonNull(expEntity.getIsCurrentJob()) && 'Y' == expEntity.getIsCurrentJob());
                         return exp;
                     }).collect(Collectors.toList());
             jobSeekerDto.setUserExperiences(userExps);
         }
 
         if(Objects.nonNull(recruitmentUserEntity.getUserQualifications()) &&  !recruitmentUserEntity.getUserQualifications().isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             List<JobSeekerQlyDto> userQlys = recruitmentUserEntity.getUserQualifications()
                     .stream()
                     .map(qlyEntity -> {
                         JobSeekerQlyDto qly = new JobSeekerQlyDto();
                         qly.setId(qlyEntity.getId());
                         qly.setQualification(qlyEntity.getQualification());
-                        qly.setPercentage(qlyEntity.getPercentage());
+                        qly.setSpecialization(qlyEntity.getSpecialization());
+                        qly.setInstituteName(qlyEntity.getInstituteName());
                         qly.setBoardUniversity(qlyEntity.getBoardUniversity());
+                        qly.setPercentage(qlyEntity.getPercentage());
+                        qly.setStartDate(Objects.nonNull(qlyEntity.getStartDate()) ? qlyEntity.getStartDate().format(formatter) : null);
+                        qly.setCompletionDate(Objects.nonNull(qlyEntity.getCompletionDate()) ? qlyEntity.getCompletionDate().format(formatter) : null);
                         return qly;
                     }).collect(Collectors.toList());
             jobSeekerDto.setUserQualifications(userQlys);
         }
-
         return jobSeekerDto;
     }
 }

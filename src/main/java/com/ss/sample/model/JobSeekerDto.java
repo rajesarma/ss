@@ -41,6 +41,9 @@ public class JobSeekerDto {
 	@NotEmpty(message = "Address can not empty")
 	private String address;
 
+	@NotEmpty(message = "Postal Code can not empty")
+	private String postalCode;
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Past
 	private LocalDate dob;

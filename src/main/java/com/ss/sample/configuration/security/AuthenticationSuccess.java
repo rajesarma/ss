@@ -88,6 +88,10 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 
 				} catch (Exception e) {
 				}
+			} else if(("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()).equals(authority.getAuthority())) {
+				try {
+					redirectStrategy.sendRedirect(request, response, "/recruitment/jobSeekerPreferences");
+				} catch (Exception e) { }
 			} else if(!Constants.Roles.MANAGEMENT_ROLE.equals(authority.getAuthority())) {
 				try {
 //					response.sendRedirect("/home");

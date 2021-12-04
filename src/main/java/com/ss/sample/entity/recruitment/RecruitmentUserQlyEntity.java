@@ -2,6 +2,7 @@ package com.ss.sample.entity.recruitment;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "recruitment_user_qualifications")
@@ -21,6 +22,18 @@ public class RecruitmentUserQlyEntity implements Serializable {
 
     @Column(name = "board_university")
     private String boardUniversity;
+
+    @Column(name = "specialization")
+    private String specialization;
+
+    @Column(name = "institute_name")
+    private String instituteName;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "completion_date")
+    private LocalDate completionDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -64,5 +77,37 @@ public class RecruitmentUserQlyEntity implements Serializable {
 
     public void setRecruitmentUser(RecruitmentUserEntity recruitmentUser) {
         this.recruitmentUser = recruitmentUser;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getInstituteName() {
+        return instituteName;
+    }
+
+    public void setInstituteName(String instituteName) {
+        this.instituteName = instituteName;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(LocalDate completionDate) {
+        this.completionDate = completionDate;
     }
 }

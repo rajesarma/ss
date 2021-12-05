@@ -1,11 +1,14 @@
 package com.ss.sample.entity.recruitment;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name ="recruitment_skill")
+@Data
 public class SkillEntity {
 
     @Id

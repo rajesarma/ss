@@ -1,12 +1,17 @@
 package com.ss.sample.entity.recruitment;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "recruitment_user_experiences")
+@Data
 public class RecruitmentUserExpEntity implements Serializable {
+
+    private static final long serialVersionUID = -1030806438316186436L;
 
     @Id
     @Column(name = "id")
@@ -38,76 +43,4 @@ public class RecruitmentUserExpEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private RecruitmentUserEntity recruitmentUser;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public Integer getExpMonths() {
-        return expMonths;
-    }
-
-    public void setExpMonths(Integer expMonths) {
-        this.expMonths = expMonths;
-    }
-
-    public LocalDate getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(LocalDate fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public LocalDate getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(LocalDate toDate) {
-        this.toDate = toDate;
-    }
-
-    public RecruitmentUserEntity getRecruitmentUser() {
-        return recruitmentUser;
-    }
-
-    public void setRecruitmentUser(RecruitmentUserEntity recruitmentUser) {
-        this.recruitmentUser = recruitmentUser;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-
-    public String getJobLocation() {
-        return jobLocation;
-    }
-
-    public void setJobLocation(String jobLocation) {
-        this.jobLocation = jobLocation;
-    }
-
-    public Character getIsCurrentJob() {
-        return isCurrentJob;
-    }
-
-    public void setIsCurrentJob(Character isCurrentJob) {
-        this.isCurrentJob = isCurrentJob;
-    }
 }

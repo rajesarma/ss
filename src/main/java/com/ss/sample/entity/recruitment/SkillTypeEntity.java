@@ -1,5 +1,6 @@
 package com.ss.sample.entity.recruitment;
 
+import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name ="recruitment_skill_type")
+@Data
 public class SkillTypeEntity {
 
     @Id

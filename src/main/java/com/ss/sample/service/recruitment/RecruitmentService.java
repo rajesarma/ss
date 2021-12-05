@@ -13,16 +13,12 @@ import com.ss.sample.util.UserConverter;
 import com.ss.sample.util.recruitment.JDoodleCompilerTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -182,7 +178,7 @@ public class RecruitmentService {
                                     exp.setToDate(LocalDate.parse(js.getToDate(), formatter));
                                     exp.setDesignation(js.getDesignation());
                                     exp.setJobLocation(js.getJobLocation());
-                                    exp.setIsCurrentJob(js.getIsCurrentJob() ? 'Y' : 'N');
+                                    exp.setIsCurrentJob(js.isCurrentJob() ? 'Y' : 'N');
                                     exp.setRecruitmentUser(recruitmentUserEntity);
                                     existingIds.add(js.getId());
                                 }
@@ -201,7 +197,7 @@ public class RecruitmentService {
                         exp.setToDate(LocalDate.parse(jobSeekerExpDto.getToDate(), formatter));
                         exp.setDesignation(jobSeekerExpDto.getDesignation());
                         exp.setJobLocation(jobSeekerExpDto.getJobLocation());
-                        exp.setIsCurrentJob(jobSeekerExpDto.getIsCurrentJob() ? 'Y' : 'N');
+                        exp.setIsCurrentJob(jobSeekerExpDto.isCurrentJob() ? 'Y' : 'N');
                         exp.setRecruitmentUser(recruitmentUserEntity);
                         return exp;
                     }).collect(Collectors.toList());
@@ -363,7 +359,7 @@ public class RecruitmentService {
                         exp.setToDate(Objects.nonNull(expEntity.getToDate()) ? expEntity.getToDate().format(formatter) : null);
                         exp.setDesignation(expEntity.getDesignation());
                         exp.setJobLocation(expEntity.getJobLocation());
-                        exp.setIsCurrentJob(Objects.nonNull(expEntity.getIsCurrentJob()) && 'Y' == expEntity.getIsCurrentJob());
+                        exp.setCurrentJob(Objects.nonNull(expEntity.getIsCurrentJob()) && 'Y' == expEntity.getIsCurrentJob());
                         return exp;
                     }).collect(Collectors.toList());
             jobSeekerDto.setUserExperiences(userExps);

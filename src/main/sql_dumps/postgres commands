@@ -1,2 +1,2 @@
-cmd> pg_dump -U sample sample > sample.sql      -- dump command
-cmd> psql -U sample < path_to_sample.sql        -- restore command
+cmd> pg_dump -U sample sample > sample.sql      -- postgres sql dump command
+cmd> psql -U sample < path_to_sample.sql        -- postgres sql restore command

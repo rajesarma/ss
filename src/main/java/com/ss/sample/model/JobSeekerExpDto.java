@@ -1,10 +1,12 @@
 package com.ss.sample.model;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
-import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 public class JobSeekerExpDto {
@@ -18,13 +20,17 @@ public class JobSeekerExpDto {
     @Past
     private String fromDate;
 
-    /*@DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Past
-    private LocalDate fromDate;*/
-
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Past
     private String toDate;
+
+    @NotEmpty(message = "Designation can not empty")
+    private String designation;
+
+    @NotEmpty(message = "Job location can not empty")
+    private String jobLocation;
+
+    private boolean isCurrentJob;
 
     public long getId() {
         return id;
@@ -72,5 +78,29 @@ public class JobSeekerExpDto {
 
     public void setToDate(String toDate) {
         this.toDate = toDate;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
+
+    public boolean getIsCurrentJob() {
+        return isCurrentJob;
+    }
+
+    public void setIsCurrentJob(boolean isCurrentJob) {
+        this.isCurrentJob = isCurrentJob;
     }
 }

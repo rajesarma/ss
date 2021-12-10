@@ -183,12 +183,35 @@ public class RecruitmentController {
         mav.addObject(buttonValue, save);
         mav.addObject(method,"Post");
 
-        Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.updatePreferences(jobSeekerDto);
+        Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.savePreferences(jobSeekerDto);
         if (jobSeekerDtoOptional.isPresent()) {
             mav.addObject("message", "Profile updated successfully ");
             mav.addObject("jobSeekerDto", jobSeekerDtoOptional.get());
             return mav;
         }
+        mav.addObject("message", "Problem in Saving Profile");
+        return mav;
+    }
+
+    @PostMapping("/jobSeekerPreferences/{type}/{id}")
+    public ModelAndView updatePreferences(
+            @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
+            @PathVariable("type") String type,
+            @PathVariable("id") String id) {
+
+        ModelAndView mav = new ModelAndView("jobSeekerPreferences", jobSeekerDtoStr, jobSeekerDto);
+        mav.addObject(action,"/recruitment/jobSeekerPreferences");
+        mav.addObject("buttonValue", save);
+        mav.addObject(buttonValue, save);
+        mav.addObject(method,"Post");
+
+        Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.updatePreferences(type, Long.parseLong(id));
+        if (jobSeekerDtoOptional.isPresent()) {
+            mav.addObject("jobSeekerDto", jobSeekerDtoOptional.get());
+            mav.addObject("message", "Profile updated successfully ");
+            return mav;
+        }
+
         mav.addObject("message", "Problem in Saving Profile");
         return mav;
     }

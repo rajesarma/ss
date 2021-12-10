@@ -12,6 +12,16 @@ public class JobSeekerQlyDto {
     private String qualification;
     private double percentage;
     private String boardUniversity;
+    private String specialization;
+    private String instituteName;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Past
+    private String startDate;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Past
+    private String completionDate;
 
     public long getId() {
         return id;
@@ -51,5 +61,37 @@ public class JobSeekerQlyDto {
 
     public void setBoardUniversity(String boardUniversity) {
         this.boardUniversity = boardUniversity;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getInstituteName() {
+        return instituteName;
+    }
+
+    public void setInstituteName(String instituteName) {
+        this.instituteName = instituteName;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(String completionDate) {
+        this.completionDate = completionDate;
     }
 }

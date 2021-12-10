@@ -26,6 +26,15 @@ public class RecruitmentUserExpEntity implements Serializable {
     @Column(name = "to_date")
     private LocalDate toDate;
 
+    @Column(name = "designation")
+    private String designation;
+
+    @Column(name = "job_location")
+    private String jobLocation;
+
+    @Column(name ="is_current_job")
+    private Character isCurrentJob = 'N';
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private RecruitmentUserEntity recruitmentUser;
@@ -76,5 +85,29 @@ public class RecruitmentUserExpEntity implements Serializable {
 
     public void setRecruitmentUser(RecruitmentUserEntity recruitmentUser) {
         this.recruitmentUser = recruitmentUser;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
+
+    public Character getIsCurrentJob() {
+        return isCurrentJob;
+    }
+
+    public void setIsCurrentJob(Character isCurrentJob) {
+        this.isCurrentJob = isCurrentJob;
     }
 }

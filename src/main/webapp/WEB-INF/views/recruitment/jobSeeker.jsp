@@ -223,6 +223,22 @@
                         </div>
 
                         <div class="control-group">
+                            <label class="control-label align-left" for="postalCode">
+                                <spring:message code="jobSeeker.postalCode"/>
+                            </label>
+                            <div class="controls">
+                                <form:input path="postalCode" name="postalCode"
+                                            id="postalCode" maxlength="12"
+                                            cssClass="span3" onkeyup="intOnly(this)"
+                                />
+                                <span class="help-block">
+									<form:errors path="postalCode" cssClass="error" />
+								</span>
+                            </div>
+                        </div>
+
+
+                        <div class="control-group">
                             <label class="control-label align-left" for="email">
                                 <spring:message code="jobSeeker.email"/>
                             </label>

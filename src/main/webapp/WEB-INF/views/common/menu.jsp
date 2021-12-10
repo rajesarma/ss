@@ -22,7 +22,7 @@
 								class="nav-label">${service.serviceName}</span><i
 								class="fa fa-angle-left arrow"></i></a>
 							<ul class="nav-2-level collapse">
-                                <c:forEach items="${services}" var="inner_service">
+                                <c:forEach items="${servicesMenu}" var="inner_service">
 
 									<c:if test="${service.serviceId eq inner_service.parentId }">
 										<li><a href="${inner_service.serviceUrl }"><i

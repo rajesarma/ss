@@ -8,8 +8,8 @@
 				<!--<img src="./assets/img/admin-avatar.png" width="45px" /> -->
 			</div>
 			<div class="admin-info">
-				<div class="font-strong">James Brown</div>
-				<small>Administrator</small>
+				<div class="font-strong">${personName}</div>
+				<!--<small>Administrator</small>-->
 			</div>
 		</div>
 		<ul class="side-menu metismenu">

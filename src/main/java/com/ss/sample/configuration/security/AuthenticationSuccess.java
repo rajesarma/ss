@@ -52,6 +52,7 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 		// Update the LastLogin of User
 		userService.registerSuccessfulLogin(user.getUserId());
 		session.setAttribute("username", user.getUsername());
+		session.setAttribute("personName", user.getUserDesc());
 
 		String[] roleNames = user.getRoles()
 								.stream()

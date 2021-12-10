@@ -12,37 +12,32 @@
 				<small>Administrator</small>
 			</div>
 		</div>
-		<%=request.getSession().getAttribute("services") %>
-		SERVICES :: ${sessionScope.servicesDisplay}
-		SERVICES2 :: ${servicesDisplay}
-		SERVICES3 :: ${services}
-		SERVICES4 :: ${sessionScope.services}
 		<ul class="side-menu metismenu">
-			<c:forEach items="${sessionScope.services}" var="service">
+			<c:forEach items="${servicesMenu}" var="service">
 
-			        <c:if test="${service.parent_id eq 0 && service.has_childs eq true}">
+			        <c:if test="${service.parentId eq 0 && service.hasChilds eq true}">
 
-						<li><a href="javascript:;"><i
+						<li><a href="${service.serviceUrl}"><i
 								class="sidebar-item-icon fa fa-file-text"></i> <span
-								class="nav-label">${service.service_name}</span><i
+								class="nav-label">${service.serviceName}</span><i
 								class="fa fa-angle-left arrow"></i></a>
 							<ul class="nav-2-level collapse">
-                                <c:forEach items="${sessionScope.services}" var="inner_service">
+                                <c:forEach items="${services}" var="inner_service">
 
-									<c:if test="${service.service_id eq inner_service.parent_id }">
-										<li><a href="${inner_service.service_url }"><i
+									<c:if test="${service.serviceId eq inner_service.parentId }">
+										<li><a href="${inner_service.serviceUrl }"><i
 												class="sidebar-item-icon fa fa-file-text"></i>
-												${inner_service.service_name}</a></li>
+												${inner_service.serviceName}</a></li>
 									</c:if>
 								</c:forEach>
 							</ul>
 						</li>
 					</c:if>
-					<c:if test="${service.parent_id eq 0 && service.has_child eq false}">
+					<c:if test="${service.parentId eq 0 && service.hasChilds eq false}">
 
-						<li><a href="${service.target }"><i
+						<li><a href="${service.serviceUrl }"><i
 								class="sidebar-item-icon fa fa-th-large"></i> <span
-								class="nav-label">${service.service_name}</span> </a></li>
+								class="nav-label">${service.serviceName}</span> </a></li>
                     </c:if>
             </c:forEach>
 		</ul>

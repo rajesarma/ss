@@ -7,6 +7,16 @@
 <html>
 <head>
 
+    <script>
+
+		function submitData() {
+			var user = document.getElementById('login-form');
+			user.submit();
+		}
+
+		<!--			user.action = action;-->
+<!--			user.method = method;-->
+    </script>
 </head>
 
 <body class="bg-silver-300" onload="document.getElementById('username').focus()">
@@ -26,10 +36,10 @@
 								</div>
 
         <div class="brand">
-            <a class="link" href="index.html">AdminCAST</a>
+            <a class="link" href="/home">AdminCAST</a>
         </div>
 
-		<form:form action="/login" method="post" modelAttribute="user" cssClass="form-horizontal" id="login-form">
+        <form:form action="/login" id="login-form" method="Post" modelAttribute="user" cssClass="form-horizontal">
 
             <h2 class="login-title">Log in</h2>
             <div class="form-group">
@@ -52,7 +62,9 @@
                 <a href="forgot_password.html">Forgot password?</a>
             </div>
             <div class="form-group">
-                <button class="btn btn-info btn-block" type="submit">Login</button>
+                <!--<button class="btn btn-info btn-block" type="submit">Login</button>-->
+                <input type="button" class="btn btn-info btn-block" value="Login"
+                       onclick="submitData()" />
             </div>
             <!--
             <div class="social-auth-hr">

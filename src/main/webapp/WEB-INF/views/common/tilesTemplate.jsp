@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Employee Login</title>
+    <title>Login</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="<c:url value="${pageContext.request.contextPath}/vendors/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet" />
     <link href="<c:url value="${pageContext.request.contextPath}/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet" />
@@ -170,7 +170,7 @@
                             <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
                             <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
                             <li class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Logout</a>
+                            <a class="dropdown-item" href="/logout"><i class="fa fa-power-off"></i>Logout</a>
                         </ul>
                     </li>
                 </ul>

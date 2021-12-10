@@ -75,8 +75,9 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 				.map(service -> oMapper.convertValue(service, Map.class))
 				.collect(Collectors.toList());
 
-		session.setAttribute("servicesMenu", new JSONArray(serviceUrls));
-		session.setAttribute("services1", services);
+//		session.setAttribute("servicesMenu", new JSONArray(serviceUrls));
+		session.setAttribute("servicesMenu", serviceUrls);
+//		session.setAttribute("services", services);
 
 //		response.sendRedirect("/home");
 
@@ -89,6 +90,10 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 
 				} catch (Exception e) {
 				}
+			} else if(("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()).equals(authority.getAuthority())) {
+				try {
+					redirectStrategy.sendRedirect(request, response, "/recruitment/jobSeekerPreferences");
+				} catch (Exception e) { }
 			} else if(!Constants.Roles.MANAGEMENT_ROLE.equals(authority.getAuthority())) {
 				try {
 //					response.sendRedirect("/home");

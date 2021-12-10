@@ -111,7 +111,7 @@ public class RecruitmentService {
                     roleRepository.findByRoleId(Constants.Roles.JOB_SEEKER_ROLE_ID)
             );
 
-            UserEntity savedUserEntity = userRepository.save(UserConverter.convert(userDto));
+            userRepository.save(UserConverter.convert(userDto));
 
             if(userRepository.existsById(savedRecruitmentUser.getId())) {
                 log.info("<RECRUITMENT:SAVE>"
@@ -263,10 +263,9 @@ public class RecruitmentService {
 
 
     public RecruitmentUserEntity convert(final JobSeekerDto jobSeekerDto) {
-        Long id = recruitmentRepository.getMaxId();
-        String userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
+        Long id; // = recruitmentRepository.getMaxId();
+        String userId; // = Constants.StrConstants.APP_NAME + String.format("%06d", id);
 
-        /*
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<RecruitmentUserEntity> savedRecruitmentUserOptional = recruitmentRepository.findByUserId(userEntity.getUsername());
 
@@ -276,7 +275,7 @@ public class RecruitmentService {
         } else {
             id = recruitmentRepository.getMaxId();
             userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
-        }*/
+        }
 
         RecruitmentUserEntity recruitmentUserEntity = new RecruitmentUserEntity();
         recruitmentUserEntity.setId(id);
@@ -313,8 +312,8 @@ public class RecruitmentService {
             e.printStackTrace();
         }
 
-        updateUserExperiences(jobSeekerDto, recruitmentUserEntity);
-        updateUserQualifications(jobSeekerDto, recruitmentUserEntity);
+//        updateUserExperiences(jobSeekerDto, recruitmentUserEntity);
+//        updateUserQualifications(jobSeekerDto, recruitmentUserEntity);
 
         return recruitmentUserEntity;
     }

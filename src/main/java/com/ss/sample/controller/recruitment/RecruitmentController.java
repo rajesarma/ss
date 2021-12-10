@@ -105,7 +105,14 @@ public class RecruitmentController {
         mav.addObject(method,"Post");
 
         if(result.hasErrors()) {
-            System.out.println("Errors in page");
+            if (Util.isAuthenticatedJobSeeker()) {
+                System.out.println("Test");
+            } else {
+                mav = new ModelAndView("error");	// shows error.jsp
+                mav.addObject("message", "Problem in inserting record. Please try again");
+                return mav;
+            }
+
         }
 
         Optional<JobSeekerDto> savedDtoOptional = recruitmentService.save(jobSeekerDto);

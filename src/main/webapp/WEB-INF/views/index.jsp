@@ -79,7 +79,7 @@
             </div>
             -->
             <div class="text-center">Not a member?
-                <a class="color-blue" href="/recruitment/jobSeeker">Create account</a>
+                <a class="color-blue" href="${pageContext.request.contextPath}/register">Create account</a>
             </div>
         </form:form>
     </div>

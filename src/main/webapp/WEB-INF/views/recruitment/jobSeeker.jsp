@@ -112,17 +112,17 @@
 					<div class="centered">
 
 						<div class="control-group">
-							<label class="control-label align-left" for="fullName">
-								<spring:message code="jobSeeker.fullName"/>
+							<label class="control-label align-left" for="firstName">
+								<spring:message code="jobSeeker.firstName"/>
 							</label>
 
 							<div class="controls">
-								<form:input path="fullName" name="fullName" id="fullName"
+								<form:input path="firstName" name="firstName" id="firstName"
 											cssClass="span3" maxlength="25"
 											onkeyup="charOnly(this)" />
 
 								<span class="help-inline">
-									<form:errors path="fullName" cssClass="error" />
+									<form:errors path="firstName" cssClass="error" />
 								</span>
 							</div>
 						</div>

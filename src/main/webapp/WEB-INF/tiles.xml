@@ -16,6 +16,10 @@
         <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
     </definition>
 
+    <definition name="register" extends="homePageTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/common/register.jsp" />
+    </definition>
+
     <!--For Management Dashboard-->
     <definition name="managementTemplate" template="/WEB-INF/views/common/managementTemplate.jsp">
         <put-attribute name="body" value="body" />

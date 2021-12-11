@@ -8,7 +8,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
-    <title>Login</title>
+    <!--<META HTTP-EQUIV="Refresh" CONTENT="2699;URL=/logout">-->
+
+    <title>SAMPLE</title>
     <!-- GLOBAL MAINLY STYLES-->
     <link href="<c:url value="${pageContext.request.contextPath}/vendors/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet" />
     <link href="<c:url value="${pageContext.request.contextPath}/vendors/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet" />
@@ -16,7 +18,17 @@
     <!-- PLUGINS STYLES-->
     <!-- THEME STYLES-->
     <link href="<c:url value="${pageContext.request.contextPath}/css/main.min.css"/>" rel="stylesheet" />
+
+    <%-- For CSRF Tokens--%>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <!-- PAGE LEVEL STYLES-->
+    <script
+            src="<c:url value="${pageContext.request.contextPath}/js/form_validations.js" />"></script>
+
+	<script
+			src="<c:url value="${pageContext.request.contextPath}/js/date_validations.js"/>"></script>
+
 </head>
 
 <body class="fixed-navbar">
@@ -340,7 +352,8 @@
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery/dist/jquery.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/popper.js/dist/umd/popper.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/bootstrap/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="${pageContext.request.contextPath}/vendors/metisMenu/dist/metisMenu.min.js"/>" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/vendors/metisMenu/dist/metisMenu.js"></script>
+    <!--<script src="<c:url value="${pageContext.request.contextPath}/vendors/metisMenu/dist/metisMenu.min.js"/>" type="text/javascript"></script>-->
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery-slimscroll/jquery.slimscroll.min.js"/>" type="text/javascript"></script>
     <!-- PAGE LEVEL PLUGINS-->
     <!-- CORE SCRIPTS-->

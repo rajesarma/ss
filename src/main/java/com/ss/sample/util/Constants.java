@@ -12,6 +12,7 @@ public class Constants {
 
 		public static final String ROOT = "/";
 		public static final String HOME = "/home";
+		public static final String REGISTER = "/register";
 		public static final String LOGIN = "/login";
 		public static final String LOGOUT = "/logout";
 		public static final String ACCESS_DENIED = "/login";

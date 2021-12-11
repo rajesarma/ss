@@ -36,8 +36,11 @@ public class RecruitmentUserEntity implements Serializable {
 
     private String userId;
 
-    @Column(name ="full_name")
-    private String fullName;
+    @Column(name ="first_name")
+    private String firstName;
+
+    @Column(name ="last_name")
+    private String lastName;
 
     @Column(name ="father_name")
     private String fatherName;
@@ -100,6 +103,9 @@ public class RecruitmentUserEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime lastLogin;
 
+    @Column(name ="stage")
+    private Integer stage;
+
     @Column(name ="sms_notification_active")
     private Character smsNotificationActive = 'A';  // TODO Requirement Pending for this
 
@@ -125,12 +131,20 @@ public class RecruitmentUserEntity implements Serializable {
         this.userId = userId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFatherName() {

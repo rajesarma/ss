@@ -100,6 +100,45 @@ public class RecruitmentService {
         return Optional.empty();
     }
 
+    public Optional<JobSeekerDto> createUser(JobSeekerDto jobSeekerDto) {
+        Long id = recruitmentRepository.getMaxId();
+        String userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
+
+        RecruitmentUserEntity recruitmentUserEntity = new RecruitmentUserEntity();
+        recruitmentUserEntity.setId(id);
+        recruitmentUserEntity.setUserId(userId);
+        recruitmentUserEntity.setFirstName(jobSeekerDto.getFirstName());
+        recruitmentUserEntity.setLastName(jobSeekerDto.getLastName());
+        recruitmentUserEntity.setEmail(jobSeekerDto.getEmail());
+
+        RecruitmentUserEntity savedRecruitmentUser = recruitmentRepository.save(recruitmentUserEntity);
+
+        if(recruitmentRepository.existsById(savedRecruitmentUser.getId())) {
+            UserDto userDto = new UserDto(
+                    savedRecruitmentUser.getUserId(),
+                    new BCryptPasswordEncoder().encode(jobSeekerDto.getPassword()),
+                    false,
+                    savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName(),
+                    savedRecruitmentUser.getEmail(),
+                    roleRepository.findByRoleId(Constants.Roles.JOB_SEEKER_ROLE_ID)
+            );
+
+            UserEntity savedUserEntity = userRepository.save(UserConverter.convert(userDto));
+
+            if(userRepository.existsById(savedRecruitmentUser.getId())) {
+                log.info("<RECRUITMENT:SAVE>"
+                        + "<RECRUITMENT User : " + savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName() +" created with username " + savedRecruitmentUser.getUserId() + ">");
+            } else {
+                log.info("<RECRUITMENT:SAVE>"
+                        + "<RECRUITMENT User : " + savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName() +" not created >");
+            }
+
+            return Optional.of(convert(savedRecruitmentUser));
+        }
+
+        return Optional.empty();
+    }
+
     public Optional<JobSeekerDto> save(JobSeekerDto jobSeekerDto) {
 
         RecruitmentUserEntity recruitmentUserEntity = convert(jobSeekerDto);
@@ -110,7 +149,7 @@ public class RecruitmentService {
                     savedRecruitmentUser.getUserId(),
                     new BCryptPasswordEncoder().encode(jobSeekerDto.getPassword()),
                     false,
-                    savedRecruitmentUser.getFullName() ,
+                    savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName(),
                     savedRecruitmentUser.getEmail(),
                     roleRepository.findByRoleId(Constants.Roles.JOB_SEEKER_ROLE_ID)
             );
@@ -119,10 +158,10 @@ public class RecruitmentService {
 
             if(userRepository.existsById(savedRecruitmentUser.getId())) {
                 log.info("<RECRUITMENT:SAVE>"
-                        + "<RECRUITMENT User : " + savedRecruitmentUser.getFullName() +" created with username " + savedRecruitmentUser.getUserId() + ">");
+                        + "<RECRUITMENT User : " + savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName() +" created with username " + savedRecruitmentUser.getUserId() + ">");
             } else {
                 log.info("<RECRUITMENT:SAVE>"
-                        + "<RECRUITMENT User : " + savedRecruitmentUser.getFullName() +" not created >");
+                        + "<RECRUITMENT User : " + savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName() +" not created >");
             }
 
             return Optional.of(convert(savedRecruitmentUser));
@@ -267,10 +306,9 @@ public class RecruitmentService {
 
 
     public RecruitmentUserEntity convert(final JobSeekerDto jobSeekerDto) {
-        Long id = recruitmentRepository.getMaxId();
-        String userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
+        Long id;
+        String userId;
 
-        /*
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<RecruitmentUserEntity> savedRecruitmentUserOptional = recruitmentRepository.findByUserId(userEntity.getUsername());
 
@@ -280,12 +318,13 @@ public class RecruitmentService {
         } else {
             id = recruitmentRepository.getMaxId();
             userId = Constants.StrConstants.APP_NAME + String.format("%06d", id);
-        }*/
+        }
 
         RecruitmentUserEntity recruitmentUserEntity = new RecruitmentUserEntity();
         recruitmentUserEntity.setId(id);
         recruitmentUserEntity.setUserId(userId);
-        recruitmentUserEntity.setFullName(jobSeekerDto.getFullName());
+        recruitmentUserEntity.setFirstName(jobSeekerDto.getFirstName());
+        recruitmentUserEntity.setLastName(jobSeekerDto.getLastName());
         recruitmentUserEntity.setFatherName(jobSeekerDto.getFatherName());
         recruitmentUserEntity.setGender(jobSeekerDto.getGender().getGender());
         recruitmentUserEntity.setMobile(jobSeekerDto.getMobile());
@@ -328,7 +367,8 @@ public class RecruitmentService {
 
         jobSeekerDto.setId(recruitmentUserEntity.getId());
         jobSeekerDto.setUserId(recruitmentUserEntity.getUserId());
-        jobSeekerDto.setFullName(recruitmentUserEntity.getFullName());
+        jobSeekerDto.setFirstName(recruitmentUserEntity.getFirstName());
+        jobSeekerDto.setLastName(recruitmentUserEntity.getLastName());
         jobSeekerDto.setFatherName(recruitmentUserEntity.getFatherName());
         jobSeekerDto.setGender(Gender.getType(recruitmentUserEntity.getGender()));
         jobSeekerDto.setMobile(recruitmentUserEntity.getMobile());

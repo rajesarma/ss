@@ -1,10 +1,15 @@
 package com.ss.sample.entity.recruitment;
 
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "recruitment_user_skills")
+@Data
+@Builder(toBuilder = true)
 public class RecruitmentUserSkillEntity implements Serializable {
 
     @Id
@@ -23,13 +28,4 @@ public class RecruitmentUserSkillEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_id", referencedColumnName = "id", nullable = false)
     private SkillEntity skill;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }

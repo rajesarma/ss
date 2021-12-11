@@ -17,35 +17,41 @@ public class JobSeekerDto {
 	@NotEmpty(message = "Password can not empty")
 	private String password;
 
-	@NotBlank(message = "Name cannot be empty")
-	private String fullName;
+	@NotEmpty(message = "Confirm Password can not empty")
+	private String confirmPassword;
 
-	@NotBlank(message = "Father Name cannot be empty")
+	@NotBlank(message = "First Name cannot be empty")
+	private String firstName;
+
+	@NotBlank(message = "Last Name cannot be empty")
+	private String lastName;
+
+//	@NotBlank(message = "Father Name cannot be empty")
 	private String fatherName;
 
 	private Gender gender = Gender.MALE;
 
-	@Pattern(regexp="[\\d]{10}")
+//	@Pattern(regexp="[\\d]{10}")
 	private String mobile;
 
-	@Pattern(regexp="[\\d]{10}")
+//	@Pattern(regexp="[\\d]{10}")
 	private String alternateNo;
 
 	@NotEmpty(message = "Email can not empty")
 	@Email
 	private String email;
 
-	@NotEmpty(message = "Aadhar can not empty")
+//	@NotEmpty(message = "Aadhar can not empty")
 	private String aadhar;
 
-	@NotEmpty(message = "Address can not empty")
+//	@NotEmpty(message = "Address can not empty")
 	private String address;
 
-	@NotEmpty(message = "Postal Code can not empty")
+//	@NotEmpty(message = "Postal Code can not empty")
 	private String postalCode;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Past
+//	@DateTimeFormat(pattern = "dd/MM/yyyy")
+//	@Past
 	private LocalDate dob;
 
 	private String photoName=null;
@@ -98,12 +104,12 @@ public class JobSeekerDto {
 		this.password = password;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getFatherName() {
@@ -272,5 +278,29 @@ public class JobSeekerDto {
 
 	public void setUserQualifications(List<JobSeekerQlyDto> userQualifications) {
 		this.userQualifications = userQualifications;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 }

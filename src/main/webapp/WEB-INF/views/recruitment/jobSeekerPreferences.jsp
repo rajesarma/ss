@@ -141,7 +141,7 @@
 					   cssClass="form-horizontal">
 
 			<form:hidden path="id" name="id" id="id" />
-			<form:hidden path="fullName" name="fullName" id="fullName" />
+			<form:hidden path="firstName" name="firstName" id="firstName" />
 			<form:hidden path="password" name="password" id="password" />
 			<form:hidden path="fatherName" name="fatherName" id="fatherName" />
 			<form:hidden path="dob" name="dob" id="dob" />
@@ -164,7 +164,7 @@
 						<div class="widget">
 							<h4>Your Profile <a href="${pageContext.request.contextPath}/recruitment/jobSeeker?operation=edit"><i class="icon-pencil"></i></a></h4>
 							<ul>
-								<li><label><strong>Full Name : </strong>${jobSeekerDto.fullName}</label></li>
+								<li><label><strong>Full Name : </strong>${jobSeekerDto.firstName}</label></li>
 								<li><label><strong>Father Name : </strong>${jobSeekerDto.fatherName}</label></li>
 								<li><label><strong>Dob : </strong>${jobSeekerDto.dob}</label></li>
 								<li><label><strong>Mobile : </strong>${jobSeekerDto.mobile}</label></li>

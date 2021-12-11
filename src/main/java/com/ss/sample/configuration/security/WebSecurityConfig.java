@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 			.authorizeRequests()
-				.antMatchers(Constants.Urls.ROOT, Constants.Urls.LOGIN, Constants.Urls.LOGOUT, Constants.Urls.SESSION_TIMEOUT).permitAll()
+				.antMatchers(Constants.Urls.ROOT, Constants.Urls.LOGIN, Constants.Urls.REGISTER, Constants.Urls.LOGOUT, Constants.Urls.SESSION_TIMEOUT).permitAll()
 
 				.antMatchers("/color/**").permitAll()
 				.antMatchers("/css/*.css").permitAll()
@@ -77,6 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/vendors/**/**").permitAll()
 				.antMatchers("/webjars/**").permitAll()
 				.antMatchers("/recruitment/jobSeeker/**").permitAll()
+				.antMatchers("/register/**").permitAll()
+//				.antMatchers("/register").permitAll()
 
 				.antMatchers(getUrlPattern(Urls.ADMIN)).access(hasRole(Roles.ADMIN_ROLE))
 				.antMatchers(getUrlPattern(Urls.MANAGEMENT)).access(hasRole(Roles.MANAGEMENT_ROLE, Roles.ADMIN_ROLE))

@@ -37,7 +37,7 @@
 
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/bootstrap/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
     <!-- PAGE LEVEL PLUGINS -->
-    <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery-validation/dist/jquery.validate.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery-validation/dist/jquery.validate.js"/>" type="text/javascript"></script>
     <!-- CORE SCRIPTS-->
     <script src="<c:url value="${pageContext.request.contextPath}/js/app.js"/>" type="text/javascript"></script>
 </head>

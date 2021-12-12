@@ -140,8 +140,7 @@
                     <span class="input-span"></span>I agree the terms and policy</label>
             </div>
             <div class="form-group">
-                <input type="button" class="btn btn-info btn-block" value="Sign up"
-                       onclick="submitData()" />
+                <button class="btn btn-info btn-block" type="submit">Sign up</button>
             </div>
             <div class="social-auth-hr">
                 <span>Or Sign up with</span>

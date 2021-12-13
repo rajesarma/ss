@@ -103,6 +103,10 @@
         <put-attribute name="body" value="/WEB-INF/views/recruitment/jobSeekerPreferences.jsp" />
     </definition>
 
+    <definition name="profile" extends="tilesTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/profile.jsp" />
+    </definition>
+
     <definition name="compiler" extends="tilesTemplate">
         <put-attribute name="body" value="/WEB-INF/views/recruitment/compiler.jsp" />
     </definition>

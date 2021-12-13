@@ -235,4 +235,78 @@ public class RecruitmentController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+
+    ////////////////////////
+
+    @GetMapping("/profile")
+    public ModelAndView getProfile(
+            @RequestParam(required = false) String operation
+    ) {
+        JobSeekerDto newJobSeekerDto = new JobSeekerDto();
+
+        ModelAndView mav = new ModelAndView("profile", jobSeekerDtoStr, newJobSeekerDto);
+//        mav.addObject(method,"Post");
+//        mav.addObject(action,"/recruitment/profile");
+
+        // If Authenticated User
+        if (Util.isAuthenticatedJobSeeker()) {
+            Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.getDataByUserName();
+
+            if (jobSeekerDtoOptional.isPresent()) {
+                mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDtoOptional.get());
+            } else {
+                mav.addObject("message", "Problem in Fetching Data");
+            }
+        } else {
+            return new ModelAndView("home");
+        }
+
+        return mav;
+    }
+
+    @PostMapping("/profile")
+    public ModelAndView saveProfile(@Valid @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
+                             BindingResult result
+    ) {
+        ModelAndView mav = new ModelAndView("profile", "jobSeekerDto", jobSeekerDto);
+        mav.addObject("buttonValue", save);
+        mav.addObject(action,"/recruitment/profile");
+        mav.addObject(buttonValue, save);
+        mav.addObject(method,"Post");
+
+        if(result.hasErrors()) {
+            System.out.println("Errors in page");
+        }
+
+        Optional<JobSeekerDto> savedDtoOptional = recruitmentService.saveProfile(jobSeekerDto);
+
+        if (!savedDtoOptional.isPresent()) {
+            mav.addObject("message", "Problem in Saving Profile");
+            mav.addObject("jobSeekerDto", new JobSeekerDto());
+            return mav;
+        }
+
+        mav.addObject("jobSeekerDto", savedDtoOptional.get());
+        mav.addObject("message", "Profile Updated");
+        return mav;
+    }
+
+    @GetMapping(value = "/profile/{type}/{value}")
+    public ResponseEntity<?> checkExisting(@PathVariable("type") String type,
+                                  @PathVariable("value") String value) {
+
+        String result;
+        Optional<JobSeekerDto> jobSeekerDto = recruitmentService.findByType(type, value);
+        String typeString = StringUtils.join(type.split("(?=\\p{Upper})"), " ");
+
+        if(jobSeekerDto.isPresent()) {
+            result =
+                    "{\"valueExists\":\"true\", \"message\":\"" + StringUtils.capitalize(typeString) +
+                            " already exists\"  }";
+        } else {
+            result = "{\"valueExists\":\"false\" }";
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

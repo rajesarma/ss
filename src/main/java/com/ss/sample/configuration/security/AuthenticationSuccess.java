@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ss.sample.entity.RoleEntity;
 import com.ss.sample.entity.ServiceEntity;
 import com.ss.sample.entity.UserEntity;
+import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
 import com.ss.sample.repository.RoleRepository;
+import com.ss.sample.repository.recruitment.RecruitmentRepository;
 import com.ss.sample.service.UserService;
 import com.ss.sample.util.Constants;
 import org.json.JSONArray;
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -34,6 +37,9 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RecruitmentRepository recruitmentRepository;
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -92,8 +98,15 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 				} catch (Exception e) {
 				}
 			} else if(("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()).equals(authority.getAuthority())) {
+
+				Optional<RecruitmentUserEntity> savedRecruitmentUser = recruitmentRepository.findByUserId(user.getUsername());
+				if(savedRecruitmentUser.isPresent()) {
+					String photo = new String(java.util.Base64.getEncoder().encode(savedRecruitmentUser.get().getPhoto()));
+					session.setAttribute("userPhotoData", photo);
+				}
+
 				try {
-					redirectStrategy.sendRedirect(request, response, "/recruitment/jobSeekerPreferences");
+					redirectStrategy.sendRedirect(request, response, "/recruitment/profile");
 				} catch (Exception e) { }
 			} else if(!Constants.Roles.MANAGEMENT_ROLE.equals(authority.getAuthority())) {
 				try {

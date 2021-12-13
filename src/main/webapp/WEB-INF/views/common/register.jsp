@@ -78,7 +78,7 @@
 
     <div class="content">
         <div class="brand">
-            <a class="link" href="${pageContext.request.contextPath}/home">AdminCAST</a>
+            <a class="link" href="${pageContext.request.contextPath}/home">WorkTech</a>
         </div>
 
         <form:form id="register-form" action="/register" method="post"

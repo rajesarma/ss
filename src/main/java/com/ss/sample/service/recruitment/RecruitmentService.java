@@ -429,4 +429,20 @@ public class RecruitmentService {
         }
         return jobSeekerDto;
     }
+
+    public Optional<JobSeekerDto> saveProfile(JobSeekerDto jobSeekerDto) {
+        RecruitmentUserEntity recruitmentUserEntity = convert(jobSeekerDto);
+        RecruitmentUserEntity savedRecruitmentUser = recruitmentRepository.save(recruitmentUserEntity);
+
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(savedRecruitmentUser.getUserId());
+
+        // Update Email and First Name, Last Name
+        if(userEntityOptional.isPresent()) {
+            UserEntity userEntity = userEntityOptional.get();
+            userEntity.setEmail(savedRecruitmentUser.getEmail());
+            userEntity.setUserDesc(savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName());
+            userRepository.save(userEntity);
+        }
+        return Optional.of(convert(savedRecruitmentUser));
+    }
 }

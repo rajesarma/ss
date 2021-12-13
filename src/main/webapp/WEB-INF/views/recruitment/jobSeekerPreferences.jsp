@@ -192,6 +192,8 @@
 										<th>Institute Name</th>
 										<th>Board / University</th>
 										<th>Percentage</th>
+										<th>Start Date</th>
+										<th>Completion Date</th>
 										<th><input type="button" value="Add Row" onclick="addRow('jobSeekerQualifications')" class="btn btn-primary buttony .inputy" /></th>
 									</tr>
 									</thead>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -34,12 +35,16 @@ public class RegisterController {
 	}
 
 	@PostMapping(value="")
-	public ModelAndView save(@Valid @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
-							 BindingResult result) {
+	public ModelAndView save(@ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto) {
 		ModelAndView mav = new ModelAndView("register", "jobSeekerDto", new JobSeekerDto());
 
-		if(result.hasErrors()) {
-			mav.addObject("message", "Problem in Creating User");
+		if (
+			StringUtils.isEmpty(jobSeekerDto.getFirstName()) ||
+			StringUtils.isEmpty(jobSeekerDto.getLastName()) ||
+			StringUtils.isEmpty(jobSeekerDto.getEmail()) ||
+			StringUtils.isEmpty(jobSeekerDto.getPassword())
+		) {
+			mav.addObject("message", "Please enter mandatory fields");
 			return mav;
 		}
 

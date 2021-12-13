@@ -36,7 +36,7 @@
 								</div>
 
         <div class="brand">
-            <a class="link" href="/home">AdminCAST</a>
+            <a class="link" href="/home">WorkTech</a>
         </div>
 
         <form:form action="/login" id="login-form" method="Post" modelAttribute="user" cssClass="form-horizontal">

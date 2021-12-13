@@ -96,7 +96,7 @@
 
 	<section id="maincontent">
 		<div class="container">
-			<form:form action="/recuitment/jobSeeker" id="jobSeeker" method="${method}"
+			<form:form action="/recuitment/jobSeeker" id="jobSeeker" method="POST"
 					   modelAttribute="jobSeekerDto" enctype="multipart/form-data"
 					   cssClass="form-horizontal">
 			<form:hidden path="id" name="id" id="id" />

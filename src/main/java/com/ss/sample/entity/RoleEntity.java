@@ -1,5 +1,7 @@
 package com.ss.sample.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name="roles")
 //@SecondaryTable(name="roles")
+@Data
 public class RoleEntity implements Serializable {
 
 	private static final long serialVersionUID = -5034389007096787876L;

@@ -178,8 +178,13 @@
                     </li>
                     <li class="dropdown dropdown-user">
                         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
-                            <!--<img src="./assets/img/admin-avatar.png" />-->
-                            <img src="data:photo;base64,${userPhotoData}">
+                            <c:if test="${empty userPhotoData}">
+                                <img src="${pageContext.request.contextPath}/img/admin-avatar.png" />
+                            </c:if>
+                            <c:if test="${not empty userPhotoData}">
+                                <img src="data:photo;base64,${userPhotoData}">
+                            </c:if>
+
                             <span></span>${personName}<i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/recruitment/profile"><i class="fa fa-user"></i>Profile</a>

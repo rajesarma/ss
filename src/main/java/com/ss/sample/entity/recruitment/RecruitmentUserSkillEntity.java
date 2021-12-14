@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Builder(toBuilder = true)
 public class RecruitmentUserSkillEntity implements Serializable {
 
+    private static final long serialVersionUID = 8988800270453052642L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_skill_generator")

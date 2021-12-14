@@ -1,14 +1,19 @@
 package com.ss.sample.entity.recruitment;
 
+import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name ="recruitment_skill_type")
-public class SkillTypeEntity {
+@Data
+public class SkillTypeEntity implements Serializable {
+
+    private static final long serialVersionUID = 6437714214012462078L;
 
     @Id
     @Column(name = "id")

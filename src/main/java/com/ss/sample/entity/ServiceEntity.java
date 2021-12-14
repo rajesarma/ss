@@ -1,5 +1,7 @@
 package com.ss.sample.entity;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "services")
+@Data
 public class ServiceEntity implements Serializable {
 
 	private static final long serialVersionUID = 7444887444468987431L; // , Comparable<Service>

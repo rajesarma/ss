@@ -9,6 +9,7 @@ import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.recruitment.RecruitmentRepository;
 import com.ss.sample.service.UserService;
 import com.ss.sample.util.Constants;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +101,7 @@ public class AuthenticationSuccess extends SimpleUrlAuthenticationSuccessHandler
 			} else if(("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase()).equals(authority.getAuthority())) {
 
 				Optional<RecruitmentUserEntity> savedRecruitmentUser = recruitmentRepository.findByUserId(user.getUsername());
-				if(savedRecruitmentUser.isPresent()) {
+				if(savedRecruitmentUser.isPresent() && Objects.nonNull(savedRecruitmentUser.get().getPhoto())) {
 					String photo = new String(java.util.Base64.getEncoder().encode(savedRecruitmentUser.get().getPhoto()));
 					session.setAttribute("userPhotoData", photo);
 				}

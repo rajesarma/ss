@@ -1,5 +1,6 @@
 package com.ss.sample.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = -6820586948643587814L;

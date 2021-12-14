@@ -1,12 +1,18 @@
 package com.ss.sample.entity.recruitment;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name ="recruitment_skill")
-public class SkillEntity {
+@Data
+public class SkillEntity implements Serializable {
+
+    private static final long serialVersionUID = -7695321928663878424L;
 
     @Id
     @Column(name = "id")

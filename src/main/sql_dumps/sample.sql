@@ -212,8 +212,7 @@ ALTER TABLE public.recruitment_qualifications OWNER TO sample;
 CREATE TABLE recruitment_skill (
     skill_id integer NOT NULL,
     skill_type_id integer,
-    skill character varying(50),
-    id bigint NOT NULL
+    skill character varying(50)
 );
 
 
@@ -246,8 +245,7 @@ ALTER SEQUENCE recruitment_skill_skill_id_seq OWNED BY recruitment_skill.skill_i
 
 CREATE TABLE recruitment_skill_type (
     skill_type_id integer NOT NULL,
-    skill_type character varying(50),
-    id bigint NOT NULL
+    skill_type character varying(50)
 );
 
 
@@ -1094,7 +1092,30 @@ COPY recruitment_qualifications (qualification_id, qualification) FROM stdin;
 -- Data for Name: recruitment_skill; Type: TABLE DATA; Schema: public; Owner: sample
 --
 
-COPY recruitment_skill (skill_id, skill_type_id, skill, id) FROM stdin;
+COPY recruitment_skill (skill_id, skill_type_id, skill) FROM stdin;
+1	1	Java
+2	1	PHP
+3	2	Oracle
+4	2	Postgres
+5	3	Struts
+6	3	Spring
+7	3	Hibernate
+8	2	SQLServer
+9	3	ASP.Net
+10	3	C#.Net
+11	1	C Language
+12	1	C++
+13	4	Manual Testing
+14	4	Automation Testing
+15	5	Javascript
+16	5	HTML
+17	6	Crystal Reports
+18	6	SSRS Reports
+19	7	Windows XP
+20	7	LINUX
+21	7	UNIX
+23	2	My SQL
+24	1	iPhone
 \.
 
 
@@ -1109,7 +1130,14 @@ SELECT pg_catalog.setval('recruitment_skill_skill_id_seq', 1, false);
 -- Data for Name: recruitment_skill_type; Type: TABLE DATA; Schema: public; Owner: sample
 --
 
-COPY recruitment_skill_type (skill_type_id, skill_type, id) FROM stdin;
+COPY recruitment_skill_type (skill_type_id, skill_type) FROM stdin;
+1	Languages
+2	Database
+3	Framework
+4	Testing
+5	WebTechnologies
+6	Tools
+7	Operating System
 \.
 
 
@@ -1131,7 +1159,7 @@ COPY recruitment_user (id, user_id, first_name, is_active, created_on, gender, m
 5	SAMPLE000005	Lakshmi Rajeswara Rao	A	2021-12-07 22:29:05.429	M	9866489944	9944994499	dd@dd.com	Test	1982-08-01	\N	\N	Seeta Rama Prasad	\N	2021-12-07 22:29:05.429	2021-12-07 22:29:05.429	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	\N	0
 6	SAMPLE000006	Test	A	2021-12-11 23:14:15.646	M	\N	\N	raje@gmail.com	\N	\N	\N	\N	\N	\N	2021-12-11 23:14:15.647	2021-12-11 23:14:15.646	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	Register	0
 7	SAMPLE000007	Test	A	2021-12-12 23:42:18.909	M	\N	\N	fdf@g.com	\N	\N	\N	\N	\N	\N	2021-12-12 23:42:18.909	2021-12-12 23:42:18.909	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	TT	\N
-1	SAMPLE000001	Lakshmi Rajeswara	A	\N	M	9866489944	9944994499	dd@dd.com	Test	\N	\N	\N	Seeta Rama Prasad	\N	2021-12-13 20:53:59.072	2021-12-13 20:53:59.072	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	Rao	\N
+1	SAMPLE000001	Lakshmi Rajeswara	A	\N	M	9866489944	9944994499	dd@dd.com	Test	\N	\N	\N	Seeta Rama Prasad	\N	2021-12-17 23:54:49.663	2021-12-17 23:54:49.663	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	Rao	\N
 \.
 
 
@@ -1140,14 +1168,14 @@ COPY recruitment_user (id, user_id, first_name, is_active, created_on, gender, m
 --
 
 COPY recruitment_user_experiences (id, user_id, company, from_date, to_date, exp_months, designation, job_location, is_current_job) FROM stdin;
+107	SAMPLE000001	Testcom	2005-08-31	2008-12-15	37	Test Desig	Test Location	Y
+108	SAMPLE000001	Testcom	2005-08-31	2008-12-15	39			Y
+109	SAMPLE000001	TT	2001-11-11	2002-12-12	34			Y
+110	SAMPLE000001	FF	2010-10-10	2018-08-08	31			Y
+111	SAMPLE000001	GG	2009-09-09	2010-10-10	29			Y
+112	SAMPLE000001	II	2007-07-07	2008-08-08	27			Y
 45	SAMPLE000002	Testcom	2001-01-01	2002-02-02	2	\N	\N	N
 46	SAMPLE000002	JJ	2002-02-02	2003-03-03	4	\N	\N	N
-65	SAMPLE000001	Testcom	2005-08-31	2008-12-15	37	Test Desig	Test Location	Y
-66	SAMPLE000001	Testcom	2005-08-31	2008-12-15	39			Y
-67	SAMPLE000001	TT	2001-11-11	2002-12-12	34			Y
-68	SAMPLE000001	FF	2010-10-10	2018-08-08	31			Y
-69	SAMPLE000001	GG	2009-09-09	2010-10-10	29			Y
-70	SAMPLE000001	II	2007-07-07	2008-08-08	27			Y
 \.
 
 
@@ -1155,7 +1183,7 @@ COPY recruitment_user_experiences (id, user_id, company, from_date, to_date, exp
 -- Name: recruitment_user_experiences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_user_experiences_id_seq', 70, true);
+SELECT pg_catalog.setval('recruitment_user_experiences_id_seq', 112, true);
 
 
 --
@@ -1185,12 +1213,12 @@ SELECT pg_catalog.setval('recruitment_user_log_id_seq', 1, false);
 --
 
 COPY recruitment_user_qualifications (id, user_id, qualification, percentage, board_university, specialization, institute_name, start_date, completion_date) FROM stdin;
+67	SAMPLE000001	ff	60.00	JJ	ff	dd	\N	\N
+68	SAMPLE000001	Qly	90.00	Osmania			\N	\N
+69	SAMPLE000001	Qlyy	80.00	JNTUH			\N	\N
 4	SAMPLE000002	Qly	90.00	Osmania	\N	\N	\N	\N
-32	SAMPLE000001	ff	60.00	JJ	ff	dd	\N	\N
-33	SAMPLE000001	Qly	90.00	Osmania			\N	\N
-34	SAMPLE000001	Qlyy	80.00	JNTUH			\N	\N
-35	SAMPLE000001	Qlyyy	70.00	JNTUK			\N	\N
-36	SAMPLE000001	QL	40.00	hh	ff	cc	\N	\N
+70	SAMPLE000001	Qlyyy	70.00	JNTUK			\N	\N
+71	SAMPLE000001	QL	40.00	hh	ff	cc	\N	\N
 \.
 
 
@@ -1198,7 +1226,7 @@ COPY recruitment_user_qualifications (id, user_id, qualification, percentage, bo
 -- Name: recruitment_user_qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_user_qualifications_id_seq', 36, true);
+SELECT pg_catalog.setval('recruitment_user_qualifications_id_seq', 71, true);
 
 
 --
@@ -1206,6 +1234,7 @@ SELECT pg_catalog.setval('recruitment_user_qualifications_id_seq', 36, true);
 --
 
 COPY recruitment_user_skills (id, user_id, skill_id, skill_level, exp_months) FROM stdin;
+8	SAMPLE000001	4	5	2
 \.
 
 
@@ -1213,7 +1242,7 @@ COPY recruitment_user_skills (id, user_id, skill_id, skill_level, exp_months) FR
 -- Name: recruitment_user_skills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_user_skills_id_seq', 1, false);
+SELECT pg_catalog.setval('recruitment_user_skills_id_seq', 9, true);
 
 
 --
@@ -1349,14 +1378,14 @@ COPY user_roles (user_id, role_id) FROM stdin;
 COPY users (id, user_name, password, disabled, user_desc, email, last_login, failed_login_attempts, last_password_change) FROM stdin;
 2	management	$2a$10$/Vq9fiMAIpZj7yd8MO46I.V0G0scg3wEuLNhoy91kyCqol1dNeNFG	f	Management Login	\N	2019-08-02 04:55:09	0	2019-05-03 05:32:11
 4	super	$2a$10$WvPD/76KaGt3Bny6OXdRTeXBI6GThwE.eeqFXLODkb58yBLKuITgm	f	Supervizor Login	\N	2019-06-03 04:55:26	0	\N
-1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-12-11 21:05:04.123	0	2019-05-02 13:00:00
 16	SAMPLE000004	$2a$10$XaGREVjSVkhIm4GPLn6ByOgi9RYZtr8gQh04HlRX5JCOd6NZQZy5i	f	JJ	rdd@g.com	2021-11-30 22:21:12.068	0	\N
 17	SAMPLE000005	$2a$10$g3BzyDAkzSa4CxWy.SLzS.3r1TszqUjDdtuTXBEziqpl48QhkD0LO	f	Ramu	d@g.com	2021-11-30 22:45:52.115	0	\N
 23	SAMPLE000006	$2a$10$I0a82/TFHZ3GUe9W0/l0u.cynQxY6Dq0qVfiCQXYHspYDbvRDFHGS	f	Test Register	raje@gmail.com	2021-12-11 23:18:20.862	0	\N
 24	SAMPLE000007	$2a$10$AbgzpYE5dG4CQEfpkTpGR.VXWeZ9npXl/YVZ8U1zNM.7t2gP0dx.u	f	Test TT	fdf@g.com	\N	\N	\N
-13	SAMPLE000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Lakshmi Rajeswara Rao tttesting	dd@dd.com	2021-12-13 21:25:30.029	0	2021-11-30 16:15:35.134
-14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-12-13 21:35:32.146	0	2021-11-29 18:44:49.385
+1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-12-14 22:39:23.697	0	2019-05-02 13:00:00
+14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-12-14 22:52:49.738	0	2021-11-29 18:44:49.385
 15	SAMPLE000003	$2a$10$BzqsIT/gCXu1EBgtDQF1N.M34yyXYzpuCnPCBzZGrCWUFv13/QaaG	f	Jyothirmayee	j@g.com	2021-11-30 18:12:00.157	0	\N
+13	SAMPLE000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Lakshmi Rajeswara Rao	dd@dd.com	2021-12-17 23:54:36.802	0	2021-11-30 16:15:35.134
 \.
 
 

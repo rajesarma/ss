@@ -1,6 +1,9 @@
 package com.ss.sample.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
@@ -8,6 +11,9 @@ import javax.validation.constraints.Past;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
 public class JobSeekerExpDto implements Serializable {
 
     private static final long serialVersionUID = 7869684385045512253L;

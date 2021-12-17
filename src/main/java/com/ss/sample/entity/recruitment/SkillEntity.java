@@ -15,11 +15,11 @@ public class SkillEntity implements Serializable {
     private static final long serialVersionUID = -7695321928663878424L;
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "skill_id")
+    private Long skillId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "skill_type_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "skill_type_id", referencedColumnName = "skill_type_id", nullable = false)
     private SkillTypeEntity skillType;
 
     @Column(name = "skill")

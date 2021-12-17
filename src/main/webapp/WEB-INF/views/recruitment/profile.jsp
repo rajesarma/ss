@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html lang="en">
 
 <head>
@@ -49,12 +50,25 @@
                     success: function(response) {
                         $("#wait").html("");
                         var response = jQuery.parseJSON(response);
-                        var valueExists = response.valueExists;
-                        if(valueExists == "true")
-                        {
-                            var message = response.message;
-                            $("#wait").html("<center style='font-size: 14px' ><span id='loading' style='font-size: 14px; color:red'><b>" + message + "</b></span></center><BR>");
-                            document.getElementById(targetId).value = "";
+
+                        if(type == "getSkills") {
+							if(response.skillsExists == "true") {
+								var skills = JSON.parse(response.skills.replace(/'/g,"\""));
+                                var options = "<option selected=\"selected\" value=\"0\">Select</option>";
+								$.each(skills, function(val, text) {
+									options+="<option value="+val+">"+text+"</option>";
+								});
+								var select2 = document.getElementById(targetId);
+                                select2.innerHTML = options;
+							}
+						} else {
+                            var valueExists = response.valueExists;
+                            if(valueExists == "true")
+                            {
+                                var message = response.message;
+                                $("#wait").html("<center style='font-size: 14px' ><span id='loading' style='font-size: 14px; color:red'><b>" + message + "</b></span></center><BR>");
+                                document.getElementById(targetId).value = "";
+                            }
                         }
 
                     }, error: function(response) {
@@ -74,7 +88,7 @@
 				var lastRow = tbl.rows.length-1;
 				var str="";
 				str+="<tr id=\"qlyRow"+(lastRow+1)+"\">";
-				str+="<td>"+(lastRow+1)+"</td>";
+				str+="<td align=\"center\">"+(lastRow+1)+"</td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].qualification\" name=\"userQualifications["+lastRow+"].qualification\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].specialization\" name=\"userQualifications["+lastRow+"].specialization\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].instituteName\" name=\"userQualifications["+lastRow+"].instituteName\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
@@ -83,7 +97,7 @@
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].startDate\" name=\"userQualifications["+lastRow+"].startDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
 				str+="<td><input type=\"text\" id=\"userQualifications["+lastRow+"].completionDate\" name=\"userQualifications["+lastRow+"].completionDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
 				str+="<td style=\"text-align:center\">";
-				str+="<a href='javaScript:void()' onclick=\"submitData('${action}', '${method}')\"><i class=\"icon-ok\" style=\"color:green\"></i></a>";
+				str+="<a href='javaScript:void()' onclick=\"submitData()\"><i class=\"icon-ok\" style=\"color:green\"></i></a>";
 				str+="<a href='javaScript:void()' onclick=\"deleteRow('jobSeekerQualifications', "+(lastRow+1)+")\"><i class=\"icon-trash\" style=\"color:red\"></i></a></td>";
 
 				str+="</tr>";
@@ -94,7 +108,7 @@
 				var lastRow = tbl.rows.length-1;
 				var str="";
 				str+="<tr id=\"expRow"+(lastRow+1)+"\">";
-				str+="<td>"+(lastRow+1)+"</td>";
+				str+="<td align=\"center\">"+(lastRow+1)+"</td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].company\" name=\"userExperiences["+lastRow+"].company\" class=\"span2\" onkeyup=\"charOnly(this)\" maxlength=\"100\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].expMonths\" name=\"userExperiences["+lastRow+"].expMonths\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"3\"> </td>";
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].fromDate\" name=\"userExperiences["+lastRow+"].fromDate\" class=\"span2\" onkeyup=\"buildDate(this)\" onblur=\"isValidDate(this);\"> </td>";
@@ -103,10 +117,29 @@
 				str+="<td><input type=\"text\" id=\"userExperiences["+lastRow+"].jobLocation\" name=\"userExperiences["+lastRow+"].jobLocation\" class=\"span2\" onkeyup=\"charOnly(this)\"> </td>";
 				str+="<td><input type=\"checkbox\" id=\"userExperiences["+lastRow+"].isCurrentJob\" name=\"userExperiences["+lastRow+"].isCurrentJob\" class=\"checkbox\"></td>";
 				str+="<td style=\"text-align:center\">";
-				str+="<a href='javaScript:void()' onclick=\"submitData('${action}', '${method}')\"><i class=\"icon-ok\" style=\"color:green\"></i></a>";
+				str+="<a href='javaScript:void()' onclick=\"submitData()\"><i class=\"icon-ok\" style=\"color:green\"></i></a>";
 				str+="<a href='javaScript:void()' onclick=\"deleteRow('jobSeekerExperiences', "+(lastRow+1)+")\"><i class=\"icon-trash\" style=\"color:red\"></i></a></td>";
 				str+="</tr>";
 				$("#jobSeekerExperiences > tbody").append(str);
+			} else if(id == 'jobSeekerSkills') {
+			    var tbl = document.getElementById(id);
+				var lastRow = tbl.rows.length-1;
+				var str="";
+				str+="<tr id=\"skillRow"+(lastRow+1)+"\">";
+				str+="<td align=\"center\">"+(lastRow+1)+"</td>";
+                str+="<td><select id=\"userSkills["+lastRow+"].skillTypeId\" name=\"userSkills["+lastRow+"].skillTypeId\" class=\"span2\" onchange=\"checkData('getSkills', this, 'userSkills["+lastRow+"].skillId')\"></select></td>";
+                str+="<td><select id=\"userSkills["+lastRow+"].skillId\" name=\"userSkills["+lastRow+"].skillId\" class=\"span3\"><option value=\"0\" selected=\"selected\">Select</option></select></td>";
+                str+="<td><input type=\"text\" id=\"userSkills["+lastRow+"].expMonths\" name=\"userSkills["+lastRow+"].expMonths\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"3\"/></td>";
+                str+="<td><input type=\"text\" id=\"userSkills["+lastRow+"].skillLevel\" name=\"userSkills["+lastRow+"].skillLevel\" class=\"span1\" onkeyup=\"intOnly(this)\" maxlength=\"3\"/></td>";
+                str+="<td style=\"text-align:center\">";
+                str+="<a href='javaScript:void()' onclick=\"submitData()\"> <i class=\"fa fa-check text-success\" style=\"color:green\"></i></a>";
+                str+="<a href='javaScript:void()' onclick=\"deleteRow('jobSeekerSkills', "+(lastRow+1)+")\"> <i class=\"fa fa-trash font-14\" style=\"color:red\"></i> </a>";
+				str+="</td></tr>";
+                $("#jobSeekerSkills > tbody").append(str);
+
+                var select1 = document.getElementById("userSkills[0].skillTypeId");
+                var select2 = document.getElementById("userSkills["+lastRow+"].skillTypeId");
+                select2.innerHTML = select2.innerHTML+select1.innerHTML;
 			}
 		}
 
@@ -135,17 +168,29 @@
 					} else {
 						$("#expRow"+index).remove();
 					}
+				} else if(type == 'jobSeekerSkills') {
+					var element =  document.getElementById("userSkills["+(index-1)+"].id");
+					if (typeof(element) != 'undefined' && element != null) {
+						updatePreferences(type, element.value);
+					} else {
+						$("#skillRow"+index).remove();
+					}
 				}
 			}
 		}
 
 		function updatePreferences(type, id) {
 
-			var form = document.getElementById('jobSeekerPreferences');
-			form.action = '/recruitment/jobSeekerPreferences/' + type + '/' + id;
+			var form = document.getElementById('personal-details-form');
+			form.action = '/recruitment/profile/' + type + '/' + id;
 			form.method = "POST";
 			form.submit();
         }
+
+        function submitData() {
+			var form = document.getElementById('personal-details-form');
+			form.submit();
+		}
 
     </script>
 <style>
@@ -348,105 +393,109 @@
 
                                         <div class="tab-pane fade" id="tab-2">
                                                     <!--<h5 class="text-info m-b-20 m-t-10"><i class="fa fa-bar-chart"></i> Qualifications</h5>-->
-                                                    <table class="table table-striped table-bordered table-hover table-condensed table-sm" id="jobSeekerQualifications">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Qualification</th>
-                                                            <th>Specialization</th>
-                                                            <th>Institute Name</th>
-                                                            <th>Board / University</th>
-                                                            <th>Percentage</th>
-                                                            <th>Start Date</th>
-                                                            <th>Completion Date</th>
-                                                            <th><input type="button" value="Add Row" onclick="addRow('jobSeekerQualifications')" class="btn btn-primary buttony .inputy" /></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <c:forEach items="${jobSeekerDto.userQualifications}" var="qly" varStatus="row">
-                                                            <tr id="qlyRow${row.count}">
-                                                                <td align="center">
-                                                                    ${row.count}
-                                                                    <form:hidden path="userQualifications[${row.index}].id"
-                                                                                 name="userQualifications[${row.index}].id"
-                                                                                 id="userQualifications[${row.index}].id"
-                                                                                 value="${qly.id}"
-                                                                    />
-                                                                </td>
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].qualification"
-                                                                                name="userQualifications[${row.index}].qualification"
-                                                                                id="userQualifications[${row.index}].qualification"
-                                                                                value="${qly.qualification}"
-                                                                                maxlength="100"
-                                                                                onkeyup="charOnly(this)"
-                                                                    />
-                                                                </td>
+                                            <table class="table table-striped table-bordered table-hover table-condensed table-sm" id="jobSeekerQualifications">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Qualification</th>
+                                                    <th>Specialization</th>
+                                                    <th>Institute Name</th>
+                                                    <th>Board / University</th>
+                                                    <th>Percentage</th>
+                                                    <th>Start Date</th>
+                                                    <th>Completion Date</th>
+                                                    <th><input type="button" value="Add Row" onclick="addRow('jobSeekerQualifications')" class="btn btn-primary buttony .inputy" /></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <c:forEach items="${jobSeekerDto.userQualifications}" var="qly" varStatus="row">
+                                                    <tr id="qlyRow${row.count}">
+                                                        <td align="center">
+                                                            ${row.count}
+                                                            <form:hidden path="userQualifications[${row.index}].id"
+                                                                         name="userQualifications[${row.index}].id"
+                                                                         id="userQualifications[${row.index}].id"
+                                                                         value="${qly.id}"
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].qualification"
+                                                                        name="userQualifications[${row.index}].qualification"
+                                                                        id="userQualifications[${row.index}].qualification"
+                                                                        value="${qly.qualification}"
+                                                                        maxlength="100"
+                                                                        onkeyup="charOnly(this)"
+                                                            />
+                                                        </td>
 
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].specialization"
-                                                                                name="userQualifications[${row.index}].specialization"
-                                                                                id="userQualifications[${row.index}].specialization"
-                                                                                value="${qly.specialization}"
-                                                                                cssClass="span2"
-                                                                                onkeyup="charOnly(this)"
-                                                                    />
-                                                                </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].specialization"
+                                                                        name="userQualifications[${row.index}].specialization"
+                                                                        id="userQualifications[${row.index}].specialization"
+                                                                        value="${qly.specialization}"
+                                                                        cssClass="span2"
+                                                                        onkeyup="charOnly(this)"
+                                                            />
+                                                        </td>
 
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].instituteName"
-                                                                                name="userQualifications[${row.index}].instituteName"
-                                                                                id="userQualifications[${row.index}].instituteName"
-                                                                                value="${qly.instituteName}"
-                                                                                cssClass="span2"
-                                                                                onkeyup="charOnly(this)"
-                                                                    />
-                                                                </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].instituteName"
+                                                                        name="userQualifications[${row.index}].instituteName"
+                                                                        id="userQualifications[${row.index}].instituteName"
+                                                                        value="${qly.instituteName}"
+                                                                        cssClass="span2"
+                                                                        onkeyup="charOnly(this)"
+                                                            />
+                                                        </td>
 
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].boardUniversity"
-                                                                                name="userQualifications[${row.index}].boardUniversity"
-                                                                                id="userQualifications[${row.index}].boardUniversity"
-                                                                                value="${qly.boardUniversity}"
-                                                                                onkeyup="charOnly(this)"
-                                                                    />
-                                                                </td>
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].percentage"
-                                                                                name="userQualifications[${row.index}].percentage"
-                                                                                id="userQualifications[${row.index}].percentage"
-                                                                                value="${qly.percentage}"
-                                                                                maxlength="5"
-                                                                                onkeyup="intOnly(this)"
-                                                                    />
-                                                                </td>
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].startDate"
-                                                                                name="userQualifications[${row.index}].startDate"
-                                                                                id="userQualifications[${row.index}].startDate"
-                                                                                value="${qly.startDate}"
-                                                                                onkeyup="buildDate(this)"
-                                                                                onblur="isValidDate(this);"
-                                                                    />
-                                                                </td>
-                                                                <td>
-                                                                    <form:input path="userQualifications[${row.index}].completionDate"
-                                                                                name="userQualifications[${row.index}].completionDate"
-                                                                                id="userQualifications[${row.index}].completionDate"
-                                                                                value="${qly.completionDate}"
-                                                                                onkeyup="buildDate(this)"
-                                                                                onblur="isValidDate(this);"
-                                                                    />
-                                                                </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].boardUniversity"
+                                                                        name="userQualifications[${row.index}].boardUniversity"
+                                                                        id="userQualifications[${row.index}].boardUniversity"
+                                                                        value="${qly.boardUniversity}"
+                                                                        onkeyup="charOnly(this)"
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].percentage"
+                                                                        name="userQualifications[${row.index}].percentage"
+                                                                        id="userQualifications[${row.index}].percentage"
+                                                                        value="${qly.percentage}"
+                                                                        maxlength="5"
+                                                                        onkeyup="intOnly(this)"
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].startDate"
+                                                                        name="userQualifications[${row.index}].startDate"
+                                                                        id="userQualifications[${row.index}].startDate"
+                                                                        value="${qly.startDate}"
+                                                                        onkeyup="buildDate(this)"
+                                                                        onblur="isValidDate(this);"
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <form:input path="userQualifications[${row.index}].completionDate"
+                                                                        name="userQualifications[${row.index}].completionDate"
+                                                                        id="userQualifications[${row.index}].completionDate"
+                                                                        value="${qly.completionDate}"
+                                                                        onkeyup="buildDate(this)"
+                                                                        onblur="isValidDate(this);"
+                                                            />
+                                                        </td>
 
-                                                                <td style="text-align:center">
-                                                                    <a href='javaScript:void()' onclick="submitData('${action}', '${method}')"><i class="icon-ok" style="color:green"></i></a>
-                                                                    <a href='javaScript:void()' onclick="deleteRow('jobSeekerQualifications', ${row.count})"><i class="icon-trash" style="color:red"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                        </tbody>
-                                                    </table>
+                                                        <td style="text-align:center">
+                                                            <a href='javaScript:void()' onclick="submitData()">
+                                                                <i class="fa fa-check text-success" style="color:green"></i>
+                                                            </a>
+                                                            <a href='javaScript:void()' onclick="deleteRow('jobSeekerQualifications', ${row.count})">
+                                                                <i class="fa fa-trash font-14" style="color:red"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
 
                                         </div>
 
@@ -545,16 +594,91 @@
                                                                                cssClass="checkbox"/>
                                                             </td>
                                                             <td style="text-align:center">
-                                                                <a href='javaScript:void()' onclick="submitData('${action}', '${method}')"><i class="icon-ok" style="color:green"></i></a>
-                                                                <a href='javaScript:void()' onclick="deleteRow('jobSeekerExperiences', ${row.count})"><i class="icon-trash" style="color:red"></i></a>
+                                                                <a href='javaScript:void()' onclick="submitData()">
+                                                                    <i class="fa fa-check text-success" style="color:green"></i>
+                                                                </a>
+                                                                <a href='javaScript:void()' onclick="deleteRow('jobSeekerExperiences', ${row.count})">
+                                                                    <i class="fa fa-trash font-14" style="color:red"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="tab-pane fade" id="tab-4">
 
+                                        <div class="tab-pane fade" id="tab-4">
+                                            <table class="table table-striped table-bordered table-hover table-condensed table-sm" id="jobSeekerSkills">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Skill Type</th>
+                                                    <th>Skill</th>
+                                                    <th>Exp. in Months</th>
+                                                    <th>Level<BR></th>
+                                                    <th><input type="button" value="Add Row" onclick="addRow('jobSeekerSkills')" class="btn btn-primary buttony .inputy" /></th>-
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${jobSeekerDto.userSkills}" var="skill" varStatus="row">
+                                                        <tr id="skillRow${row.count}">
+                                                            <td align="center">
+                                                                ${row.count}
+                                                                <form:hidden path="userSkills[${row.index}].id"
+                                                                             id="userSkills[${row.index}].id"
+                                                                             value="${skill.id}"
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                <form:select path="userSkills[${row.index}].skillTypeId"
+                                                                             id="userSkills[${row.index}].skillTypeId"
+                                                                             multiple="false"
+                                                                             cssClass="span3"
+                                                                             onchange="checkData('getSkills', this, 'userSkills[${row.index}].skillId')"
+                                                                >
+                                                                <form:option value="0" label="Select" />
+                                                                <form:options items="${skillTypes}" />
+                                                                </form:select>
+                                                            </td>
+                                                            <td>
+                                                                <form:select path="userSkills[${row.index}].skillId"
+                                                                             id="userSkills[${row.index}].skillId"
+                                                                             multiple="false"
+                                                                             cssClass="span3">
+                                                                    <form:option value="0" label="Select" />
+                                                                    <form:options items="${skills}" />
+                                                                </form:select>
+                                                            </td>
+                                                            <td>
+                                                                <form:input path="userSkills[${row.index}].expMonths"
+                                                                            id="userSkills[${row.index}].expMonths"
+                                                                            value="${skill.expMonths}"
+                                                                            maxlength="3"
+                                                                            cssClass="span1"
+                                                                            onkeyup="intOnly(this)"
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                <form:input path="userSkills[${row.index}].skillLevel"
+                                                                            id="userSkills[${row.index}].skillLevel"
+                                                                            value="${skill.skillLevel}"
+                                                                            maxlength="3"
+                                                                            cssClass="span1"
+                                                                            onkeyup="intOnly(this)"
+                                                                />
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                <a href='javaScript:void()' onclick="submitData()">
+                                                                    <i class="fa fa-check text-success" style="color:green"></i>
+                                                                </a>
+                                                                <a href='javaScript:void()' onclick="deleteRow('jobSeekerSkills', ${row.count})">
+                                                                    <i class="fa fa-trash font-14" style="color:red"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

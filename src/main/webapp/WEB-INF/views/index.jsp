@@ -93,6 +93,7 @@
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery/dist/jquery.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/popper.js/dist/umd/popper.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/bootstrap/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/vendors/metisMenu/dist/metisMenu.js"></script>
     <!-- PAGE LEVEL PLUGINS -->
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery-validation/dist/jquery.validate.min.js"/>" type="text/javascript"></script>
     <!-- CORE SCRIPTS-->

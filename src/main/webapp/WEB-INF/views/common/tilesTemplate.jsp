@@ -30,6 +30,8 @@
 			src="<c:url value="${pageContext.request.contextPath}/js/date_validations.js"/>"></script>
     <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery/dist/jquery.min.js"/>" type="text/javascript"></script>
 
+    <script src="<c:url value="${pageContext.request.contextPath}/vendors/jquery-validation/dist/jquery.validate.js"/>" type="text/javascript"></script>
+
 </head>
 
 <body class="fixed-navbar">

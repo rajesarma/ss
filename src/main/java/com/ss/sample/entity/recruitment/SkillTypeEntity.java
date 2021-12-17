@@ -16,8 +16,8 @@ public class SkillTypeEntity implements Serializable {
     private static final long serialVersionUID = 6437714214012462078L;
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "skill_type_id")
+    private Long skillTypeId;
 
     @Column(name = "skill_type")
     private String skillType;

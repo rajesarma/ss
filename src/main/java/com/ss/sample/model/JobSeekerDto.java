@@ -1,6 +1,9 @@
 package com.ss.sample.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
@@ -9,8 +12,13 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+
 
 @Data
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobSeekerDto implements Serializable {
 
 	private static final long serialVersionUID = 5321331807936736479L;
@@ -30,31 +38,31 @@ public class JobSeekerDto implements Serializable {
 	@NotBlank(message = "Last Name cannot be empty")
 	private String lastName;
 
-//	@NotBlank(message = "Father Name cannot be empty")
+	//	@NotBlank(message = "Father Name cannot be empty")
 	private String fatherName;
 
 	private Gender gender = Gender.MALE;
 
-//	@Pattern(regexp="[\\d]{10}")
+	//	@Pattern(regexp="[\\d]{10}")
 	private String mobile;
 
-//	@Pattern(regexp="[\\d]{10}")
+	//	@Pattern(regexp="[\\d]{10}")
 	private String alternateNo;
 
 	@NotEmpty(message = "Email can not empty")
 	@Email
 	private String email;
 
-//	@NotEmpty(message = "Aadhar can not empty")
+	//	@NotEmpty(message = "Aadhar can not empty")
 	private String aadhar;
 
-//	@NotEmpty(message = "Address can not empty")
+	//	@NotEmpty(message = "Address can not empty")
 	private String address;
 
-//	@NotEmpty(message = "Postal Code can not empty")
+	//	@NotEmpty(message = "Postal Code can not empty")
 	private String postalCode;
 
-//	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	//	@DateTimeFormat(pattern = "dd/MM/yyyy")
 //	@Past
 	private LocalDate dob;
 
@@ -83,4 +91,5 @@ public class JobSeekerDto implements Serializable {
 
 	private List<JobSeekerExpDto> userExperiences;
 	private List<JobSeekerQlyDto> userQualifications;
+	private List<JobSeekerSkillDto> userSkills;
 }

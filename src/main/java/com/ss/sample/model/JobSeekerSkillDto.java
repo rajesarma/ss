@@ -13,23 +13,14 @@ import java.io.Serializable;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobSeekerQlyDto implements Serializable {
+public class JobSeekerSkillDto implements Serializable {
 
     private static final long serialVersionUID = 6309389030417901027L;
 
     private long id;
     private String userId;
-    private String qualification;
-    private double percentage;
-    private String boardUniversity;
-    private String specialization;
-    private String instituteName;
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Past
-    private String startDate;
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Past
-    private String completionDate;
+    private int expMonths;
+    private int skillLevel;
+    private long skillTypeId;
+    private long skillId;
 }

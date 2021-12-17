@@ -1,34 +1,28 @@
 package com.ss.sample.service.recruitment;
 
 import com.ss.sample.entity.UserEntity;
-import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
-import com.ss.sample.entity.recruitment.RecruitmentUserExpEntity;
-import com.ss.sample.entity.recruitment.RecruitmentUserQlyEntity;
+import com.ss.sample.entity.recruitment.*;
 import com.ss.sample.model.*;
 import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.UserRepository;
 import com.ss.sample.repository.recruitment.RecruitmentRepository;
+import com.ss.sample.repository.recruitment.SkillTypeRepository;
 import com.ss.sample.util.Constants;
 import com.ss.sample.util.UserConverter;
 import com.ss.sample.util.recruitment.JDoodleCompilerTest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 @Slf4j
@@ -38,16 +32,47 @@ public class RecruitmentService {
     private RecruitmentRepository recruitmentRepository;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
+    private SkillTypeRepository skillTypeRepository;
 
     public RecruitmentService(
             RecruitmentRepository recruitmentRepository,
             RoleRepository roleRepository,
             UserRepository userRepository,
+            SkillTypeRepository skillTypeRepository,
             JDoodleCompilerTest jDoodleCompilerTest) {
         this.recruitmentRepository = recruitmentRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.skillTypeRepository = skillTypeRepository;
         this.jDoodleCompilerTest = jDoodleCompilerTest;
+    }
+
+    public Map<Long,String> getAllSkillTypes() {
+        return StreamSupport.stream(skillTypeRepository.findAll().spliterator(), false)
+                .collect(Collectors.toMap(SkillTypeEntity::getSkillTypeId,
+                        SkillTypeEntity::getSkillType));
+    }
+
+    public Map<Long,String> getAllSkills() {
+        return StreamSupport.stream(skillTypeRepository.findAll().spliterator(), false)
+                .map(SkillTypeEntity::getSkills)
+                .collect(Collectors.toList())
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList())
+                .stream()
+                .collect(Collectors.toMap(SkillEntity::getSkillId,
+                        SkillEntity::getSkill));
+    }
+
+    public Optional<Map<Long,String>> getSkillsBySkillTypeId(long skillTypeId) {
+
+        Optional<SkillTypeEntity> skillTypeEntityOptional = skillTypeRepository.findBySkillTypeId(skillTypeId);
+        return skillTypeEntityOptional
+                .map(skillTypeEntity -> skillTypeEntity
+                .getSkills()
+                .stream()
+                .collect(Collectors.toMap(SkillEntity::getSkillId, SkillEntity::getSkill)));
     }
 
     public Optional<JobSeekerDto> getDataByUserName() {
@@ -77,6 +102,10 @@ public class RecruitmentService {
                 existingUserEntity.getUserExperiences().removeIf(js ->  js.getId() == id);
             }
 
+            if( "jobSeekerSkills".equalsIgnoreCase(type)) {
+                existingUserEntity.getUserSkills().removeIf(js ->  js.getId() == id);
+            }
+
             RecruitmentUserEntity savedEntity = recruitmentRepository.save(existingUserEntity);
             return Optional.of(convert(savedEntity));
         }
@@ -93,6 +122,7 @@ public class RecruitmentService {
             RecruitmentUserEntity existingUserEntity = existingEntityOptional.get();
             updateUserExperiences(jobSeekerDto, existingUserEntity);
             updateUserQualifications(jobSeekerDto, existingUserEntity);
+//            updateUserSkills(jobSeekerDto, existingUserEntity);
             RecruitmentUserEntity savedEntity = recruitmentRepository.save(existingUserEntity);
             return Optional.of(convert(savedEntity));
         }
@@ -304,7 +334,53 @@ public class RecruitmentService {
         }
     }
 
+    private void updateUserSkills(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
+        if(Objects.nonNull(jobSeekerDto.getUserSkills()) &&  !jobSeekerDto.getUserSkills().isEmpty()) {
 
+            // If Existing User Experiences are present, Update them
+            if(Objects.nonNull(recruitmentUserEntity.getUserSkills()) &&  !recruitmentUserEntity.getUserSkills().isEmpty()) {
+                List<Long> existingIds = new ArrayList<>();
+
+                for (JobSeekerSkillDto js : jobSeekerDto.getUserSkills()) {
+                    recruitmentUserEntity.getUserSkills()
+                            .forEach(skill -> {
+                                if (js.getId() == skill.getId()) {
+                                    skill.setSkillLevel(js.getSkillLevel());
+                                    skill.setExpMonths(js.getExpMonths());
+                                    getSkillEntityFromId(js.getSkillId()).ifPresent(skill::setSkill);
+                                    skill.setRecruitmentUser(recruitmentUserEntity);
+                                    existingIds.add(js.getId());
+                                }
+                            });
+                }
+                jobSeekerDto.getUserSkills().removeIf(js -> existingIds.stream().anyMatch( eid -> js.getId() == eid));
+            }
+
+            List<RecruitmentUserSkillEntity> userSkills = jobSeekerDto.getUserSkills()
+                    .stream()
+                    .map(jobSeekerSkillDto -> {
+                        RecruitmentUserSkillEntity skill = new RecruitmentUserSkillEntity();
+                        skill.setSkillLevel(jobSeekerSkillDto.getSkillLevel());
+                        skill.setExpMonths(jobSeekerSkillDto.getExpMonths());
+                        getSkillEntityFromId(jobSeekerSkillDto.getSkillId()).ifPresent(skill::setSkill);
+                        skill.setRecruitmentUser(recruitmentUserEntity);
+                        return skill;
+                    }).collect(Collectors.toList());
+
+            // If records present, then add them to exisiting, else create new records
+            if(Objects.nonNull(recruitmentUserEntity.getUserSkills())) {
+                recruitmentUserEntity.getUserSkills().addAll(userSkills);
+            } else {
+                recruitmentUserEntity.setUserSkills(userSkills);
+            }
+        }
+    }
+
+    /**
+     * Methid to convert from Dto to entity
+     * @param jobSeekerDto
+     * @return RecruitmentUserEntity
+     */
     public RecruitmentUserEntity convert(final JobSeekerDto jobSeekerDto) {
         Long id;
         String userId;
@@ -358,10 +434,16 @@ public class RecruitmentService {
 
         updateUserExperiences(jobSeekerDto, recruitmentUserEntity);
         updateUserQualifications(jobSeekerDto, recruitmentUserEntity);
+        updateUserSkills(jobSeekerDto, recruitmentUserEntity);
 
         return recruitmentUserEntity;
     }
 
+    /**
+     * Methid to convert from Entity to Dto
+     * @param recruitmentUserEntity
+     * @return JobSeekerDto
+     */
     public JobSeekerDto convert(final RecruitmentUserEntity recruitmentUserEntity) {
         JobSeekerDto jobSeekerDto = new JobSeekerDto();
 
@@ -427,6 +509,23 @@ public class RecruitmentService {
                     }).collect(Collectors.toList());
             jobSeekerDto.setUserQualifications(userQlys);
         }
+
+        if(Objects.nonNull(recruitmentUserEntity.getUserSkills()) &&  !recruitmentUserEntity.getUserSkills().isEmpty()) {
+            List<JobSeekerSkillDto> userSkills = recruitmentUserEntity.getUserSkills()
+                    .stream()
+                    .map(skillEntity -> {
+                        JobSeekerSkillDto skill = new JobSeekerSkillDto();
+                        skill.setId(skillEntity.getId());
+                        skill.setSkillLevel(skillEntity.getSkillLevel());
+                        skill.setExpMonths(skillEntity.getExpMonths());
+                        Optional<SkillEntity> skillEntityOptional = getSkillEntityFromId(skillEntity.getSkill().getSkillId());
+                        skillEntityOptional.ifPresent(s -> skill.setSkillId(s.getSkillId()));
+                        skillEntityOptional.ifPresent(s -> skill.setSkillTypeId(s.getSkillType().getSkillTypeId()));
+                        return skill;
+                    }).collect(Collectors.toList());
+            jobSeekerDto.setUserSkills(userSkills);
+        }
+
         return jobSeekerDto;
     }
 
@@ -444,5 +543,19 @@ public class RecruitmentService {
             userRepository.save(userEntity);
         }
         return Optional.of(convert(savedRecruitmentUser));
+    }
+
+    private Optional<SkillEntity> getSkillEntityFromId(long skillId) {
+        return StreamSupport.stream(skillTypeRepository.findAll().spliterator(), false)
+                .map(SkillTypeEntity::getSkills)
+                .collect(Collectors.toList())
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList())
+                .stream()
+                .filter(skill -> skill.getSkillId() == skillId)
+                .findAny();
+//                .orElseThrow(new IllegalArgumentException("Role should be passed"));
+
     }
 }

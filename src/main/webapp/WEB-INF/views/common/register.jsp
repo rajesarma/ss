@@ -82,7 +82,7 @@
         </div>
 
         <form:form id="register-form" action="/register" method="post"
-                   modelAttribute="jobSeekerDto" enctype="multipart/form-data">
+                   modelAttribute="registerDto" enctype="multipart/form-data">
 
             <h2 class="login-title">Sign Up</h2>
 
@@ -134,6 +134,11 @@
                                placeholder="Confirm Password"/>
 
             </div>
+            <div>
+                <form:checkbox path="isRecruiter" cssClass="checkbox"/>
+                Is Recruiter
+            </div>
+
             <div class="form-group text-left">
                 <label class="ui-checkbox ui-checkbox-info">
                     <input type="checkbox" name="agree">

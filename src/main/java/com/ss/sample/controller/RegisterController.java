@@ -1,8 +1,10 @@
 package com.ss.sample.controller;
 
 import com.ss.sample.model.JobSeekerDto;
+import com.ss.sample.model.RegisterDto;
 import com.ss.sample.service.UserService;
 import com.ss.sample.service.recruitment.RecruitmentService;
+import com.ss.sample.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -31,24 +33,24 @@ public class RegisterController {
 	@GetMapping(value="")
 	public ModelAndView register() {
 
-		return new ModelAndView("register", "jobSeekerDto", new JobSeekerDto());
+		return new ModelAndView("register", "registerDto", new RegisterDto());
 	}
 
 	@PostMapping(value="")
-	public ModelAndView save(@ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto) {
-		ModelAndView mav = new ModelAndView("register", "jobSeekerDto", new JobSeekerDto());
+	public ModelAndView save(@ModelAttribute("registerDto") RegisterDto registerDto) {
+		ModelAndView mav = new ModelAndView("register", "registerDto", new RegisterDto());
 
 		if (
-			StringUtils.isEmpty(jobSeekerDto.getFirstName()) ||
-			StringUtils.isEmpty(jobSeekerDto.getLastName()) ||
-			StringUtils.isEmpty(jobSeekerDto.getEmail()) ||
-			StringUtils.isEmpty(jobSeekerDto.getPassword())
+			StringUtils.isEmpty(registerDto.getFirstName()) ||
+			StringUtils.isEmpty(registerDto.getLastName()) ||
+			StringUtils.isEmpty(registerDto.getEmail()) ||
+			StringUtils.isEmpty(registerDto.getPassword())
 		) {
 			mav.addObject("message", "Please enter mandatory fields");
 			return mav;
 		}
 
-		Optional<JobSeekerDto> savedDtoOptional = recruitmentService.createUser(jobSeekerDto);
+		Optional<RegisterDto> savedDtoOptional = recruitmentService.createUser(registerDto);
 
 		if (!savedDtoOptional.isPresent()) {
 			mav.addObject("message", "Problem in Creating User");
@@ -68,10 +70,10 @@ public class RegisterController {
 	public ResponseEntity<?> find(@PathVariable("type") String type,
 								  @PathVariable("value") String value) {
 		String result;
-		Optional<JobSeekerDto> jobSeekerDto = recruitmentService.findByType(type, value);
+		Optional<RegisterDto> dtoOptional = recruitmentService.findByType(Constants.Roles.JOB_SEEKER_ROLE, type, value);
 		String typeString = StringUtils.join(type.split("(?=\\p{Upper})"), " ");
 
-		if(jobSeekerDto.isPresent()) {
+		if(dtoOptional.isPresent()) {
 			result =
 					"{\"valueExists\":\"true\", \"message\":\"" + StringUtils.capitalize(typeString) +
 							" already exists\"  }";

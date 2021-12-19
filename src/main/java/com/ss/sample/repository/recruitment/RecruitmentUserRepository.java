@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RecruitmentRepository extends CrudRepository<RecruitmentUserEntity, Long> {
+public interface RecruitmentUserRepository extends CrudRepository<RecruitmentUserEntity, Long> {
 
     @Query(value = "SELECT coalesce(max(ru.id), 0) + 1 FROM recruitment_user ru", nativeQuery = true)
     Long getMaxId();

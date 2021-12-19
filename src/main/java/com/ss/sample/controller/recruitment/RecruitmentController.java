@@ -2,27 +2,23 @@ package com.ss.sample.controller.recruitment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ss.sample.model.JobSeekerDto;
-import com.ss.sample.model.JobSeekerExpDto;
-import com.ss.sample.model.JobSeekerQlyDto;
-import com.ss.sample.model.JobSeekerSkillDto;
+import com.ss.sample.model.*;
 import com.ss.sample.service.recruitment.RecruitmentService;
+import com.ss.sample.util.Constants;
 import com.ss.sample.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -33,19 +29,10 @@ public class RecruitmentController {
     @Value("${save}")
     private String save;
 
-    @Value("${change}")
-    private String change;
-
-    @Value("${update}")
-    private String update;
-
     private String jobSeekerDtoStr = "jobSeekerDto";
-    private String usersList = "usersList";
     private String buttonValue = "buttonValue";
     private String action = "action";
     private String method = "method";
-    private String msg = "message";
-    private String message;
 
     private RecruitmentService recruitmentService;
 
@@ -57,6 +44,224 @@ public class RecruitmentController {
     public String compiler(ModelMap model) {
         return "compiler";
     }
+
+    ////////////////////////JOB Seeker///////////////
+
+    @GetMapping("/profile")
+    public ModelAndView getJobSeekerProfile(
+//            @RequestParam(required = false) String operation
+    ) {
+        /*if (Util.isSpecifiedRole(Constants.Roles.RECRUITER_ROLE.toUpperCase())) {
+            getRecruiterProfile();
+        }*/
+
+        JobSeekerDto jobSeekerDto = new JobSeekerDto();
+        ModelAndView mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDto);
+
+        // If Authenticated User
+        if (Util.isAuthenticatedUser()) {
+            Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.getDataByUserName();
+
+            if(jobSeekerDtoOptional.isPresent()) {
+                jobSeekerDto = jobSeekerDtoOptional.get();
+
+                // For the user, if no records available, we can show a single record
+                if (Objects.isNull(jobSeekerDto.getUserExperiences()) || jobSeekerDto.getUserExperiences().isEmpty()) {
+                    List<JobSeekerExpDto> jobSeekerExperiences = new ArrayList<>();
+                    JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
+                    jobSeekerExperiences.add(jobSeekerExpDto);
+                    jobSeekerDto.setUserExperiences(jobSeekerExperiences);
+                }
+
+                if (Objects.isNull(jobSeekerDto.getUserQualifications()) || jobSeekerDto.getUserQualifications().isEmpty()) {
+                    List<JobSeekerQlyDto> jobSeekerQualifications = new ArrayList<>();
+                    JobSeekerQlyDto jobSeekerQlyDto = new JobSeekerQlyDto();
+                    jobSeekerQualifications.add(jobSeekerQlyDto);
+                    jobSeekerDto.setUserQualifications(jobSeekerQualifications);
+                }
+
+                if (Objects.isNull(jobSeekerDto.getUserSkills()) || jobSeekerDto.getUserSkills().isEmpty()) {
+                    List<JobSeekerSkillDto> jobSeekerSkills = new ArrayList<>();
+                    JobSeekerSkillDto jobSeekerSkillDto = new JobSeekerSkillDto();
+                    jobSeekerSkills.add(jobSeekerSkillDto);
+                    jobSeekerDto.setUserSkills(jobSeekerSkills);
+                }
+
+                mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDto);
+                mav.addObject(action,"/recruitment/profile");
+            } else {
+
+                mav.addObject("message", "Problem in Fetching Data");
+            }
+        } else {
+            return new ModelAndView("home");
+        }
+        getData(mav);
+        return mav;
+    }
+
+    @PostMapping("/profile")
+    public ModelAndView saveJobSeekerProfile(@Valid @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
+                                    BindingResult result
+    ) {
+        ModelAndView mav = new ModelAndView("profile", "jobSeekerDto", jobSeekerDto);
+        mav.addObject("buttonValue", save);
+        mav.addObject(action,"/recruitment/profile");
+        mav.addObject(buttonValue, save);
+        mav.addObject(method,"Post");
+
+        if(result.hasErrors()) {
+            System.out.println("Errors in page");
+        }
+
+        Optional<JobSeekerDto> savedDtoOptional = recruitmentService.saveProfile(jobSeekerDto);
+
+        if (!savedDtoOptional.isPresent()) {
+            mav.addObject("message", "Problem in Saving Profile");
+            mav.addObject("jobSeekerDto", new JobSeekerDto());
+            return mav;
+        }
+
+        mav.addObject("jobSeekerDto", savedDtoOptional.get());
+        mav.addObject("message", "Profile Updated");
+        getData(mav);
+        return mav;
+    }
+
+    @GetMapping(value = "/profile/{type}/{value}")
+    public ResponseEntity<?> checkExisting(@PathVariable("type") String type,
+                                           @PathVariable("value") String value) throws JsonProcessingException {
+
+        String result;
+
+        if(type.equalsIgnoreCase("getSkills")) {
+
+            Optional<Map<Long,String>> skillsOptional =
+                    recruitmentService.getSkillsBySkillTypeId(Long.parseLong(value));
+
+            if(skillsOptional.isPresent()) {
+
+                String json = new ObjectMapper().writeValueAsString(skillsOptional.get());
+                json = json.replace("\"", "\'").replace("'","\'");
+                result = "{\"skillsExists\":\"true\", \"skills\":\""+json+"\"  }";
+            } else {
+                result = "{\"skillsExists\":\"false\" }";
+            }
+        } else {
+
+            Optional<RegisterDto> dtoOptional = recruitmentService.findByType(Constants.Roles.JOB_SEEKER_ROLE, type, value);
+            String typeString = StringUtils.join(type.split("(?=\\p{Upper})"), " ");
+
+            if (dtoOptional.isPresent()) {
+                result =
+                        "{\"valueExists\":\"true\", \"message\":\"" + StringUtils.capitalize(typeString) +
+                                " already exists\"  }";
+            } else {
+                result = "{\"valueExists\":\"false\" }";
+            }
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/profile/{type}/{id}")
+    public ModelAndView updateProfile(
+            @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
+            @PathVariable("type") String type,
+            @PathVariable("id") String id) {
+
+        ModelAndView mav = new ModelAndView("profile", "jobSeekerDto", jobSeekerDto);
+        mav.addObject(action,"/recruitment/profile");
+        getData(mav);
+
+        Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.updatePreferences(type, Long.parseLong(id));
+        if (jobSeekerDtoOptional.isPresent()) {
+            mav.addObject("jobSeekerDto", jobSeekerDtoOptional.get());
+            mav.addObject("message", "Profile updated successfully ");
+            return mav;
+        }
+
+        mav.addObject("message", "Problem in Saving Profile");
+        return mav;
+    }
+
+    private void getData(ModelAndView mav) {
+        mav.addObject("skillTypes", recruitmentService.getAllSkillTypes());
+        mav.addObject("skills", recruitmentService.getAllSkills());
+    }
+
+    ////////////////////// Profile ///////////////////
+
+    ////////////////////////Recruiter///////////////
+
+    @GetMapping("/recruiter")
+    public ModelAndView getRecruiterProfile() {
+
+        /*if (Util.isSpecifiedRole(Constants.Roles.JOB_SEEKER_ROLE.toUpperCase())) {
+            getJobSeekerProfile();
+        }*/
+
+        RegisterDto registerDto = new RegisterDto();
+        ModelAndView mav = new ModelAndView("recruiter", "registerDto", registerDto);
+
+        // If Authenticated User
+        if (Util.isAuthenticatedUser()) {
+            Optional<RegisterDto> registerDtoOptional = recruitmentService.getRecruiterByUserName();
+
+            if (registerDtoOptional.isPresent()) {
+                mav = new ModelAndView("recruiter", "registerDto", registerDtoOptional.get());
+            } else {
+                mav.addObject("message", "Problem in Fetching Data");
+            }
+        } else {
+            return new ModelAndView("home");
+        }
+        return mav;
+    }
+
+    @PostMapping("/recruiter")
+    public ModelAndView saveRecruiter(@Valid @ModelAttribute("registerDto") RegisterDto registerDto,
+                                      BindingResult result
+    ) {
+        ModelAndView mav = new ModelAndView("recruiter", "registerDto", registerDto);
+        mav.addObject(action,"/recruitment/recruiter");
+        mav.addObject(buttonValue, save);
+
+        if(result.hasErrors()) {
+            System.out.println("Errors in page");
+        }
+
+        Optional<RegisterDto> savedDtoOptional = recruitmentService.saveRecruiter(registerDto);
+
+        if (!savedDtoOptional.isPresent()) {
+            mav.addObject("message", "Problem in Saving Profile");
+            mav.addObject("registerDto", new RegisterDto());
+            return mav;
+        }
+
+        mav.addObject("registerDto", savedDtoOptional.get());
+        mav.addObject("message", "Profile Updated");
+        return mav;
+    }
+
+    @GetMapping(value = "/recruiter/{type}/{value}")
+    public ResponseEntity<?> checkExistingRecruiter(@PathVariable("type") String type,
+                                           @PathVariable("value") String value) throws JsonProcessingException {
+
+        String result;
+        Optional<RegisterDto> dtoOptional = recruitmentService.findByType(Constants.Roles.RECRUITER_ROLE, type, value);
+        String typeString = StringUtils.join(type.split("(?=\\p{Upper})"), " ");
+
+        if (dtoOptional.isPresent()) {
+            result =
+                    "{\"valueExists\":\"true\", \"message\":\"" + StringUtils.capitalize(typeString) +
+                            " already exists\"  }";
+        } else {
+            result = "{\"valueExists\":\"false\" }";
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    ////////////////// Old ////////////////////
 
     @GetMapping("/jobSeeker")
     public ModelAndView getJobSeekerPage(
@@ -71,7 +276,7 @@ public class RecruitmentController {
         mav.addObject(action,"/recruitment/jobSeeker");
 
         // If Authenticated User
-        if (Util.isAuthenticatedJobSeeker()) {
+        if (Util.isAuthenticatedUser()) {
 
             // For Editing operation
             if(StringUtils.isNotEmpty(operation) && "edit".equalsIgnoreCase(operation)) {
@@ -168,9 +373,7 @@ public class RecruitmentController {
             mav.addObject(action,"/recruitment/jobSeeker");
             mav.addObject(method,"Post");
         }
-
         mav.addObject("buttonValue", save);
-
         return mav;
     }
 
@@ -222,10 +425,10 @@ public class RecruitmentController {
                                   @PathVariable("value") String value) {
 
         String result;
-        Optional<JobSeekerDto> jobSeekerDto = recruitmentService.findByType(type, value);
+        Optional<RegisterDto> dtoOptional = recruitmentService.findByType(Constants.Roles.JOB_SEEKER_ROLE, type, value);
         String typeString = StringUtils.join(type.split("(?=\\p{Upper})"), " ");
 
-        if(jobSeekerDto.isPresent()) {
+        if(dtoOptional.isPresent()) {
             result =
                     "{\"valueExists\":\"true\", \"message\":\"" + StringUtils.capitalize(typeString) +
                             " already exists\"  }";
@@ -233,158 +436,5 @@ public class RecruitmentController {
             result = "{\"valueExists\":\"false\" }";
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-
-
-    ////////////////////////
-
-    @GetMapping("/profile")
-    public ModelAndView getProfile(
-            @RequestParam(required = false) String operation
-    ) {
-        JobSeekerDto jobSeekerDto = new JobSeekerDto();
-
-        ModelAndView mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDto);
-
-//        newJobSeekerDto.setSkillTypes(recruitmentService.getSkillTypes());
-//        mav.addObject(method,"Post");
-//        mav.addObject(action,"/recruitment/profile");
-
-        // If Authenticated User
-        if (Util.isAuthenticatedJobSeeker()) {
-            Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.getDataByUserName();
-
-            /*if (jobSeekerDtoOptional.isPresent()) {
-                mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDtoOptional.get());
-            } else {
-                mav.addObject("message", "Problem in Fetching Data");
-            }*/
-
-            if(jobSeekerDtoOptional.isPresent()) {
-                jobSeekerDto = jobSeekerDtoOptional.get();
-
-                // For the user, if no records available, we can show a single record
-                if (Objects.isNull(jobSeekerDto.getUserExperiences()) || jobSeekerDto.getUserExperiences().isEmpty()) {
-                    List<JobSeekerExpDto> jobSeekerExperiences = new ArrayList<>();
-                    JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
-                    jobSeekerExperiences.add(jobSeekerExpDto);
-                    jobSeekerDto.setUserExperiences(jobSeekerExperiences);
-                }
-
-                if (Objects.isNull(jobSeekerDto.getUserQualifications()) || jobSeekerDto.getUserQualifications().isEmpty()) {
-                    List<JobSeekerQlyDto> jobSeekerQualifications = new ArrayList<>();
-                    JobSeekerQlyDto jobSeekerQlyDto = new JobSeekerQlyDto();
-                    jobSeekerQualifications.add(jobSeekerQlyDto);
-                    jobSeekerDto.setUserQualifications(jobSeekerQualifications);
-                }
-
-                if (Objects.isNull(jobSeekerDto.getUserSkills()) || jobSeekerDto.getUserSkills().isEmpty()) {
-                    List<JobSeekerSkillDto> jobSeekerSkills = new ArrayList<>();
-                    JobSeekerSkillDto jobSeekerSkillDto = new JobSeekerSkillDto();
-                    jobSeekerSkills.add(jobSeekerSkillDto);
-                    jobSeekerDto.setUserSkills(jobSeekerSkills);
-                }
-
-                mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDto);
-                mav.addObject(action,"/recruitment/profile");
-            } else {
-
-                mav.addObject("message", "Problem in Fetching Data");
-            }
-        } else {
-            return new ModelAndView("home");
-        }
-        getData(mav);
-        return mav;
-    }
-
-    @PostMapping("/profile")
-    public ModelAndView saveProfile(@Valid @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
-                             BindingResult result
-    ) {
-        ModelAndView mav = new ModelAndView("profile", "jobSeekerDto", jobSeekerDto);
-        mav.addObject("buttonValue", save);
-        mav.addObject(action,"/recruitment/profile");
-        mav.addObject(buttonValue, save);
-        mav.addObject(method,"Post");
-
-        if(result.hasErrors()) {
-            System.out.println("Errors in page");
-        }
-
-        Optional<JobSeekerDto> savedDtoOptional = recruitmentService.saveProfile(jobSeekerDto);
-
-        if (!savedDtoOptional.isPresent()) {
-            mav.addObject("message", "Problem in Saving Profile");
-            mav.addObject("jobSeekerDto", new JobSeekerDto());
-            return mav;
-        }
-
-        mav.addObject("jobSeekerDto", savedDtoOptional.get());
-        mav.addObject("message", "Profile Updated");
-        getData(mav);
-        return mav;
-    }
-
-    @GetMapping(value = "/profile/{type}/{value}")
-    public ResponseEntity<?> checkExisting(@PathVariable("type") String type,
-                                  @PathVariable("value") String value) throws JsonProcessingException {
-
-        String result;
-
-        if(type.equalsIgnoreCase("getSkills")) {
-
-            Optional<Map<Long,String>> skillsOptional =
-                    recruitmentService.getSkillsBySkillTypeId(Long.parseLong(value));
-
-            if(skillsOptional.isPresent()) {
-
-                String json = new ObjectMapper().writeValueAsString(skillsOptional.get());
-                json = json.replace("\"", "\'").replace("'","\'");
-                result = "{\"skillsExists\":\"true\", \"skills\":\""+json+"\"  }";
-            } else {
-                result = "{\"skillsExists\":\"false\" }";
-            }
-        } else {
-
-            Optional<JobSeekerDto> jobSeekerDto = recruitmentService.findByType(type, value);
-            String typeString = StringUtils.join(type.split("(?=\\p{Upper})"), " ");
-
-            if (jobSeekerDto.isPresent()) {
-                result =
-                        "{\"valueExists\":\"true\", \"message\":\"" + StringUtils.capitalize(typeString) +
-                                " already exists\"  }";
-            } else {
-                result = "{\"valueExists\":\"false\" }";
-            }
-        }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @PostMapping("/profile/{type}/{id}")
-    public ModelAndView updateProfile(
-            @ModelAttribute("jobSeekerDto") JobSeekerDto jobSeekerDto,
-            @PathVariable("type") String type,
-            @PathVariable("id") String id) {
-
-        ModelAndView mav = new ModelAndView("profile", "jobSeekerDto", jobSeekerDto);
-        mav.addObject(action,"/recruitment/profile");
-        getData(mav);
-
-        Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.updatePreferences(type, Long.parseLong(id));
-        if (jobSeekerDtoOptional.isPresent()) {
-            mav.addObject("jobSeekerDto", jobSeekerDtoOptional.get());
-            mav.addObject("message", "Profile updated successfully ");
-            return mav;
-        }
-
-        mav.addObject("message", "Problem in Saving Profile");
-        return mav;
-    }
-
-    private void getData(ModelAndView mav) {
-        mav.addObject("skillTypes", recruitmentService.getAllSkillTypes());
-        mav.addObject("skills", recruitmentService.getAllSkills());
     }
 }

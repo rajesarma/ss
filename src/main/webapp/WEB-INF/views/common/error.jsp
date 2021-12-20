@@ -8,69 +8,40 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Error</title>
+
+	<style>
+        .content {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 100px
+        }
+
+        .error-title {
+            font-size: 22px;
+            font-weight: 500;
+            margin-top: 30px
+        }
+    </style>
 
 </head>
-<body data-spy="scroll" data-target=".bs-docs-sidebar">
-<header>
-	<!-- Navbar
-	================================================== -->
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<!-- logo -->
-				<a class="brand logo" href="/home"><img src="/img/logo.png" alt=""/></a>
-				<!-- end logo -->
-				<!-- top menu -->
-				<div class="navigation pull-right">
-					<nav>
-						<ul class="sm sm-blue pull-left">
-							<li >
-								<a href="/home">Home</a>
-							</li>
-							<li >
-								<a href="/logout">Logout</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-				<!-- end menu -->
-			</div>
-		</div>
+
+<body class="bg-silver-100">
+	<div class="content">
+		<h1 class="m-t-20">500</h1>
+		<p class="error-title">Something Went Wrong</p>
+		<h4 class="m-b-20">${message}</h4>
+		<p class="m-b-20">We're sorry, but the server was unable to complete your request. You can
+			contact support</p>
 	</div>
-</header>
-<!-- Subhead
-================================================== -->
-<section id="subintro">
-	<div class="jumbotron subhead" id="overview">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-					<div class="centered">
-						<h3 >Something Went Wrong</h3>
-					</div>
-				</div>
-			</div>
-		</div>
+
+	<div class="sidenav-backdrop backdrop"></div>
+	<div class="preloader-backdrop">
+		<div class="page-preloader">Loading</div>
 	</div>
-</section>
-<section id="maincontent">
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<div class="centered">
-					<%--<h3 class="error">400</h3>--%>
-					<h4>${message}</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- Footer
-================================================== -->
-
-
-
-
 </body>
 </html>

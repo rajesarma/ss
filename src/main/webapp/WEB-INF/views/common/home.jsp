@@ -12,7 +12,7 @@
 	<title>Home Page</title>
 </head>
 <body>
-		<section id="subintro">
+		<!--<section id="subintro">
 			<div class="jumbotron subhead" id="overview">
 				<div class="container">
 					<div class="row">
@@ -24,7 +24,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section>-->
 
 		<section id="maincontent">
 			<div class="container">

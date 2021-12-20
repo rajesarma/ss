@@ -50,15 +50,15 @@
         <put-attribute name="body" value="/WEB-INF/views/common/sessionTimeout.jsp" />
     </definition>
 
-    <definition name="error" extends="homePageTemplate">
+    <definition name="error" extends="tilesTemplate">
         <put-attribute name="body" value="/WEB-INF/views/common/error.jsp" />
     </definition>
 
-    <definition name="404" extends="homePageTemplate">
+    <definition name="404" extends="tilesTemplate">
         <put-attribute name="body" value="/WEB-INF/views/common/404.jsp" />
     </definition>
 
-    <definition name="500" extends="homePageTemplate">
+    <definition name="500" extends="tilesTemplate">
         <put-attribute name="body" value="/WEB-INF/views/common/500.jsp" />
     </definition>
 

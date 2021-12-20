@@ -10,67 +10,45 @@
 	<meta charset="ISO-8859-1">
 	<title>Page Not Found</title>
 
+	<style>
+        .content {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 160px
+        }
+
+        .error-title {
+            font-size: 22px;
+            font-weight: 500;
+            margin-top: 30px
+        }
+    </style>
+
 </head>
-<body data-spy="scroll" data-target=".bs-docs-sidebar">
-<header>
-	<!-- Navbar
-	================================================== -->
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<!-- logo -->
-				<a class="brand logo" href="/home"><img src="/img/logo.png" alt=""/></a>
-				<!-- end logo -->
-				<!-- top menu -->
-				<div class="navigation pull-right">
-					<nav>
-						<ul class="sm sm-blue pull-left">
-							<li >
-								<a href="/home">Home</a>
-							</li>
-							<li >
-								<a href="/logout">Logout</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-				<!-- end menu -->
-			</div>
-		</div>
-	</div>
-</header>
-<!-- Subhead
-================================================== -->
-<section id="subintro">
-	<div class="jumbotron subhead" id="overview">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-					<div class="centered">
-						<h3 >404</h3>
-					</div>
+<body class="bg-silver-100">
+	<div class="content">
+		<h1 class="m-t-20">404</h1>
+		<p class="error-title">PAGE NOT FOUND</p>
+		<p class="m-b-20">Sorry, the page you were looking for could not found. Please check the URL and try your luck again.
+			<a class="color-green" href="/home">Go homepage</a> or try the search bar below.</p>
+		<form action="javascript:;">
+			<div class="input-group">
+				<input class="form-control" type="text" placeholder="Search for page">
+				<div class="input-group-btn">
+					<button class="btn btn-success" type="button">Search</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
-</section>
-<section id="maincontent">
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<div class="centered">
-					<%--<h2 class="error">404</h2>--%>
-					<h3>${message}</h3>
-					<p>
-						The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-					</p>
-				</div>
-			</div>
-		</div>
+
+	<div class="sidenav-backdrop backdrop"></div>
+	<div class="preloader-backdrop">
+		<div class="page-preloader">Loading</div>
 	</div>
-</section>
-<!-- Footer
-================================================== -->
 
 
 

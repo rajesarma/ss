@@ -940,7 +940,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 32, true);
+SELECT pg_catalog.setval('hibernate_sequence', 37, true);
 
 
 --
@@ -1105,6 +1105,8 @@ COPY recruitment_job_post_master (id, job_id, user_id, experience_level, locatio
 14	WT000013	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:34:35.905	gg
 15	WT000015	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:35:01.524	gg
 16	WT000016	REC000001	9	jj	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 18:23:35.057	gg
+17	WT000017	REC000001	9	Hyderabad	sdfsdf	2021-12-28	i@i.com	bssd wsdsd	sdfdsf	100000	\N	A	\N	2021-12-23 23:26:53.289	Team Lead
+19	WT000018	REC000005	6	ts	ts	2021-12-28	ts@ts.com	ts	ts	5555	\N	A	\N	2021-12-23 23:52:40.381	ts
 \.
 
 
@@ -1112,7 +1114,7 @@ COPY recruitment_job_post_master (id, job_id, user_id, experience_level, locatio
 -- Name: recruitment_job_post_master_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 16, true);
+SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 19, true);
 
 
 --
@@ -1133,6 +1135,9 @@ COPY recruitment_job_post_roles (id, job_id, role_responsibility) FROM stdin;
 34	WT000015	R2
 37	WT000016	r3
 39	WT000016	Rr5
+40	WT000017	Should Work
+42	WT000017	gg2
+44	WT000018	ts
 \.
 
 
@@ -1140,7 +1145,7 @@ COPY recruitment_job_post_roles (id, job_id, role_responsibility) FROM stdin;
 -- Name: recruitment_job_post_roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 39, true);
+SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 44, true);
 
 
 --
@@ -1163,6 +1168,9 @@ COPY recruitment_job_post_skillset (id, job_id, skill) FROM stdin;
 33	WT000016	s1
 37	WT000016	SS3
 38	WT000016	S4
+39	WT000017	Great Skill
+40	WT000017	Skill 1
+42	WT000018	ts
 \.
 
 
@@ -1170,7 +1178,7 @@ COPY recruitment_job_post_skillset (id, job_id, skill) FROM stdin;
 -- Name: recruitment_job_post_skillset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_skillset_id_seq', 38, true);
+SELECT pg_catalog.setval('recruitment_job_post_skillset_id_seq', 42, true);
 
 
 --
@@ -1199,6 +1207,8 @@ COPY recruitment_recruiter (id, user_id, first_name, last_name, mobile, email, a
 2	REC000002	TT	RT	\N	TR@r.com	\N	\N	A	2021-12-19 22:22:31.972	2021-12-19 22:22:31.972	2021-12-19 22:22:31.972	\N	\N
 1	REC000001	rrrr	rrrr	9866489944	rrr@r.com	Test	500000000000	A	\N	2021-12-20 00:31:40.018	2021-12-20 00:31:40.018	Test Company	\N
 3	REC000003	REC	SWAMY	4848484848	rsw@gmail.com			A	\N	2021-12-20 11:43:44.589	2021-12-20 11:43:44.588		\N
+4	REC000004	Sridhar	Kommu	9844554444	sridhar@gmail.com	dsdf	555555555555	A	\N	2021-12-23 23:47:34.005	2021-12-23 23:47:34.005	Test Company	\N
+5	REC000005	ts	ts	4444444444	ts@ts.com	sdsdf	555555555555	A	\N	2021-12-23 23:52:04.53	2021-12-23 23:52:04.53	Test Company	\N
 \.
 
 
@@ -1286,6 +1296,9 @@ COPY recruitment_user (id, user_id, first_name, is_active, created_on, gender, m
 11	JS000011	Swamy	A	2021-12-20 11:38:12.179	M	\N	\N	sk@gmail.com	\N	\N	\N	\N	\N	\N	2021-12-20 11:38:12.179	2021-12-20 11:38:12.179	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	Kumar	\N	\N
 1	SAMPLE000001	Lakshmi Rajeswara	A	\N	M	9866489944	9944994499	dd@dd.com	Test	\N	\N	\N	Seeta Rama Prasad	\N	2021-12-20 11:47:40.511	2021-12-20 11:47:40.511	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	Rao	\N	\N
 12	JS000012	cr	A	2021-12-21 15:39:44.599	M	\N	\N	cr@gmailc.om	\N	\N	\N	\N	\N	\N	2021-12-21 15:39:44.599	2021-12-21 15:39:44.599	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	cr	\N	\N
+13	JS000013	js	A	2021-12-23 23:34:40.158	M	\N	\N	sss@f.com	\N	\N	\N	\N	\N	\N	2021-12-23 23:34:40.158	2021-12-23 23:34:40.158	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	js	\N	\N
+14	JS000014	rs	A	\N	M	9844554444	4444444444	rs@rs.com	rs	1982-08-01	\N	\N	rss	\N	2021-12-24 00:34:16.251	2021-12-24 00:34:16.251	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	222222222222	500000000000	A	A	rs	\N	\N
+15	JS000015	rss	A	\N	M	4343434343	9944994499	rss@rss.com	rss	1982-08-01	\N	\N	rss	\N	2021-12-24 00:35:53.42	2021-12-24 00:35:53.42	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	999999999999	500000000000	A	A	rss	\N	\N
 \.
 
 
@@ -1513,6 +1526,11 @@ COPY user_roles (user_id, role_id) FROM stdin;
 30	9
 31	8
 32	9
+33	8
+34	9
+35	8
+36	9
+37	9
 1	1
 \.
 
@@ -1534,11 +1552,16 @@ COPY users (id, user_name, password, disabled, user_desc, email, last_login, fai
 28	REC000002	$2a$10$OsahFcT6ivzT0ygxFdfc4e/4nQ7CDFpaF92HfKh5l3UWi5nazKF22	f	TT RT	TR@r.com	\N	1	\N
 30	JS000011	$2a$10$.StTSb2x0EKEJJq5S3Iz6.EXyuo3C2bj3eSHMUQ7ntM5E2WFfOveW	f	Swamy Kumar	sk@gmail.com	2021-12-20 11:39:02.396	0	\N
 31	REC000003	$2a$10$QXrMznC1rhri1d4txxueMOShrcStANd.YknmscaQIpKX.ixij0Aya	f	REC SWAMY	rsw@gmail.com	2021-12-20 11:42:37.18	0	\N
-27	REC000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	rrrr rrrr	rrr@r.com	2021-12-23 18:21:43.592	0	\N
 1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-12-20 11:45:03.034	0	2019-05-02 13:00:00
+27	REC000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	rrrr rrrr	rrr@r.com	2021-12-23 23:25:15.849	0	\N
 14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-12-14 22:52:49.738	0	2021-11-29 18:44:49.385
 13	SAMPLE000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Lakshmi Rajeswara Rao	dd@dd.com	2021-12-20 22:50:24.713	0	2021-11-30 16:15:35.134
 15	SAMPLE000003	$2a$10$BzqsIT/gCXu1EBgtDQF1N.M34yyXYzpuCnPCBzZGrCWUFv13/QaaG	f	Jyothirmayee	j@g.com	2021-11-30 18:12:00.157	0	\N
+34	JS000013	$2a$10$IyB5tNa8D7naOwEne8oN.O7dqcueOIfj3YX0hvsMB0IJafjUMpsbC	f	js js	sss@f.com	2021-12-23 23:34:56.029	0	\N
+33	REC000004	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Sridhar Kommu	sridhar@gmail.com	2021-12-23 23:47:18.295	0	\N
+35	REC000005	$2a$10$P3l6ESNHe1j2C9qxZvdhrOipiVkfMr56gKxB1OigrnHraZ6aUW64.	f	ts ts	ts@ts.com	2021-12-23 23:51:44.088	0	\N
+36	JS000014	$2a$10$g5rdTIpFCxsQV2OKHnobW.6.bE4zt3S/0oqBlIENkr1mPbCynVNIO	f	rs rs	rs@rs.com	2021-12-24 00:34:03.246	0	\N
+37	JS000015	$2a$10$0jkwkqUOaWxGHSpeGfT6kO.FoQNIYCLtmTvT73KOEIasN6/TcHWZW	f	rss rss	rss@rss.com	2021-12-24 00:35:20.729	0	\N
 32	JS000012	$2a$10$nv7jrdlk/w3yR1qM2eqQ0eNS1uNs.ru.QzZLnwOEhsn9Q03AC.ImS	f	cr cr	cr@gmailc.om	\N	\N	\N
 \.
 

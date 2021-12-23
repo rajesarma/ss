@@ -64,7 +64,8 @@ logging:
     console:  "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L : %msg%n"
   level:
 #    root: ERROR
-    com.ss.sample: error
+    com.ss.sample: DEBUG
+    org.springframework.web: ERROR
 
 management:
   endpoint:

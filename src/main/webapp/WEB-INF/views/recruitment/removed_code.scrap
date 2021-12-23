@@ -1,0 +1,91 @@
+/////////////////////////// jobPosting //////////////////////////
+
+<!--<a href='javaScript:void()' onclick="showJobPosting('${posting.jobId}')">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>-->
+                                                                    <!--<a href='javaScript:void()' onclick="deleteRow('jobSeekerQualifications', ${row.count})">
+                                                                        <i class="fa fa-trash font-14 text-danger"></i>
+                                                                    </a>-->
+
+                                                                    <!--<button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil font-14"></i></button>
+                                                                    <button class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash font-14"></i></button>-->
+
+function showJobPosting(postId) {
+        let jobId = document.getElementById('jobId');
+        jobId.value = postId;
+        var form = document.getElementById('job-posting-form');
+        form.action = '/recruitment/jobPosting';
+        form.method = "GET";
+        form.submit();
+       }
+
+function displayJobInfo(response) {
+            var response = JSON.parse(response);
+            let jobPostingRoles = response.jobPostingRoles;
+            let jobPostingSkills = response.jobPostingSkills;
+            var displayData;
+
+            displayData+="<div class=\"card\">";
+            displayData+="<div class=\"card-header\">";
+                displayData+="<h6 class=\"m-0\">"+response.title+"</h6>";
+                displayData+="<div>Location : "+response.location+"</div>";
+                displayData+="<div>Salary : "+response.salary+" P.A</div>";
+                displayData+="<div>Experience : "+response.experience+"</div>";
+            displayData+="</div>";
+            displayData+="<div class=\"card-body\">";
+                displayData+="<h4 class=\"card-title\">Job Description</h4>";
+                displayData+="<p>"+response.description+"</p>";
+                displayData+="<h4 class=\"card-title\">Qualifications</h4>";
+                displayData+="<p>"+response.qualifications+"</p>";
+                displayData+="<h4 class=\"card-title\">Other Details if any</h4>";
+                displayData+="<p>"+response.otherDetails+"</p>";
+            displayData+="</div>";
+
+            if(typeof(jobPostingRoles)!='undefined') {
+                displayData+="<div>Roles</div>";
+                    displayData+="<ul>";
+                    for(var rowValue=0; rowValue < jobPostingRoles.length; rowValue++ ) {
+                        displayData+="<li>"+jobPostingRoles[rowValue].roleResponsibility+"</li>";
+                    }
+                    displayData+="</ul>";
+            }
+
+            if(typeof(jobPostingSkills)!='undefined') {
+                displayData+="<div>Skills</div>";
+                    displayData+="<ul>";
+                    for(var rowValue=0; rowValue < jobPostingSkills.length; rowValue++ ) {
+                        displayData+="<li>"+jobPostingSkills[rowValue].skill+"</li>";
+                    }
+                    displayData+="</ul>";
+            }
+
+            displayData+="<div class=\"card-footer\">";
+                displayData+="<span class=\"font-13\">Last Date to Apply : "+response.lastDateToApply+"</span>";
+                displayData+="<div>Mail To : "+response.mailTo+"</div>";
+            displayData+="</div>";
+        displayData+="</div>";
+
+            $("#jobInfo").html(displayData);
+        }
+
+
+
+var element =  document.getElementById("jobPostingRoles["+index+"].id");
+/*result = "{\"jobData\":\""+new JSONObject(newJobPostingDto)+"\", " +
+                      "\"jobRoles\":\""+(new JSONArray(jobPostingDto.getJobPostingRoles()))+"\"," +
+                      "\"jobSkills\":\""+(new JSONArray(jobPostingDto.getJobPostingSkills()))+"\""+
+                      " }";*/
+
+var element =  document.getElementById("jobPostingSkills["+index+"].id");
+<!--if (typeof(element) != 'undefined' && element != null) {
+						updatePreferences(type, element.value);
+					} else {
+						$("#skillRow"+(index+1)).remove();
+					}-->
+
+
+<!--if (typeof(element) != 'undefined' && element != null) {
+						updatePreferences(type, element.value);
+					} else {
+						$("#roleRow"+(index+1)).remove();
+					}-->

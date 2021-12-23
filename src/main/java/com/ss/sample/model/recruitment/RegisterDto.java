@@ -1,4 +1,4 @@
-package com.ss.sample.model;
+package com.ss.sample.model.recruitment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

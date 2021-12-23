@@ -2,7 +2,9 @@ package com.ss.sample.controller.recruitment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ss.sample.model.*;
+import com.ss.sample.entity.recruitment.JobPostingEntity;
+import com.ss.sample.model.recruitment.*;
+import com.ss.sample.service.recruitment.JobPostingService;
 import com.ss.sample.service.recruitment.RecruitmentService;
 import com.ss.sample.util.Constants;
 import com.ss.sample.util.Util;
@@ -35,9 +37,12 @@ public class RecruitmentController {
     private String method = "method";
 
     private RecruitmentService recruitmentService;
+    private JobPostingService jobPostingService;
 
-    public RecruitmentController(RecruitmentService recruitmentService) {
+    public RecruitmentController(RecruitmentService recruitmentService,
+                                 JobPostingService jobPostingService) {
         this.recruitmentService = recruitmentService;
+        this.jobPostingService = jobPostingService;
     }
 
     @RequestMapping(value = "/compiler", method = RequestMethod.GET)
@@ -259,6 +264,122 @@ public class RecruitmentController {
             result = "{\"valueExists\":\"false\" }";
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    ////////////////// Job Posting //////////////////
+
+    @GetMapping("/jobPosting")
+    public ModelAndView getJobPostingPage(
+//            @ModelAttribute("jobPostingDto") JobPostingDto jobPostingDto
+    ) {
+
+        /*if (Objects.nonNull(jobPostingDto) && StringUtils.isNotEmpty(jobPostingDto.getJobId())) {
+            Optional<JobPostingDto> jobPostingOptional = jobPostingService.getByPostId(jobPostingDto.getJobId());
+            if (jobPostingOptional.isPresent()) {
+                jobPostingDto = jobPostingOptional.get();
+            }
+        } else {
+            jobPostingDto = new JobPostingDto();
+        }*/
+
+        JobPostingDto jobPostingDto = new JobPostingDto();
+
+        ModelAndView mav = new ModelAndView("jobPosting", "jobPostingDto", jobPostingDto);
+
+        if (Objects.isNull(jobPostingDto.getJobPostingRoles()) || jobPostingDto.getJobPostingRoles().isEmpty()) {
+            // For the user, if no records available, we can show a single record
+            List<JobPostingRoleDto> jobPostingRoles = new ArrayList<>();
+            JobPostingRoleDto jobPostingRoleDto = new JobPostingRoleDto();
+            jobPostingRoles.add(jobPostingRoleDto);
+            jobPostingDto.setJobPostingRoles(jobPostingRoles);
+        }
+
+        if (Objects.isNull(jobPostingDto.getJobPostingSkills()) || jobPostingDto.getJobPostingSkills().isEmpty()) {
+            List<JobPostingSkillDto> jobPostingSkillDtos = new ArrayList<>();
+            JobPostingSkillDto jobPostingSkillDto = new JobPostingSkillDto();
+            jobPostingSkillDtos.add(jobPostingSkillDto);
+            jobPostingDto.setJobPostingSkills(jobPostingSkillDtos);
+        }
+
+        mav.addObject("jobsList", jobPostingService.getJobPostings());
+        return mav;
+    }
+
+    @PostMapping("/jobPosting")
+    public ModelAndView getJobPostingPage(@Valid @ModelAttribute("jobPostingDto") JobPostingDto jobPostingDto,
+                                          BindingResult result) {
+        ModelAndView mav = new ModelAndView("jobPosting", "jobPostingDto", jobPostingDto);
+        mav.addObject("jobsList", jobPostingService.getJobPostings());
+
+        if(result.hasErrors()) {
+            System.out.println("Errors in page");
+        }
+
+        Optional<JobPostingDto> savedJobPostingDtoOptional = jobPostingService.saveJob(jobPostingDto);
+
+        if (!savedJobPostingDtoOptional.isPresent()) {
+            mav.addObject("message", "Problem in Saving Profile");
+            mav.addObject("jobSeekerDto", new JobSeekerDto());
+        } else {
+            mav.addObject("message", "Job Post Created / Updated");
+            mav.addObject("jobSeekerDto", savedJobPostingDtoOptional.get());
+        }
+
+        if (Objects.isNull(jobPostingDto.getJobPostingRoles()) || jobPostingDto.getJobPostingRoles().isEmpty()) {
+            // For the user, if no records available, we can show a single record
+            List<JobPostingRoleDto> jobPostingRoles = new ArrayList<>();
+            JobPostingRoleDto jobPostingRoleDto = new JobPostingRoleDto();
+            jobPostingRoles.add(jobPostingRoleDto);
+            jobPostingDto.setJobPostingRoles(jobPostingRoles);
+        }
+
+        if (Objects.isNull(jobPostingDto.getJobPostingSkills()) || jobPostingDto.getJobPostingSkills().isEmpty()) {
+            List<JobPostingSkillDto> jobPostingSkillDtos = new ArrayList<>();
+            JobPostingSkillDto jobPostingSkillDto = new JobPostingSkillDto();
+            jobPostingSkillDtos.add(jobPostingSkillDto);
+            jobPostingDto.setJobPostingSkills(jobPostingSkillDtos);
+        }
+
+        return mav;
+    }
+
+    @GetMapping("/jobPosting/{postId}")
+    public ResponseEntity<?> getByPostId(@PathVariable String postId) {
+
+        String result = null;
+
+        Optional<JobPostingDto> jobPostingOptional = jobPostingService.getByPostId(postId);
+        if(jobPostingOptional.isPresent()) {
+            JobPostingDto jobPostingDto = jobPostingOptional.get();
+            try {
+                result = new ObjectMapper().writeValueAsString(jobPostingDto);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            result = "{}";
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/jobPosting/{type}/{id}")
+    public ModelAndView updateJobPostingPreferences(
+            @ModelAttribute("jobSeekerDto") JobPostingDto jobPostingDto,
+            @PathVariable("type") String type,
+            @PathVariable("id") String id) {
+
+        ModelAndView mav = new ModelAndView("jobPosting", "jobPostingDto", jobPostingDto);
+
+        Optional<JobPostingDto> jobPostingDtoOptional = jobPostingService.updatePreferences(type, Long.parseLong(id));
+        if (jobPostingDtoOptional.isPresent()) {
+            mav.addObject("jobPostingDto", jobPostingDtoOptional.get());
+            mav.addObject("message", "Job Post updated successfully ");
+            return mav;
+        }
+
+        mav.addObject("message", "Problem in Saving Profile");
+        return mav;
     }
 
     ////////////////// Old ////////////////////

@@ -105,37 +105,26 @@ CREATE TABLE recruitment_entity (
 ALTER TABLE public.recruitment_entity OWNER TO sample;
 
 --
--- Name: recruitment_experience_level; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
---
-
-CREATE TABLE recruitment_experience_level (
-    exp_id integer NOT NULL,
-    experience character varying(500)
-);
-
-
-ALTER TABLE public.recruitment_experience_level OWNER TO sample;
-
---
 -- Name: recruitment_job_post_master; Type: TABLE; Schema: public; Owner: sample; Tablespace: 
 --
 
 CREATE TABLE recruitment_job_post_master (
     id integer NOT NULL,
     job_id character varying(25) NOT NULL,
-    posted_by_id_emp_id integer,
-    designation_id integer,
+    user_id character varying(100),
     experience_level integer,
     location character varying(100),
-    brief_description character varying(1000),
+    description character varying(1000),
     last_date_to_apply date,
-    to_mail_id character varying(500),
-    qualifications character varying(100),
+    mail_to character varying(500),
+    qualifications character varying(1000),
     other_details character varying(1000),
     salary numeric(15,0),
-    entered_date timestamp without time zone DEFAULT now(),
-    is_active boolean DEFAULT true,
-    deactivated_date timestamp without time zone
+    created_on timestamp without time zone DEFAULT now(),
+    is_active character(1) DEFAULT true,
+    deactivated_on timestamp without time zone,
+    updated_on timestamp without time zone,
+    title character varying(100)
 );
 
 
@@ -951,7 +940,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 29, true);
+SELECT pg_catalog.setval('hibernate_sequence', 32, true);
 
 
 --
@@ -1104,30 +1093,18 @@ COPY recruitment_entity (dtype, id, address, created_on, email, first_name, is_a
 
 
 --
--- Data for Name: recruitment_experience_level; Type: TABLE DATA; Schema: public; Owner: sample
---
-
-COPY recruitment_experience_level (exp_id, experience) FROM stdin;
-1	0-1 years
-2	1-2 years
-3	2-3 years
-4	3-4 years
-5	4-5 years
-6	5-6 years
-7	6-7 years
-8	7-8 years
-9	8-9 years
-10	9-10 years
-11	10-11 years
-12	11-12 years
-\.
-
-
---
 -- Data for Name: recruitment_job_post_master; Type: TABLE DATA; Schema: public; Owner: sample
 --
 
-COPY recruitment_job_post_master (id, job_id, posted_by_id_emp_id, designation_id, experience_level, location, brief_description, last_date_to_apply, to_mail_id, qualifications, other_details, salary, entered_date, is_active, deactivated_date) FROM stdin;
+COPY recruitment_job_post_master (id, job_id, user_id, experience_level, location, description, last_date_to_apply, mail_to, qualifications, other_details, salary, created_on, is_active, deactivated_on, updated_on, title) FROM stdin;
+5	WT000001	REC000001	2	Hyderabad	tes	2021-12-12	r@r.com	MTech	tee	100000	2021-12-21 22:01:00.165	A	\N	2021-12-21 22:01:00.165	Tech Lead
+6	WT000006	REC000001	2	Hyderabada	tes	2021-12-12	r@r.com	MTech	tee	100000	2021-12-22 22:12:30.208	A	\N	2021-12-22 22:12:30.208	Tech Lead
+8	WT000007	REC000001	3	Chennai	dd	2021-12-28	g@r.com	qqq	oo	200000	\N	A	\N	2021-12-23 12:15:52.561	tt
+9	WT000009	REC000001	22	Che	dfd	2021-12-12	g@r.com	qqq	fdfd	200001	\N	A	\N	2021-12-23 13:12:19.967	TTT
+12	WT000010	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 13:50:55.086	gg
+14	WT000013	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:34:35.905	gg
+15	WT000015	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:35:01.524	gg
+16	WT000016	REC000001	9	jj	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 18:23:35.057	gg
 \.
 
 
@@ -1135,7 +1112,7 @@ COPY recruitment_job_post_master (id, job_id, posted_by_id_emp_id, designation_i
 -- Name: recruitment_job_post_master_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 1, false);
+SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 16, true);
 
 
 --
@@ -1143,6 +1120,19 @@ SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 1, false);
 --
 
 COPY recruitment_job_post_roles (id, job_id, role_responsibility) FROM stdin;
+4	WT000001	Should Work
+5	WT000006	
+8	WT000007	rr
+19	WT000009	rr2
+20	WT000009	rr3
+27	WT000010	r1
+30	WT000010	R2
+31	WT000013	r1
+32	WT000013	R2
+33	WT000015	r1
+34	WT000015	R2
+37	WT000016	r3
+39	WT000016	Rr5
 \.
 
 
@@ -1150,7 +1140,7 @@ COPY recruitment_job_post_roles (id, job_id, role_responsibility) FROM stdin;
 -- Name: recruitment_job_post_roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 1, false);
+SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 39, true);
 
 
 --
@@ -1158,6 +1148,21 @@ SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 1, false);
 --
 
 COPY recruitment_job_post_skillset (id, job_id, skill) FROM stdin;
+4	WT000001	Great Skill
+5	WT000006	SK SK
+6	WT000006	SK2 SK
+7	WT000007	ss
+18	WT000009	ss2
+19	WT000009	ss3
+26	WT000010	s1
+28	WT000010	S3
+29	WT000013	s1
+30	WT000013	S3
+31	WT000015	s1
+32	WT000015	S3
+33	WT000016	s1
+37	WT000016	SS3
+38	WT000016	S4
 \.
 
 
@@ -1165,7 +1170,7 @@ COPY recruitment_job_post_skillset (id, job_id, skill) FROM stdin;
 -- Name: recruitment_job_post_skillset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_skillset_id_seq', 1, false);
+SELECT pg_catalog.setval('recruitment_job_post_skillset_id_seq', 38, true);
 
 
 --
@@ -1193,6 +1198,7 @@ COPY recruitment_qualifications (qualification_id, qualification) FROM stdin;
 COPY recruitment_recruiter (id, user_id, first_name, last_name, mobile, email, address, postal_code, is_active, created_on, updated_on, last_login, company_name, aadhar) FROM stdin;
 2	REC000002	TT	RT	\N	TR@r.com	\N	\N	A	2021-12-19 22:22:31.972	2021-12-19 22:22:31.972	2021-12-19 22:22:31.972	\N	\N
 1	REC000001	rrrr	rrrr	9866489944	rrr@r.com	Test	500000000000	A	\N	2021-12-20 00:31:40.018	2021-12-20 00:31:40.018	Test Company	\N
+3	REC000003	REC	SWAMY	4848484848	rsw@gmail.com			A	\N	2021-12-20 11:43:44.589	2021-12-20 11:43:44.588		\N
 \.
 
 
@@ -1274,10 +1280,12 @@ COPY recruitment_user (id, user_id, first_name, is_active, created_on, gender, m
 5	SAMPLE000005	Lakshmi Rajeswara Rao	A	2021-12-07 22:29:05.429	M	9866489944	9944994499	dd@dd.com	Test	1982-08-01	\N	\N	Seeta Rama Prasad	\N	2021-12-07 22:29:05.429	2021-12-07 22:29:05.429	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	\N	0	\N
 6	SAMPLE000006	Test	A	2021-12-11 23:14:15.646	M	\N	\N	raje@gmail.com	\N	\N	\N	\N	\N	\N	2021-12-11 23:14:15.647	2021-12-11 23:14:15.646	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	Register	0	\N
 7	SAMPLE000007	Test	A	2021-12-12 23:42:18.909	M	\N	\N	fdf@g.com	\N	\N	\N	\N	\N	\N	2021-12-12 23:42:18.909	2021-12-12 23:42:18.909	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	TT	\N	\N
-1	SAMPLE000001	Lakshmi Rajeswara	A	\N	M	9866489944	9944994499	dd@dd.com	Test	\N	\N	\N	Seeta Rama Prasad	\N	2021-12-17 23:54:49.663	2021-12-17 23:54:49.663	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	Rao	\N	\N
 8	REC000008	Test	A	2021-12-19 17:43:29.549	M	\N	\N	rec@rec.com	\N	\N	\N	\N	\N	\N	2021-12-19 17:43:29.549	2021-12-19 17:43:29.549	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	Recruiter	\N	\N
 9	JS000009	Test	A	2021-12-19 20:55:52.279	M	\N	\N	r@r.com	\N	\N	\N	\N	\N	\N	2021-12-19 20:55:52.279	2021-12-19 20:55:52.279	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	RR	\N	\N
 10	JS000010	TS	A	2021-12-19 22:23:30.747	M	\N	\N	tj@d.com	\N	\N	\N	\N	\N	\N	2021-12-19 22:23:30.747	2021-12-19 22:23:30.747	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	tj	\N	\N
+11	JS000011	Swamy	A	2021-12-20 11:38:12.179	M	\N	\N	sk@gmail.com	\N	\N	\N	\N	\N	\N	2021-12-20 11:38:12.179	2021-12-20 11:38:12.179	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	Kumar	\N	\N
+1	SAMPLE000001	Lakshmi Rajeswara	A	\N	M	9866489944	9944994499	dd@dd.com	Test	\N	\N	\N	Seeta Rama Prasad	\N	2021-12-20 11:47:40.511	2021-12-20 11:47:40.511	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	442323232333		A	A	Rao	\N	\N
+12	JS000012	cr	A	2021-12-21 15:39:44.599	M	\N	\N	cr@gmailc.om	\N	\N	\N	\N	\N	\N	2021-12-21 15:39:44.599	2021-12-21 15:39:44.599	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	cr	\N	\N
 \.
 
 
@@ -1286,14 +1294,14 @@ COPY recruitment_user (id, user_id, first_name, is_active, created_on, gender, m
 --
 
 COPY recruitment_user_experiences (id, user_id, company, from_date, to_date, exp_months, designation, job_location, is_current_job) FROM stdin;
-107	SAMPLE000001	Testcom	2005-08-31	2008-12-15	37	Test Desig	Test Location	Y
-108	SAMPLE000001	Testcom	2005-08-31	2008-12-15	39			Y
-109	SAMPLE000001	TT	2001-11-11	2002-12-12	34			Y
-110	SAMPLE000001	FF	2010-10-10	2018-08-08	31			Y
-111	SAMPLE000001	GG	2009-09-09	2010-10-10	29			Y
-112	SAMPLE000001	II	2007-07-07	2008-08-08	27			Y
 45	SAMPLE000002	Testcom	2001-01-01	2002-02-02	2	\N	\N	N
 46	SAMPLE000002	JJ	2002-02-02	2003-03-03	4	\N	\N	N
+113	SAMPLE000001	Testcom	2005-08-31	2008-12-15	37	Test Desig	Test Location	Y
+114	SAMPLE000001	Testcom	2005-08-31	2008-12-15	39			Y
+115	SAMPLE000001	TT	2001-11-11	2002-12-12	34			Y
+116	SAMPLE000001	FF	2010-10-10	2018-08-08	31			Y
+117	SAMPLE000001	GG	2009-09-09	2010-10-10	29			Y
+118	SAMPLE000001	II	2007-07-07	2008-08-08	27			Y
 \.
 
 
@@ -1301,7 +1309,7 @@ COPY recruitment_user_experiences (id, user_id, company, from_date, to_date, exp
 -- Name: recruitment_user_experiences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_user_experiences_id_seq', 112, true);
+SELECT pg_catalog.setval('recruitment_user_experiences_id_seq', 118, true);
 
 
 --
@@ -1331,12 +1339,12 @@ SELECT pg_catalog.setval('recruitment_user_log_id_seq', 1, false);
 --
 
 COPY recruitment_user_qualifications (id, user_id, qualification, percentage, board_university, specialization, institute_name, start_date, completion_date) FROM stdin;
-67	SAMPLE000001	ff	60.00	JJ	ff	dd	\N	\N
-68	SAMPLE000001	Qly	90.00	Osmania			\N	\N
-69	SAMPLE000001	Qlyy	80.00	JNTUH			\N	\N
 4	SAMPLE000002	Qly	90.00	Osmania	\N	\N	\N	\N
-70	SAMPLE000001	Qlyyy	70.00	JNTUK			\N	\N
-71	SAMPLE000001	QL	40.00	hh	ff	cc	\N	\N
+72	SAMPLE000001	ff	60.00	JJ	ff	dd	\N	\N
+73	SAMPLE000001	Qly	90.00	Osmania			\N	\N
+74	SAMPLE000001	Qlyy	80.00	JNTUH			\N	\N
+75	SAMPLE000001	Qlyyy	70.00	JNTUK			\N	\N
+76	SAMPLE000001	QL	40.00	hh	ff	cc	\N	\N
 \.
 
 
@@ -1344,7 +1352,7 @@ COPY recruitment_user_qualifications (id, user_id, qualification, percentage, bo
 -- Name: recruitment_user_qualifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_user_qualifications_id_seq', 71, true);
+SELECT pg_catalog.setval('recruitment_user_qualifications_id_seq', 76, true);
 
 
 --
@@ -1352,7 +1360,9 @@ SELECT pg_catalog.setval('recruitment_user_qualifications_id_seq', 71, true);
 --
 
 COPY recruitment_user_skills (id, user_id, skill_id, skill_level, exp_months) FROM stdin;
-8	SAMPLE000001	4	5	2
+10	SAMPLE000001	4	5	2
+11	SAMPLE000001	5	4	6
+12	SAMPLE000001	13	8	5
 \.
 
 
@@ -1360,7 +1370,7 @@ COPY recruitment_user_skills (id, user_id, skill_id, skill_level, exp_months) FR
 -- Name: recruitment_user_skills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_user_skills_id_seq', 9, true);
+SELECT pg_catalog.setval('recruitment_user_skills_id_seq', 12, true);
 
 
 --
@@ -1405,6 +1415,7 @@ COPY role_services (role_id, service_id) FROM stdin;
 9	91
 9	92
 9	95
+8	97
 \.
 
 
@@ -1448,6 +1459,7 @@ COPY services (service_id, service_url, service_name, disabled, parent_id, displ
 1	/home	Home	f	0	1	f	f
 95	/recruitment/profile	Job Seeker Profile	f	91	2	f	f
 96	/recruitment/recruiter	Recruiter Profile	f	91	2	f	f
+97	/recruitment/jobPosting	Job Postings	f	91	3	t	f
 \.
 
 
@@ -1498,6 +1510,9 @@ COPY user_roles (user_id, role_id) FROM stdin;
 27	8
 28	8
 29	9
+30	9
+31	8
+32	9
 1	1
 \.
 
@@ -1517,11 +1532,14 @@ COPY users (id, user_name, password, disabled, user_desc, email, last_login, fai
 29	JS000010	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	TS tj	tj@d.com	2021-12-19 22:25:37.044	0	\N
 25	REC000008	$2a$10$jca532RMeL.YBuqG./1CHuBh7Zpitzx1XZpgWXZYq/Em9XM339qMK	f	Test Recruiter	rec@rec.com	2021-12-19 17:45:40.238	1	\N
 28	REC000002	$2a$10$OsahFcT6ivzT0ygxFdfc4e/4nQ7CDFpaF92HfKh5l3UWi5nazKF22	f	TT RT	TR@r.com	\N	1	\N
-1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-12-19 23:28:10.104	0	2019-05-02 13:00:00
+30	JS000011	$2a$10$.StTSb2x0EKEJJq5S3Iz6.EXyuo3C2bj3eSHMUQ7ntM5E2WFfOveW	f	Swamy Kumar	sk@gmail.com	2021-12-20 11:39:02.396	0	\N
+31	REC000003	$2a$10$QXrMznC1rhri1d4txxueMOShrcStANd.YknmscaQIpKX.ixij0Aya	f	REC SWAMY	rsw@gmail.com	2021-12-20 11:42:37.18	0	\N
+27	REC000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	rrrr rrrr	rrr@r.com	2021-12-23 18:21:43.592	0	\N
+1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-12-20 11:45:03.034	0	2019-05-02 13:00:00
 14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-12-14 22:52:49.738	0	2021-11-29 18:44:49.385
+13	SAMPLE000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Lakshmi Rajeswara Rao	dd@dd.com	2021-12-20 22:50:24.713	0	2021-11-30 16:15:35.134
 15	SAMPLE000003	$2a$10$BzqsIT/gCXu1EBgtDQF1N.M34yyXYzpuCnPCBzZGrCWUFv13/QaaG	f	Jyothirmayee	j@g.com	2021-11-30 18:12:00.157	0	\N
-13	SAMPLE000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Lakshmi Rajeswara Rao	dd@dd.com	2021-12-20 00:03:56.081	0	2021-11-30 16:15:35.134
-27	REC000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	rrrr rrrr	rrr@r.com	2021-12-20 00:31:25.81	0	\N
+32	JS000012	$2a$10$nv7jrdlk/w3yR1qM2eqQ0eNS1uNs.ru.QzZLnwOEhsn9Q03AC.ImS	f	cr cr	cr@gmailc.om	\N	\N	\N
 \.
 
 
@@ -1546,14 +1564,6 @@ ALTER TABLE ONLY recruitment_designation_mst
 
 ALTER TABLE ONLY recruitment_entity
     ADD CONSTRAINT recruitment_entity_pkey PRIMARY KEY (id);
-
-
---
--- Name: recruitment_experience_level_pkey; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
---
-
-ALTER TABLE ONLY recruitment_experience_level
-    ADD CONSTRAINT recruitment_experience_level_pkey PRIMARY KEY (exp_id);
 
 
 --
@@ -1685,6 +1695,22 @@ ALTER TABLE ONLY recruitment_entity
 
 
 --
+-- Name: uk_9jnf5n6krcuuk4bc3ci8y84o8; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY recruitment_job_post_master
+    ADD CONSTRAINT uk_9jnf5n6krcuuk4bc3ci8y84o8 UNIQUE (job_id);
+
+
+--
+-- Name: uk_o75jnuhv9mqjaur7v3l6wg8sl; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY recruitment_recruiter
+    ADD CONSTRAINT uk_o75jnuhv9mqjaur7v3l6wg8sl UNIQUE (user_id);
+
+
+--
 -- Name: user_details_pkey; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
 --
 
@@ -1709,22 +1735,6 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: job_did_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
---
-
-ALTER TABLE ONLY recruitment_job_post_master
-    ADD CONSTRAINT job_did_fkey FOREIGN KEY (designation_id) REFERENCES recruitment_designation_mst(designation_id);
-
-
---
--- Name: job_expid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
---
-
-ALTER TABLE ONLY recruitment_job_post_master
-    ADD CONSTRAINT job_expid_fkey FOREIGN KEY (experience_level) REFERENCES recruitment_experience_level(exp_id);
-
-
---
 -- Name: jobid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
 --
 
@@ -1738,14 +1748,6 @@ ALTER TABLE ONLY recruitment_job_post_roles
 
 ALTER TABLE ONLY recruitment_job_post_skillset
     ADD CONSTRAINT jobid_fkey FOREIGN KEY (job_id) REFERENCES recruitment_job_post_master(job_id);
-
-
---
--- Name: jopb_empid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
---
-
-ALTER TABLE ONLY recruitment_job_post_master
-    ADD CONSTRAINT jopb_empid_fkey FOREIGN KEY (posted_by_id_emp_id) REFERENCES users(id);
 
 
 --
@@ -1850,6 +1852,30 @@ ALTER TABLE ONLY user_details
 
 ALTER TABLE ONLY user_role_id_mapping
     ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY recruitment_recruiter
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_name);
+
+
+--
+-- Name: user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY recruitment_user
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_name);
+
+
+--
+-- Name: user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sample
+--
+
+ALTER TABLE ONLY recruitment_job_post_master
+    ADD CONSTRAINT user_id_fkey FOREIGN KEY (user_id) REFERENCES recruitment_recruiter(user_id);
 
 
 --

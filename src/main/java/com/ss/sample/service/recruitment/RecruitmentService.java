@@ -3,8 +3,8 @@ package com.ss.sample.service.recruitment;
 import com.ss.sample.entity.UserEntity;
 import com.ss.sample.entity.recruitment.RecruitmentRecruiterEntity;
 import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
-import com.ss.sample.model.JobSeekerDto;
-import com.ss.sample.model.RegisterDto;
+import com.ss.sample.model.recruitment.JobSeekerDto;
+import com.ss.sample.model.recruitment.RegisterDto;
 import com.ss.sample.model.UserDto;
 import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.UserRepository;
@@ -81,25 +81,25 @@ public class RecruitmentService {
             id = recruitmentRecruiterRepository.getMaxId();
             String userId = Constants.StrConstants.RECRUITER + String.format("%06d", id);
 
-            RecruitmentRecruiterEntity recruitmentEntity = new RecruitmentRecruiterEntity();
-            recruitmentEntity.setId(id);
-            recruitmentEntity.setUserId(userId);
-            recruitmentEntity.setFirstName(registerDto.getFirstName());
-            recruitmentEntity.setLastName(registerDto.getLastName());
-            recruitmentEntity.setEmail(registerDto.getEmail());
+            RecruitmentRecruiterEntity recruitmentEntity = RecruitmentRecruiterEntity.builder()
+                    .id(id)
+                    .userId(userId)
+                    .firstName(registerDto.getFirstName())
+                    .lastName(registerDto.getLastName())
+                    .email(registerDto.getEmail())
+                    .build();
+
+            createUser(userId,
+                    registerDto.getFirstName() + " " + registerDto.getLastName(),
+                    registerDto.getEmail(),
+                    registerDto.getPassword(),
+                    Constants.Roles.RECRUITER_ROLE_ID,
+                    id);
 
             RecruitmentRecruiterEntity savedRecruitmentUser = recruitmentRecruiterRepository.save(recruitmentEntity);
 
-            if(recruitmentRecruiterRepository.existsById(savedRecruitmentUser.getId())) {
-                createUser(savedRecruitmentUser.getUserId(),
-                        savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName(),
-                        savedRecruitmentUser.getEmail(),
-                        registerDto.getPassword(),
-                        Constants.Roles.RECRUITER_ROLE_ID,
-                        savedRecruitmentUser.getId());
+            return Optional.of(recruitmentHelperService.convertRecruiter(savedRecruitmentUser));
 
-                return Optional.of(recruitmentHelperService.convertRecruiter(savedRecruitmentUser));
-            }
         } else {
             id = recruitmentUserRepository.getMaxId();
             String userId = Constants.StrConstants.JOB_SEEKER + String.format("%06d", id);
@@ -111,21 +111,16 @@ public class RecruitmentService {
             recruitmentEntity.setLastName(registerDto.getLastName());
             recruitmentEntity.setEmail(registerDto.getEmail());
 
+            createUser(userId,
+                    registerDto.getFirstName() + " " + registerDto.getLastName(),
+                    registerDto.getEmail(),
+                    registerDto.getPassword(),
+                    Constants.Roles.JOB_SEEKER_ROLE_ID,
+                    id);
+
             RecruitmentUserEntity savedRecruitmentUser = recruitmentUserRepository.save(recruitmentEntity);
-
-            if(recruitmentUserRepository.existsById(savedRecruitmentUser.getId())) {
-                createUser(savedRecruitmentUser.getUserId(),
-                        savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName(),
-                        savedRecruitmentUser.getEmail(),
-                        registerDto.getPassword(),
-                        Constants.Roles.JOB_SEEKER_ROLE_ID,
-                        savedRecruitmentUser.getId());
-
-                return Optional.of(recruitmentHelperService.convert(savedRecruitmentUser));
-            }
+            return Optional.of(recruitmentHelperService.convert(savedRecruitmentUser));
         }
-
-        return Optional.empty();
     }
 
     private void createUser(String userName, String userDesc, String email, String password, int roleId, long id) {

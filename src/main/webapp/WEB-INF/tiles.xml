@@ -50,15 +50,15 @@
         <put-attribute name="body" value="/WEB-INF/views/common/sessionTimeout.jsp" />
     </definition>
 
-    <definition name="error" extends="tilesTemplate">
+    <definition name="error" extends="homePageTemplate">
         <put-attribute name="body" value="/WEB-INF/views/common/error.jsp" />
     </definition>
 
-    <definition name="404" extends="tilesTemplate">
+    <definition name="404" extends="homePageTemplate">
         <put-attribute name="body" value="/WEB-INF/views/common/404.jsp" />
     </definition>
 
-    <definition name="500" extends="tilesTemplate">
+    <definition name="500" extends="homePageTemplate">
         <put-attribute name="body" value="/WEB-INF/views/common/500.jsp" />
     </definition>
 
@@ -109,6 +109,10 @@
 
     <definition name="recruiter" extends="tilesTemplate">
         <put-attribute name="body" value="/WEB-INF/views/recruitment/recruiter.jsp" />
+    </definition>
+
+    <definition name="jobPosting" extends="tilesTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/recruitment/jobPosting.jsp" />
     </definition>
 
     <definition name="compiler" extends="tilesTemplate">

@@ -50,7 +50,8 @@ public class Constants {
 
 	public static final class StrConstants {
 		public static final String SESSION_USER_NAME = "username";
-		public static final String APP_NAME = "SAMPLE";
+		public static final String APP_NAME = "WORKTECH";
+		public static final String APP_NAME_SHORT = "WT";
 		public static final String JOB_SEEKER = "JS";
 		public static final String RECRUITER = "REC";
 		public static final String MOBILE = "mobileNo.";

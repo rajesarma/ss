@@ -1,5 +1,6 @@
-package com.ss.sample.model;
+package com.ss.sample.model.recruitment;
 
+import com.ss.sample.model.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -18,7 +18,7 @@
         }
 
         .content h1 {
-            font-size: 160px
+            font-size: 100px
         }
 
         .error-title {

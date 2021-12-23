@@ -3,11 +3,12 @@ package com.ss.sample.entity.recruitment;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @SuperBuilder
@@ -26,4 +27,8 @@ public class RecruitmentRecruiterEntity extends RecruitmentEntity implements Ser
 
     @Column(name ="company_name")
     private String companyName;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruiter")
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<JobPostingEntity> jobPostings;
 }

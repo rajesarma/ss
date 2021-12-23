@@ -1,8 +1,6 @@
 package com.ss.sample.controller;
 
-import com.ss.sample.model.JobSeekerDto;
-import com.ss.sample.model.RegisterDto;
-import com.ss.sample.service.UserService;
+import com.ss.sample.model.recruitment.RegisterDto;
 import com.ss.sample.service.recruitment.RecruitmentService;
 import com.ss.sample.util.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -10,13 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller

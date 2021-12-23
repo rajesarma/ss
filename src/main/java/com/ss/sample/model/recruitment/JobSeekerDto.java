@@ -2,9 +2,11 @@ package com.ss.sample.model.recruitment;
 
 import com.ss.sample.model.Gender;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
@@ -23,6 +25,7 @@ public class JobSeekerDto extends RegisterDto implements Serializable {
 	//	@NotBlank(message = "Father Name cannot be empty")
 	private String fatherName;
 
+	@Builder.Default
 	private Gender gender = Gender.MALE;
 
 	//	@Pattern(regexp="[\\d]{10}")
@@ -33,13 +36,16 @@ public class JobSeekerDto extends RegisterDto implements Serializable {
 
 	//	@DateTimeFormat(pattern = "dd/MM/yyyy")
 //	@Past
-	private LocalDate dob;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private String dob;
 
-	private String photoName=null;
+	@Builder.Default
+	private String photoName = null;
 	private String photoData;
 	private MultipartFile photo;
 
-	private String resumeName=null;
+	@Builder.Default
+	private String resumeName = null;
 	private String resumeData;
 	private MultipartFile resume;
 

@@ -17,10 +17,10 @@ public class JobSeekerQlyDto implements Serializable {
 
     private static final long serialVersionUID = 6309389030417901027L;
 
-    private long id;
+    private Long id;
     private String userId;
     private String qualification;
-    private double percentage;
+    private Double percentage;
     private String boardUniversity;
     private String specialization;
     private String instituteName;

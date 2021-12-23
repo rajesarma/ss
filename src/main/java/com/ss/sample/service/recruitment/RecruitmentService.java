@@ -3,8 +3,7 @@ package com.ss.sample.service.recruitment;
 import com.ss.sample.entity.UserEntity;
 import com.ss.sample.entity.recruitment.RecruitmentRecruiterEntity;
 import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
-import com.ss.sample.model.recruitment.JobSeekerDto;
-import com.ss.sample.model.recruitment.RegisterDto;
+import com.ss.sample.model.recruitment.*;
 import com.ss.sample.model.UserDto;
 import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.UserRepository;
@@ -19,9 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -72,7 +69,37 @@ public class RecruitmentService {
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //            if (roleString.equals("ROLE_" + Constants.Roles.JOB_SEEKER_ROLE.toUpperCase())) {
         Optional<RecruitmentUserEntity> savedRecruitmentUser = recruitmentUserRepository.findByUserId(userEntity.getUsername());
-        return savedRecruitmentUser.map(recruitmentHelperService::convert);
+
+        if(savedRecruitmentUser.isPresent()) {
+            JobSeekerDto jobSeekerDto = recruitmentHelperService.convert(savedRecruitmentUser.get());
+            addMinRecords(jobSeekerDto);
+            return Optional.of(jobSeekerDto);
+        }
+        return Optional.empty();
+    }
+
+    public void addMinRecords(JobSeekerDto jobSeekerDto) {
+        // For the user, if no records available, we can show a single record
+        if (Objects.isNull(jobSeekerDto.getUserExperiences()) || jobSeekerDto.getUserExperiences().isEmpty()) {
+            List<JobSeekerExpDto> jobSeekerExperiences = new ArrayList<>();
+            JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
+            jobSeekerExperiences.add(jobSeekerExpDto);
+            jobSeekerDto.setUserExperiences(jobSeekerExperiences);
+        }
+
+        if (Objects.isNull(jobSeekerDto.getUserQualifications()) || jobSeekerDto.getUserQualifications().isEmpty()) {
+            List<JobSeekerQlyDto> jobSeekerQualifications = new ArrayList<>();
+            JobSeekerQlyDto jobSeekerQlyDto = new JobSeekerQlyDto();
+            jobSeekerQualifications.add(jobSeekerQlyDto);
+            jobSeekerDto.setUserQualifications(jobSeekerQualifications);
+        }
+
+        if (Objects.isNull(jobSeekerDto.getUserSkills()) || jobSeekerDto.getUserSkills().isEmpty()) {
+            List<JobSeekerSkillDto> jobSeekerSkills = new ArrayList<>();
+            JobSeekerSkillDto jobSeekerSkillDto = new JobSeekerSkillDto();
+            jobSeekerSkills.add(jobSeekerSkillDto);
+            jobSeekerDto.setUserSkills(jobSeekerSkills);
+        }
     }
 
     public Optional<RegisterDto> createUser(RegisterDto registerDto) {
@@ -173,7 +200,11 @@ public class RecruitmentService {
             userEntity.setUserDesc(savedRecruitmentUser.getFirstName() + " " + savedRecruitmentUser.getLastName());
             userRepository.save(userEntity);
         }
-        return Optional.of(recruitmentHelperService.convert(savedRecruitmentUser));
+
+        JobSeekerDto savedJobSeekerDto = recruitmentHelperService.convert(savedRecruitmentUser);
+        addMinRecords(savedJobSeekerDto);
+
+        return Optional.of(savedJobSeekerDto);
     }
 
     public Optional<JobSeekerDto> updatePreferences(String type, long id) {

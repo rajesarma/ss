@@ -1,13 +1,13 @@
 package com.ss.sample.service.recruitment;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ss.sample.entity.UserEntity;
-import com.ss.sample.entity.recruitment.*;
+import com.ss.sample.entity.recruitment.JobPostingEntity;
+import com.ss.sample.entity.recruitment.JobPostingRoleEntity;
+import com.ss.sample.entity.recruitment.JobPostingSkillEntity;
+import com.ss.sample.entity.recruitment.RecruitmentRecruiterEntity;
 import com.ss.sample.model.recruitment.JobPostingDto;
 import com.ss.sample.model.recruitment.JobPostingRoleDto;
 import com.ss.sample.model.recruitment.JobPostingSkillDto;
-import com.ss.sample.model.recruitment.JobSeekerExpDto;
 import com.ss.sample.repository.recruitment.JobPostingRepository;
 import com.ss.sample.repository.recruitment.RecruitmentRecruiterRepository;
 import com.ss.sample.util.Constants;
@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -192,42 +194,12 @@ public class JobPostingService {
                 }
             }
 
-
-
-
             JobPostingEntity savedJobPostingEntity = jobPostingRepository.save(jobPostingEntity);
             return Optional.of(convert(savedJobPostingEntity));
         }
 
         return Optional.empty();
     }
-
-    public Optional<JobPostingDto> updatePreferences(String type, long id) {
-        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        /*Optional<JobPostingEntity> existingEntityOptional = jobPostingRepository.findByJobId(userEntity.getUsername());
-
-        if (existingEntityOptional.isPresent()) {
-            RecruitmentUserEntity existingUserEntity = existingEntityOptional.get();
-
-            if( "jobSeekerQualifications".equalsIgnoreCase(type)) {
-                existingUserEntity.getUserQualifications().removeIf(js ->  js.getId() == id);
-            }
-
-            if( "jobSeekerExperiences".equalsIgnoreCase(type)) {
-                existingUserEntity.getUserExperiences().removeIf(js ->  js.getId() == id);
-            }
-
-            if( "jobSeekerSkills".equalsIgnoreCase(type)) {
-                existingUserEntity.getUserSkills().removeIf(js ->  js.getId() == id);
-            }
-
-            RecruitmentUserEntity savedEntity = recruitmentUserRepository.save(existingUserEntity);
-            return Optional.of(recruitmentHelperService.convert(savedEntity));
-        }*/
-
-        return Optional.empty();
-    }
-
 
     public JobPostingDto convert(JobPostingEntity jobPostingEntity) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

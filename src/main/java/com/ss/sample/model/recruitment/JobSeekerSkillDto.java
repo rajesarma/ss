@@ -17,10 +17,10 @@ public class JobSeekerSkillDto implements Serializable {
 
     private static final long serialVersionUID = 6309389030417901027L;
 
-    private long id;
+    private Long id;
     private String userId;
-    private int expMonths;
-    private int skillLevel;
-    private long skillTypeId;
-    private long skillId;
+    private Integer expMonths;
+    private Integer skillLevel;
+    private Long skillTypeId;
+    private Long skillId;
 }

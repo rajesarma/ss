@@ -68,34 +68,10 @@ public class RecruitmentController {
             Optional<JobSeekerDto> jobSeekerDtoOptional = recruitmentService.getDataByUserName();
 
             if(jobSeekerDtoOptional.isPresent()) {
-                jobSeekerDto = jobSeekerDtoOptional.get();
-
-                // For the user, if no records available, we can show a single record
-                if (Objects.isNull(jobSeekerDto.getUserExperiences()) || jobSeekerDto.getUserExperiences().isEmpty()) {
-                    List<JobSeekerExpDto> jobSeekerExperiences = new ArrayList<>();
-                    JobSeekerExpDto jobSeekerExpDto = new JobSeekerExpDto();
-                    jobSeekerExperiences.add(jobSeekerExpDto);
-                    jobSeekerDto.setUserExperiences(jobSeekerExperiences);
-                }
-
-                if (Objects.isNull(jobSeekerDto.getUserQualifications()) || jobSeekerDto.getUserQualifications().isEmpty()) {
-                    List<JobSeekerQlyDto> jobSeekerQualifications = new ArrayList<>();
-                    JobSeekerQlyDto jobSeekerQlyDto = new JobSeekerQlyDto();
-                    jobSeekerQualifications.add(jobSeekerQlyDto);
-                    jobSeekerDto.setUserQualifications(jobSeekerQualifications);
-                }
-
-                if (Objects.isNull(jobSeekerDto.getUserSkills()) || jobSeekerDto.getUserSkills().isEmpty()) {
-                    List<JobSeekerSkillDto> jobSeekerSkills = new ArrayList<>();
-                    JobSeekerSkillDto jobSeekerSkillDto = new JobSeekerSkillDto();
-                    jobSeekerSkills.add(jobSeekerSkillDto);
-                    jobSeekerDto.setUserSkills(jobSeekerSkills);
-                }
-
-                mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDto);
+                mav = new ModelAndView("profile", jobSeekerDtoStr, jobSeekerDtoOptional.get());
                 mav.addObject(action,"/recruitment/profile");
             } else {
-
+                recruitmentService.addMinRecords(jobSeekerDto);
                 mav.addObject("message", "Problem in Fetching Data");
             }
         } else {
@@ -121,14 +97,15 @@ public class RecruitmentController {
 
         Optional<JobSeekerDto> savedDtoOptional = recruitmentService.saveProfile(jobSeekerDto);
 
-        if (!savedDtoOptional.isPresent()) {
+        if (savedDtoOptional.isPresent()) {
+            mav.addObject("message", "Profile Updated");
+            mav.addObject("jobSeekerDto", savedDtoOptional.get());
+        } else {
             mav.addObject("message", "Problem in Saving Profile");
-            mav.addObject("jobSeekerDto", new JobSeekerDto());
-            return mav;
+            recruitmentService.addMinRecords(jobSeekerDto);
+            mav.addObject("jobSeekerDto", jobSeekerDto);
         }
 
-        mav.addObject("jobSeekerDto", savedDtoOptional.get());
-        mav.addObject("message", "Profile Updated");
         getData(mav);
         return mav;
     }
@@ -309,7 +286,6 @@ public class RecruitmentController {
     public ModelAndView getJobPostingPage(@Valid @ModelAttribute("jobPostingDto") JobPostingDto jobPostingDto,
                                           BindingResult result) {
         ModelAndView mav = new ModelAndView("jobPosting", "jobPostingDto", jobPostingDto);
-        mav.addObject("jobsList", jobPostingService.getJobPostings());
 
         if(result.hasErrors()) {
             System.out.println("Errors in page");
@@ -340,6 +316,8 @@ public class RecruitmentController {
             jobPostingDto.setJobPostingSkills(jobPostingSkillDtos);
         }
 
+        mav.addObject("jobsList", jobPostingService.getJobPostings());
+
         return mav;
     }
 
@@ -361,25 +339,6 @@ public class RecruitmentController {
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @PostMapping("/jobPosting/{type}/{id}")
-    public ModelAndView updateJobPostingPreferences(
-            @ModelAttribute("jobSeekerDto") JobPostingDto jobPostingDto,
-            @PathVariable("type") String type,
-            @PathVariable("id") String id) {
-
-        ModelAndView mav = new ModelAndView("jobPosting", "jobPostingDto", jobPostingDto);
-
-        Optional<JobPostingDto> jobPostingDtoOptional = jobPostingService.updatePreferences(type, Long.parseLong(id));
-        if (jobPostingDtoOptional.isPresent()) {
-            mav.addObject("jobPostingDto", jobPostingDtoOptional.get());
-            mav.addObject("message", "Job Post updated successfully ");
-            return mav;
-        }
-
-        mav.addObject("message", "Problem in Saving Profile");
-        return mav;
     }
 
     ////////////////// Old ////////////////////

@@ -18,11 +18,11 @@ public class JobSeekerExpDto implements Serializable {
 
     private static final long serialVersionUID = 7869684385045512253L;
 
-    private long id;
+    private Long id;
     private String userId;
 
     private String company;
-    private int expMonths;
+    private Integer expMonths;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Past

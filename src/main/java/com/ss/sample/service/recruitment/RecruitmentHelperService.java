@@ -177,6 +177,7 @@ public class RecruitmentHelperService {
 
             List<RecruitmentUserExpEntity> userExps = jobSeekerDto.getUserExperiences()
                     .stream()
+                    .filter(this::jobSeekerExpDtoValidation)
                     .map(jobSeekerExpDto -> {
                         RecruitmentUserExpEntity exp = new RecruitmentUserExpEntity();
                         exp.setCompany(jobSeekerExpDto.getCompany());
@@ -185,7 +186,7 @@ public class RecruitmentHelperService {
                         exp.setToDate(LocalDate.parse(jobSeekerExpDto.getToDate(), formatter));
                         exp.setDesignation(jobSeekerExpDto.getDesignation());
                         exp.setJobLocation(jobSeekerExpDto.getJobLocation());
-                        exp.setIsCurrentJob(jobSeekerExpDto.getIsCurrentJob() ? 'Y' : 'N');
+                        exp.setIsCurrentJob(jobSeekerExpDto.getIsCurrentJob() != null && jobSeekerExpDto.getIsCurrentJob() ? 'Y' : 'N');
                         exp.setRecruitmentUser(recruitmentUserEntity);
                         return exp;
                     }).collect(Collectors.toList());
@@ -227,6 +228,7 @@ public class RecruitmentHelperService {
 
             List<RecruitmentUserQlyEntity> userQlys = jobSeekerDto.getUserQualifications()
                     .stream()
+                    .filter(this::jobSeekerQlyDtoValidation)
                     .map(jobSeekerQlyDto -> {
                         RecruitmentUserQlyEntity qly = new RecruitmentUserQlyEntity();
                         qly.setQualification(jobSeekerQlyDto.getQualification());
@@ -247,6 +249,25 @@ public class RecruitmentHelperService {
                 recruitmentUserEntity.setUserQualifications(userQlys);
             }
         }
+    }
+
+    private boolean jobSeekerExpDtoValidation(JobSeekerExpDto jobSeekerExpDto) {
+        return StringUtils.isNotEmpty(jobSeekerExpDto.getCompany()) &&
+                Objects.nonNull(jobSeekerExpDto.getExpMonths()) &&
+                StringUtils.isNotEmpty(jobSeekerExpDto.getFromDate()) &&
+                StringUtils.isNotEmpty(jobSeekerExpDto.getToDate()) &&
+                StringUtils.isNotEmpty(jobSeekerExpDto.getDesignation()) &&
+                StringUtils.isNotEmpty(jobSeekerExpDto.getJobLocation());
+    }
+
+    private boolean jobSeekerQlyDtoValidation(JobSeekerQlyDto jobSeekerQlyDto) {
+        return StringUtils.isNotEmpty(jobSeekerQlyDto.getQualification()) &&
+                Objects.nonNull(jobSeekerQlyDto.getSpecialization()) &&
+                StringUtils.isNotEmpty(jobSeekerQlyDto.getInstituteName()) &&
+                StringUtils.isNotEmpty(jobSeekerQlyDto.getBoardUniversity()) &&
+                Objects.nonNull(jobSeekerQlyDto.getPercentage()) &&
+                StringUtils.isNotEmpty(jobSeekerQlyDto.getStartDate()) &&
+                StringUtils.isNotEmpty(jobSeekerQlyDto.getCompletionDate());
     }
 
     private void updateUserSkills(JobSeekerDto jobSeekerDto, RecruitmentUserEntity recruitmentUserEntity) {
@@ -273,6 +294,7 @@ public class RecruitmentHelperService {
 
             List<RecruitmentUserSkillEntity> userSkills = jobSeekerDto.getUserSkills()
                     .stream()
+                    .filter(this::jobSeekerQlyDtoValidation)
                     .map(jobSeekerSkillDto -> {
                         RecruitmentUserSkillEntity skill = new RecruitmentUserSkillEntity();
                         skill.setSkillLevel(jobSeekerSkillDto.getSkillLevel());
@@ -289,6 +311,12 @@ public class RecruitmentHelperService {
                 recruitmentUserEntity.setUserSkills(userSkills);
             }
         }
+    }
+
+    private boolean jobSeekerQlyDtoValidation(JobSeekerSkillDto jobSeekerSkillDto) {
+        return Objects.nonNull(jobSeekerSkillDto.getSkillLevel()) &&
+                Objects.nonNull(jobSeekerSkillDto.getExpMonths()) &&
+                Objects.nonNull(jobSeekerSkillDto.getSkillId());
     }
 
     /**
@@ -311,6 +339,7 @@ public class RecruitmentHelperService {
             userId = Constants.StrConstants.JOB_SEEKER + String.format("%06d", id);
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         RecruitmentUserEntity recruitmentUserEntity = new RecruitmentUserEntity();
         recruitmentUserEntity.setId(id);
         recruitmentUserEntity.setUserId(userId);
@@ -324,7 +353,7 @@ public class RecruitmentHelperService {
         recruitmentUserEntity.setAadhar(jobSeekerDto.getAadhar());
         recruitmentUserEntity.setAddress(jobSeekerDto.getAddress());
         recruitmentUserEntity.setPostalCode(jobSeekerDto.getPostalCode());
-        recruitmentUserEntity.setDob(jobSeekerDto.getDob());
+        recruitmentUserEntity.setDob(LocalDate.parse(jobSeekerDto.getDob(), formatter));
         recruitmentUserEntity.setMaritalStatus(jobSeekerDto.getMaritalStatus());
 
         try {
@@ -360,6 +389,7 @@ public class RecruitmentHelperService {
      * @return JobSeekerDto
      */
     public JobSeekerDto convert(final RecruitmentUserEntity recruitmentUserEntity) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         JobSeekerDto jobSeekerDto = new JobSeekerDto();
 
         jobSeekerDto.setId(recruitmentUserEntity.getId());
@@ -374,7 +404,7 @@ public class RecruitmentHelperService {
         jobSeekerDto.setAadhar(recruitmentUserEntity.getAadhar());
         jobSeekerDto.setAddress(recruitmentUserEntity.getAddress());
         jobSeekerDto.setPostalCode(recruitmentUserEntity.getPostalCode());
-        jobSeekerDto.setDob(recruitmentUserEntity.getDob());
+        jobSeekerDto.setDob(Objects.nonNull(recruitmentUserEntity.getDob()) ? recruitmentUserEntity.getDob().format(formatter) : null);
         jobSeekerDto.setMaritalStatus(recruitmentUserEntity.getMaritalStatus());
 
         if (recruitmentUserEntity.getPhoto() != null && recruitmentUserEntity.getPhoto().length > 0) {
@@ -388,7 +418,6 @@ public class RecruitmentHelperService {
         }
 
         if(Objects.nonNull(recruitmentUserEntity.getUserExperiences()) &&  !recruitmentUserEntity.getUserExperiences().isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             List<JobSeekerExpDto> userExps = recruitmentUserEntity.getUserExperiences()
                     .stream()
                     .map(expEntity -> {
@@ -407,7 +436,6 @@ public class RecruitmentHelperService {
         }
 
         if(Objects.nonNull(recruitmentUserEntity.getUserQualifications()) &&  !recruitmentUserEntity.getUserQualifications().isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             List<JobSeekerQlyDto> userQlys = recruitmentUserEntity.getUserQualifications()
                     .stream()
                     .map(qlyEntity -> {

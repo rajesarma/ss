@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,5 +31,6 @@ public class RecruitmentRecruiterEntity extends RecruitmentEntity implements Ser
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruiter")
     @Fetch(value = FetchMode.SUBSELECT)
-    private List<JobPostingEntity> jobPostings;
+    @Builder.Default
+    private List<JobPostingEntity> jobPostings = new ArrayList<>();
 }

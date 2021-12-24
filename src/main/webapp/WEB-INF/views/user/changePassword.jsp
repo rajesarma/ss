@@ -8,15 +8,16 @@
 
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
 	<title>Change Password</title>
+	<!-- GLOBAL MAINLY STYLES-->
 
-	<script
-			src="${pageContext.request.contextPath}/js/custom/form_validations.js"></script>
+	<script src="${pageContext.request.contextPath}/js/custom/form_validations.js"></script>
 
 	<script>
-		function submitData(action, method)
-		{
+		function submitData(action, method) {
 			var user = document.getElementById('user');
 			user.action = action;
 			user.method = method;
@@ -34,89 +35,68 @@
 		.align-left {
 			text-align: left !important;
 		}
+
+		.content {
+			max-width: 400px;
+			margin:0 auto;
+		}
+		.content form {
+			padding: 15px 20px 20px 20px;
+			background-color: #fff;
+		}
+
+		.login-title {
+			margin-bottom: 25px;
+			margin-top: 20px;
+			text-align: center;
+		}
 	</style>
 </head>
-<body>
+<body class="fixed-navbar sidebar-mini">
+	<div class="page-content fade-in-up">
+		<div class="content">
+			<form:form id="user" action="/changePassword" method="${method}"
+						   modelAttribute="userDto">
 
-	<section id="subintro">
-		<div class="jumbotron subhead" id="overview">
-			<div class="container">
-				<div class="row">
-					<div class="span12">
-						<div class="centered">
-							<h3>
-								<spring:message code="user.changePassword"/>
-							</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+				<form:hidden path="userId" name="userId" id="userId" />
 
-	<section id="maincontent">
-		<div class="container">
-
-			<form:form action="/changePassword" id="user" method="${method}"
-					   modelAttribute="userDto" cssClass="form-horizontal">
-			<form:hidden path="userId" name="userId" id="userId" />
-
-			<div class="row ">
-				<div class="span12">
-					<div class="err-message" style="text-align:center"> ${message}</div>
-					<div class="err-message" id="wait" ></div>
-				</div>
-
-				<div class="span6 offset4">
-					<div class="centered">
-
-						<div class="control-group">
-
-							<label class="control-label align-left" for="password">
-								<spring:message code="user.password"/>
-							</label>
-							<div class="controls">
-								<form:password path="password" name="password"
-										id="password" maxlength="20"
-											cssClass="span3" />
-								<span class="help-block">
-									<form:errors path="password" cssClass="error" />
-								</span>
-							</div>
-						</div>
-
-						<div class="control-group">
-
-							<label class="control-label align-left" for="password">
-								<spring:message code="user.newPassword"/>
-							</label>
-							<div class="controls">
-								<%--<input type="text" name="newPassword" maxlength="20"
-									   class="span3" />--%>
-								<form:password path="newPassword" id="newPassword" maxlength="20"
-											   cssClass="span3" />
-								<span class="help-block">
-									<%--<form:errors path="newPassword" cssClass="error" />--%>
-								</span>
-							</div>
-						</div>
-
-					</div>
-				</div>
+				<h4 class="login-title">Change Password</h4>
 
 				<div class="span12">
-					<div align="center" style="width: 100%;">
-						<input type="button" class="btn btn-primary" value="${buttonValue }"
-							   onclick="submitData('${action}', '${method}')" />
-					</div>
+					<div class="err-message" style="text-align:center; color:red"> ${message}</div>
 				</div>
 
-			</div>
-
+				<div class="ibox">
+					<div class="ibox-body">
+						<div class="form-group">
+							<form:password path="password"
+										   name="password"
+										   id="password"
+										   maxlength="20"
+										   placeholder="Password"
+										   autocomplete="off"
+										   cssClass="form-control" />
+							<span class="help-block">
+								<form:errors path="password" cssClass="error" />
+							</span>
+						</div>
+						<div class="form-group">
+							<form:password path="newPassword"
+										   name="newPassword"
+										   id="newPassword"
+										   maxlength="20"
+										   placeholder="New Password"
+										   autocomplete="off"
+										   cssClass="form-control" />
+						</div>
+						<div class="form-group">
+							<input type="button" class="btn btn-info btn-block" value="${buttonValue }"
+								   onclick="submitData('${action}', '${method}')" />
+						</div>
+					</div>
+				</div>
 			</form:form>
 		</div>
-
-	</section>
-
+	</div>
 </body>
 </html>

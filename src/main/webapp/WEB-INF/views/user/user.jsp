@@ -7,7 +7,7 @@
 
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>User</title>
 
 	<script>
@@ -30,91 +30,99 @@
 		.align-left {
 			text-align: left !important;
 		}
+
+		.content {
+			max-width: 400px;
+			margin:0 auto;
+		}
+		.content form {
+			padding: 15px 20px 20px 20px;
+			background-color: #fff;
+		}
+
+		.login-title {
+			margin-bottom: 25px;
+			margin-top: 20px;
+			text-align: center;
+		}
 	</style>
+
 </head>
-<body>
+<body class="fixed-navbar sidebar-mini">
+	<div class="page-wrapper">
+		<div class="page-content fade-in-up">
 
-	<section id="subintro">
-		<div class="jumbotron subhead" id="overview">
-			<div class="container">
-				<div class="row">
+			<div class="ibox">
+				<div class="ibox-head">
+					<div class="ibox-title">Create User</div>
+				</div>
+
+				<div class="ibox-body">
 					<div class="span12">
-						<div class="centered">
-							<h3>
-								<spring:message code="user.operations"/>
-							</h3>
-						</div>
+						<div class="err-message" style="text-align:center; color:red"> ${message}</div>
+						<div id="wait" class="err-message"></div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
-	<section id="maincontent">
-		<div class="container">
-			<form:form action="/admin/user" id="user" method="${method}"
-					   modelAttribute="userDto" enctype="multipart/form-data"
-					   cssClass="form-horizontal">
-			<form:hidden path="userId" name="userId" id="userId" />
+					<form:form action="/admin/user" id="user" method="${method}"
+							   modelAttribute="userDto" enctype="multipart/form-data">
+						<form:hidden path="userId" name="userId" id="userId" />
 
-			<div class="row ">
-				<div class="span12">
-					<div class="err-message" style="text-align:center"> ${message}</div>
-					<div class="err-message" id="wait" ></div>
-				</div>
-
-				<div class="span6 offset4">
-					<div class="centered">
-
-						<div class="control-group">
-							<label class="control-label align-left" for="username">
-								<spring:message code="user.username"/>
-							</label>
-
-							<div class="controls">
-
-								<form:input path="username" name="username" id="username"
-											cssClass="span3" maxlength="25"
+						<div class="row">
+							<div class="col-sm-3 form-group">
+								<label>User Name</label>
+								<form:input path="username"
+											name="username"
+											id="username"
+											maxlength="25"
+											placeholder="User Name"
+											cssClass="form-control"
 											onkeyup="charOnly(this)"
 								/>
-								<span class="help-inline">
+								<span class="help-block">
 									<form:errors path="username" cssClass="error" />
 								</span>
-
 							</div>
-						</div>
-
-						<div class="control-group">
-
-							<label class="control-label align-left" for="password">
-								<spring:message code="user.password"/>
-							</label>
-							<div class="controls">
-								<form:password path="password" name="password"
-										id="password" maxlength="20"
-											cssClass="span3" />
+							<div class="col-sm-3 form-group">
+								<label>Password</label>
+								<form:password path="password"
+											   name="password"
+											   id="password"
+											   maxlength="20"
+											   placeholder="Password"
+											   cssClass="form-control" />
 								<span class="help-inline">
 									<form:errors path="password" cssClass="error" />
 								</span>
 							</div>
+
+							<div class="col-sm-3 form-group">
+								<label>E-Mail</label>
+								<form:input path="email"
+											name="email"
+											id="email"
+											maxlength="50"
+											placeholder="E-Mail"
+											cssClass="form-control" />
+								<span class="help-inline">
+									<form:errors path="email" cssClass="error" />
+								</span>
+							</div>
+
+							<div class="col-sm-3 form-group">
+								<label>Is Active</label>
+								<br />
+								<form:radiobutton path="disabled" value="false" id="disabled"/> Yes
+								<form:radiobutton path="disabled" value="true" id="disabled"/> No
+								<form:errors path="disabled" cssClass="error" />
+							</div>
 						</div>
-
-						<div class="control-group">
-							<label class="control-label align-left" for="roles">
-								<spring:message code="user.roles"/>
-							</label>
-
-							<div class="controls">
-
-								<%--${selectedRoles}--%>
-
-									<%--<form:select path="roles" name="roles" id="roles" multiple="true"
-												 cssClass="span3" cssStyle="height: 100px">
-										<form:options items="${roles}" selected="false" />
-									</form:select>--%>
-
+						<div class="row">
+							<div class="col-sm-3 form-group">
+								<label class="control-label align-left" for="roles">
+									<spring:message code="user.roles"/>
+								</label>
 								<form:select path="roles" name="roles" id="roles" multiple="true"
-										 cssClass="span3" cssStyle="height: 100px">
+										 cssClass="form-control" cssStyle="height: 100px">
 									<c:forEach items="${roles}" var="role">
 										<option value="${role.key}"
 											<c:forEach items="${selectedRoleIds}" var="selectedRoleId">
@@ -124,81 +132,35 @@
 										</option>
 									</c:forEach>
 								</form:select>
-
-								<%--
-									<% System.out.println(pageContext.findAttribute("role")); %>--%>
-
 								<span class="help-inline">
 									<form:errors path="roles" cssClass="error" />
 								</span>
 							</div>
-						</div>
 
-						<div class="control-group">
+							<div class="col-sm-9 form-group">
+								<label class="control-label align-left" >
+									<spring:message code="user.userDesc"/>
+								</label>
 
-							<label class="control-label align-left" for="disabled">
-								<spring:message code="user.disabled"/>
-							</label>
-							<div class="controls">
-								<i class="fa fa-user" aria-hidden="true"></i>
+								<form:textarea path="userDesc" id="userDesc"
+											   cssClass="form-control" rows="3"
+											   cssStyle="height: 100px"/>
 
-								<form:radiobutton path="disabled" value="false"
-												  id="disabled"/> Yes
-								<form:radiobutton path="disabled" value="true"
-												  id="disabled"/> No
-
-								<form:errors path="disabled" cssClass="error" />
-
-							</div>
-						</div>
-
-
-						<div class="control-group">
-							<label class="control-label align-left" for="email">
-								<spring:message code="user.email"/>
-							</label>
-
-							<div class="controls">
-
-								<%--<div class="input-prepend"> <span class="add-on"><i class="icon-envelope"></i></span>--%>
-								<form:input path="email" name="email" id="email"
-											maxlength="50" cssClass="span3" />
 								<span class="help-inline">
-									<form:errors path="email" cssClass="error" />
+									<form:errors path="userDesc" cssClass="error" />
 								</span>
 							</div>
 						</div>
-
-						<div class="control-group">
-							<label class="control-label align-left" >
-								<spring:message code="user.userDesc"/>
-							</label>
-							<div class="controls">
-
-								<form:textarea path="userDesc" name="userDesc" id="userDesc"
-											   cssClass="span3" rows="3"
-											   cssStyle="height: 100px"/>
-								<span class="help-inline">
-								<form:errors path="userDesc" cssClass="error" />
-							</span>
+						<div class="row">
+							<div class="col-sm-12 form-group" align="center">
+								<input type="button" class="btn btn-primary" value="${buttonValue }"
+									   onclick="submitData('${action}', '${method}')" />
 							</div>
 						</div>
-					</div>
+					</form:form>
 				</div>
-
-				<div class="span12">
-					<div align="center" style="width: 100%;">
-						<input type="button" class="btn btn-primary" value="${buttonValue }"
-							   onclick="submitData('${action}', '${method}')" />
-					</div>
-				</div>
-
 			</div>
-
-			</form:form>
 		</div>
-
-	</section>
-
+	</div>
 </body>
 </html>

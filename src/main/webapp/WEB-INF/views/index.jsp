@@ -21,20 +21,6 @@
 
 <body class="bg-silver-300" onload="document.getElementById('username').focus()">
     <div class="content">
-
-		<c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
-									<hr>
-									<div class="err-message" style="text-align:center"> <%--alert alert-error--%>
-											<%--Reason: ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}--%>
-										${SPRING_SECURITY_LAST_EXCEPTION.message}
-									</div>
-									<hr>
-								</c:if>
-
-								<div class="err-message">
-									${message}
-								</div>
-
         <div class="brand">
             <a class="link" href="/home">WorkTech</a>
         </div>
@@ -42,6 +28,20 @@
         <form:form action="/login" id="login-form" method="Post" modelAttribute="user" cssClass="form-horizontal">
 
             <h2 class="login-title">Log in</h2>
+
+            <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
+                <hr>
+                <div class="err-message" style="text-align:center; color:red"> <%--alert alert-error--%>
+                    <%--Reason: ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}--%>
+                    ${SPRING_SECURITY_LAST_EXCEPTION.message}
+                </div>
+                <hr>
+            </c:if>
+
+            <div class="err-message">
+                ${message}
+            </div>
+
             <div class="form-group">
                 <div class="input-group-icon right">
                     <div class="input-icon"><i class="fa fa-envelope"></i></div>

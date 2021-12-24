@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/super")
+@RequestMapping("/roleServices")
 public class RoleServicesMappingController {
 
 	private RoleServicesMappingService roleServicesMappingService;
@@ -31,7 +31,7 @@ public class RoleServicesMappingController {
 		mav.addObject("services", roleServicesMappingService.getServices());
 	}
 
-	@GetMapping("/roleServices")
+	@GetMapping("")
 	public ModelAndView roleServiceMapping() {
 
 		RoleEntity role = new RoleEntity();
@@ -43,41 +43,10 @@ public class RoleServicesMappingController {
 				roleServicesMappingService.getRoleMappedServices(role.getRoleId()));
 		mav.addObject("roleId", role.getRoleId());
 
-		Map<String, Map<String, String>> sites = new HashMap<>();
-		Map<String, String> siteStatus = new HashMap<>();
-		siteStatus.put("192.168.34.33","DOWN");
-		siteStatus.put("192.168.34.43","UP");
-
-		sites.put("Swamy",siteStatus);
-
-		siteStatus = new HashMap<>();
-		siteStatus.put("192.168.34.34","UP");
-		siteStatus.put("192.168.34.44","UP");
-
-		sites.put("Sreedhar",siteStatus);
-
-		siteStatus = new HashMap<>();
-		siteStatus.put("192.168.34.35","UP");
-		siteStatus.put("192.168.34.45","UP");
-
-		sites.put("Rajesh",siteStatus);
-
-//		System.out.println(sites);
-
-		mav.addObject("sites", sites);
-
 		return mav;
 	}
 
-	@PostMapping("/roleServices/{roleId}") // Ajax Call
-	public ResponseEntity<List> getMappedServices(@PathVariable("roleId") Long roleId) {
-
-		List<Long> selectedServiceIds =
-				roleServicesMappingService.getRoleMappedServices(roleId);
-		return new ResponseEntity<>(selectedServiceIds, HttpStatus.OK);
-	}
-
-	@PostMapping("/roleServices")
+	@PostMapping("")
 	public ModelAndView mapRoleServices(@ModelAttribute("role") RoleEntity role,
                                         HttpServletRequest request) {
 
@@ -101,5 +70,13 @@ public class RoleServicesMappingController {
 				roleServicesMappingService.getRoleMappedServices(role.getRoleId()));
 
 		return mav;
+	}
+
+	@GetMapping("/{roleId}") // Ajax Call
+	public ResponseEntity<?> getMappedServices(@PathVariable("roleId") Long roleId) {
+
+		List<Long> selectedServiceIds =
+				roleServicesMappingService.getRoleMappedServices(roleId);
+		return new ResponseEntity<>(selectedServiceIds, HttpStatus.OK);
 	}
 }

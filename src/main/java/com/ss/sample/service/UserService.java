@@ -2,9 +2,13 @@ package com.ss.sample.service;
 
 import com.ss.sample.entity.RoleEntity;
 import com.ss.sample.entity.UserEntity;
+import com.ss.sample.entity.recruitment.RecruitmentRecruiterEntity;
+import com.ss.sample.entity.recruitment.RecruitmentUserEntity;
 import com.ss.sample.model.UserDto;
 import com.ss.sample.repository.RoleRepository;
 import com.ss.sample.repository.UserRepository;
+import com.ss.sample.repository.recruitment.RecruitmentRecruiterRepository;
+import com.ss.sample.repository.recruitment.RecruitmentUserRepository;
 import com.ss.sample.util.Constants;
 import com.ss.sample.util.UserConverter;
 import com.ss.sample.util.Constants.StrConstants;
@@ -26,11 +30,18 @@ public class UserService {
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 
+	private RecruitmentUserRepository recruitmentUserRepository;
+	private RecruitmentRecruiterRepository recruitmentRecruiterRepository;
+
 	@Autowired
     UserService(final UserRepository userRepository,
-                final RoleRepository roleRepository) {
+                final RoleRepository roleRepository,
+				final RecruitmentUserRepository recruitmentUserRepository,
+				final RecruitmentRecruiterRepository recruitmentRecruiterRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
+		this.recruitmentUserRepository = recruitmentUserRepository;
+		this.recruitmentRecruiterRepository = recruitmentRecruiterRepository;
 	}
 
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
@@ -56,12 +67,44 @@ public class UserService {
 
 		userEntity.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
 		UserEntity savedUser = userRepository.save(userEntity);
+		saveRoleUser(savedUser);
 
 		log.info("<USER><USER:SAVE>"
 				+ "<User:" + request.getSession().getAttribute(StrConstants.SESSION_USER_NAME) + ">"
 				+ "<" + savedUser.getUsername() +" : saved>");
 
 		return Optional.of(UserConverter.convert(savedUser));
+	}
+
+	private void saveRoleUser (UserEntity savedUser) {
+		if (Objects.nonNull(savedUser.getRoles()) && !savedUser.getRoles().isEmpty()) {
+			List<Long> roleIds = savedUser.getRoles().stream().map(RoleEntity::getRoleId).collect(Collectors.toList());
+
+			if (roleIds.size() > 0 && roleIds.contains((long)Constants.Roles.RECRUITER_ROLE_ID)) {
+				Long id = recruitmentRecruiterRepository.getMaxId();
+				String userId = Constants.StrConstants.RECRUITER + String.format("%06d", id);
+
+				RecruitmentRecruiterEntity recruitmentEntity = RecruitmentRecruiterEntity.builder()
+						.id(id)
+						.userId(savedUser.getUsername())
+						.email(savedUser.getEmail())
+						.build();
+				recruitmentRecruiterRepository.save(recruitmentEntity);
+			}
+
+			if (roleIds.size() > 0 && roleIds.contains((long)Constants.Roles.JOB_SEEKER_ROLE_ID)) {
+
+				Long id = recruitmentUserRepository.getMaxId();
+				String userId = Constants.StrConstants.JOB_SEEKER + String.format("%06d", id);
+
+				RecruitmentUserEntity recruitmentEntity = new RecruitmentUserEntity();
+				recruitmentEntity.setId(id);
+				recruitmentEntity.setUserId(savedUser.getUsername());
+				recruitmentEntity.setEmail(savedUser.getEmail());
+
+				recruitmentUserRepository.save(recruitmentEntity);
+			}
+		}
 	}
 
 	public List<UserDto> findUsersByRoles(UserDto userDto) {

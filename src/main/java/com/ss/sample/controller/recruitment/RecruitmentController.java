@@ -341,6 +341,58 @@ public class RecruitmentController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    ////////////////// Job Posting //////////////////
+
+    @GetMapping("/jobPosts")
+    public ModelAndView getJobPosts() {
+
+        JobPostingDto jobPostingDto = new JobPostingDto();
+
+        ModelAndView mav = new ModelAndView("jobPosts", "jobPostingDto", jobPostingDto);
+        List<JobPostingDto> jobPostingDtos = jobPostingService.getJobPosts();
+
+        mav.addObject("jobsList", jobPostingDtos);
+        return mav;
+    }
+
+    @PostMapping("/jobPosts")
+    public ModelAndView applyForJobPost(@Valid @ModelAttribute("jobPostingDto") JobPostingDto jobPostingDto,
+                                          BindingResult result) {
+        ModelAndView mav = new ModelAndView("jobPosts", "jobPostingDto", jobPostingDto);
+
+        if(result.hasErrors()) {
+            System.out.println("Errors in page");
+        }
+
+        Status status = jobPostingService.applyForJobPost(jobPostingDto);
+
+        mav.addObject("jobsList", jobPostingService.getJobPosts());
+
+        if(Objects.nonNull(status) && status.isStatus()) {
+            mav.addObject("message", status.getResponseText());
+        }
+
+        return mav;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ////////////////// Old ////////////////////
 
     @GetMapping("/jobSeeker")

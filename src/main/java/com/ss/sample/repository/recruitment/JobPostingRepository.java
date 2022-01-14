@@ -1,11 +1,11 @@
 package com.ss.sample.repository.recruitment;
 
 import com.ss.sample.entity.recruitment.JobPostingEntity;
-import com.ss.sample.entity.recruitment.RecruitmentRecruiterEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,5 +19,9 @@ public interface JobPostingRepository extends CrudRepository<JobPostingEntity, L
     List<JobPostingEntity> findAllByUserId(String userId);
 
     Optional<JobPostingEntity> findByJobId(String jobId);
+
+
+    List<JobPostingEntity> findByIsActive(char isActive);
+    List<JobPostingEntity> findByIsActiveAndLastDateToApplyGreaterThan(char isActive, LocalDate date);
 
 }

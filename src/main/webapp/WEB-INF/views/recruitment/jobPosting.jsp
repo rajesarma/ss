@@ -395,7 +395,18 @@
                                                         placeholder="E mail"
                                             />
                                         </div>
-                                        <div class="col-sm-6 form-group">
+
+                                        <div class="col-sm-3 form-group">
+                                            <label>Company</label>
+                                            <form:input path="company" id="company"
+                                                        maxlength="50"
+                                                        value="${jobPostingDto.company}"
+                                                        cssClass="form-control"
+                                                        onkeyup="charOnly(this)"
+                                                        placeholder="Company"
+                                            />
+                                        </div>
+                                        <div class="col-sm-3 form-group">
                                             <label>Qualifications</label>
                                             <form:input path="qualifications" id="qualifications"
                                                         cssClass="form-control" maxlength="100"
@@ -503,7 +514,7 @@
                                                                             cssClass="form-control"
                                                                             maxlength="100"
                                                                             placeholder="Skill"
-                                                                            value="${jobPostingRoles.skill}"
+                                                                            value="${jobPostingSkills.skill}"
                                                                 />
                                                             </td>
                                                             <td style="text-align:center">

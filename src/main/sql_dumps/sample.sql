@@ -124,7 +124,8 @@ CREATE TABLE recruitment_job_post_master (
     is_active character(1) DEFAULT true,
     deactivated_on timestamp without time zone,
     updated_on timestamp without time zone,
-    title character varying(100)
+    title character varying(100),
+    company character varying(100)
 );
 
 
@@ -940,7 +941,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 37, true);
+SELECT pg_catalog.setval('hibernate_sequence', 43, true);
 
 
 --
@@ -1096,17 +1097,19 @@ COPY recruitment_entity (dtype, id, address, created_on, email, first_name, is_a
 -- Data for Name: recruitment_job_post_master; Type: TABLE DATA; Schema: public; Owner: sample
 --
 
-COPY recruitment_job_post_master (id, job_id, user_id, experience_level, location, description, last_date_to_apply, mail_to, qualifications, other_details, salary, created_on, is_active, deactivated_on, updated_on, title) FROM stdin;
-5	WT000001	REC000001	2	Hyderabad	tes	2021-12-12	r@r.com	MTech	tee	100000	2021-12-21 22:01:00.165	A	\N	2021-12-21 22:01:00.165	Tech Lead
-6	WT000006	REC000001	2	Hyderabada	tes	2021-12-12	r@r.com	MTech	tee	100000	2021-12-22 22:12:30.208	A	\N	2021-12-22 22:12:30.208	Tech Lead
-8	WT000007	REC000001	3	Chennai	dd	2021-12-28	g@r.com	qqq	oo	200000	\N	A	\N	2021-12-23 12:15:52.561	tt
-9	WT000009	REC000001	22	Che	dfd	2021-12-12	g@r.com	qqq	fdfd	200001	\N	A	\N	2021-12-23 13:12:19.967	TTT
-12	WT000010	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 13:50:55.086	gg
-14	WT000013	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:34:35.905	gg
-15	WT000015	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:35:01.524	gg
-16	WT000016	REC000001	9	jj	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 18:23:35.057	gg
-17	WT000017	REC000001	9	Hyderabad	sdfsdf	2021-12-28	i@i.com	bssd wsdsd	sdfdsf	100000	\N	A	\N	2021-12-23 23:26:53.289	Team Lead
-19	WT000018	REC000005	6	ts	ts	2021-12-28	ts@ts.com	ts	ts	5555	\N	A	\N	2021-12-23 23:52:40.381	ts
+COPY recruitment_job_post_master (id, job_id, user_id, experience_level, location, description, last_date_to_apply, mail_to, qualifications, other_details, salary, created_on, is_active, deactivated_on, updated_on, title, company) FROM stdin;
+5	WT000001	REC000001	2	Hyderabad	tes	2021-12-12	r@r.com	MTech	tee	100000	2021-12-21 22:01:00.165	A	\N	2021-12-21 22:01:00.165	Tech Lead	ABC
+15	WT000015	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:35:01.524	gg	YZA
+20	WT000020	REC000001	13	Chennai	Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.	2022-01-29	pl@pl.com	MTech, ME	The most basic list group is an unordered list with list items and the proper classes. Build upon it with the options that follow, or with your own CSS as needed.	45450	\N	A	\N	2022-01-14 16:05:22.845	PL	MNO
+16	WT000016	REC000001	9	jj	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 18:23:35.057	gg	BCD
+14	WT000013	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 15:34:35.905	gg	VWX
+8	WT000007	REC000001	3	Chennai	dd	2021-12-28	g@r.com	qqq	oo	200000	\N	A	\N	2021-12-23 12:15:52.561	tt	GHI
+9	WT000009	REC000001	22	Che	dfd	2021-12-12	g@r.com	qqq	fdfd	200001	\N	A	\N	2021-12-23 13:12:19.967	TTT	PQR
+17	WT000017	REC000001	9	Hyderabad	Activities in Development or Implementation or Managed Service activity streams as a Technical Consultant. Your responsibilities include:	2022-01-27	i@i.com	B.Tech, M.Tech, M.C.A	Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.	100000	2021-12-22 22:12:30	A	\N	2021-12-23 23:26:53.289	Team Lead	EFG
+6	WT000006	REC000001	2	Hyderabada	tes	2021-12-12	r@r.com	MTech	tee	100000	2021-12-22 22:12:30.208	A	\N	2021-12-22 22:12:30.208	Tech Lead	DEF
+12	WT000010	REC000001	9	j	dsd	2021-12-28	i@i.com	dfsdf	dsfsdf	8888	\N	A	\N	2021-12-23 13:50:55.086	gg	STU
+19	WT000018	REC000005	6	Hyderabad	Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.	2022-01-28	ts@ts.com	B.Tech, M.Tech, M.C.A	Activities in Development or Implementation or Managed Service activity streams as a Technical Consultant. Your responsibilities include	\N	2021-12-22 22:12:30	A	\N	2021-12-23 23:52:40.381	ts	JKL
+21	WT000021	REC000001	15	Delhi	The most basic list group is an unordered list with list items and the proper classes. Build upon it with the options that follow, or with your own CSS as needed.	2022-02-01	pm@pm.com	MTech, ME	Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.	150000	\N	A	\N	2022-01-14 19:25:29.077	PM	CFSS
 \.
 
 
@@ -1114,7 +1117,7 @@ COPY recruitment_job_post_master (id, job_id, user_id, experience_level, locatio
 -- Name: recruitment_job_post_master_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 19, true);
+SELECT pg_catalog.setval('recruitment_job_post_master_id_seq', 21, true);
 
 
 --
@@ -1135,9 +1138,31 @@ COPY recruitment_job_post_roles (id, job_id, role_responsibility) FROM stdin;
 34	WT000015	R2
 37	WT000016	r3
 39	WT000016	Rr5
-40	WT000017	Should Work
-42	WT000017	gg2
-44	WT000018	ts
+45	WT000017	You possess experience in end-to-end Development and / or Implementation and / or Support activities covering expertise areas such as design of customizations, Coding and Unit testing, executing Test cycle rounds including End of Days, migrations and Integrations for Oracle FLEXCUBE / Core banking products
+46	WT000017	You possess knowledge and skills in software programming in Core Java, J2EE, Microservices related technologies, Spring Boot, Rest API, JavaScript, XML. Experience in Oracle SQL, PL/SQL and Oracle Database (18c or 12c) is a plus.
+47	WT000017	You have working knowledge of Release management and Source control tools
+48	WT000017	You should be able to perform Issue Tracking on Application and follow-up for resolution of same with stakeholders
+49	WT000017	You possess good client interaction skills in areas including presentation of solutions
+50	WT000017	You have exposure to software deployment and troubleshooting on Application Server software especially Oracle Weblogic
+51	WT000017	You have exposure to analysis of Oracle Database AWR/ADDM reports and troubleshooting of database performance issues.
+52	WT000017	You have awareness of banking terminologies and concepts
+53	WT000017	You possess IT skills including Microsoft Office, Basic SQL querying
+54	WT000017	You possess good communication & documentation skills in English
+55	WT000018	Lead or participate as Senior Technical team member in Development or Implementation or Managed Service activity streams such as Migration, Testing support and coordination with other Oracle teams at client locations or offshore teams for various activities.
+56	WT000018	Assist with analysis, design and implementation of solutions for various business requirements.
+57	WT000018	Develop programs as per specifications/requirements given by Oracle / Client within planned schedule.
+58	WT000018	Use defined standards/tools/processes to achieve deliverables that meet quality expectations of Oracle / Client.
+59	WT000018	Document all work in accordance with agreed standards/processes applicable for Oracle / Client.
+60	WT000018	Adhere to defined Change Control Process of Oracle / Client. Comply with Oracle / Client audit / Compliance requirements.
+61	WT000018	Ensure quality code delivery.
+62	WT000018	Perform proper handover / knowledge transfer at end of each assignment.
+63	WT000018	Timely status reporting to supervisor.
+64	WT000018	Timely submission of timesheets and expenses for Oracle / Clients
+65	WT000020	Should be willing to work at offshore as well as travel to client locations
+66	WT000020	Should be willing to take up FLEXCUBE Technical certifications in functional areas as and when requi
+67	WT000020	Ability to work in a high pressure, fast moving and challenging environment
+68	WT000020	Team player
+69	WT000021	Cras sit amet nibh libero, in gravida nulla.
 \.
 
 
@@ -1145,7 +1170,7 @@ COPY recruitment_job_post_roles (id, job_id, role_responsibility) FROM stdin;
 -- Name: recruitment_job_post_roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 44, true);
+SELECT pg_catalog.setval('recruitment_job_post_roles_id_seq', 69, true);
 
 
 --
@@ -1168,9 +1193,16 @@ COPY recruitment_job_post_skillset (id, job_id, skill) FROM stdin;
 33	WT000016	s1
 37	WT000016	SS3
 38	WT000016	S4
-39	WT000017	Great Skill
-40	WT000017	Skill 1
-42	WT000018	ts
+43	WT000017	You have exposure to Banking Domain
+44	WT000017	You have exposure to software development processes and practices, DevOps tools, Testing tools
+45	WT000017	You are aware of latest technologies in Banking
+46	WT000018	You have exposure to Banking Domain
+47	WT000018	You have exposure to software development processes and practices, DevOps tools, Testing tools
+48	WT000018	You are aware of latest technologies in Banking
+49	WT000020	You have exposure to Banking Domain
+50	WT000020	You have exposure to software development processes and practices, DevOps tools, Testing tools
+51	WT000020	You are aware of latest technologies in Banking
+52	WT000021	scelerisque ante sollicitudin commodo.
 \.
 
 
@@ -1178,7 +1210,7 @@ COPY recruitment_job_post_skillset (id, job_id, skill) FROM stdin;
 -- Name: recruitment_job_post_skillset_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_job_post_skillset_id_seq', 42, true);
+SELECT pg_catalog.setval('recruitment_job_post_skillset_id_seq', 52, true);
 
 
 --
@@ -1209,6 +1241,7 @@ COPY recruitment_recruiter (id, user_id, first_name, last_name, mobile, email, a
 3	REC000003	REC	SWAMY	4848484848	rsw@gmail.com			A	\N	2021-12-20 11:43:44.589	2021-12-20 11:43:44.588		\N
 4	REC000004	Sridhar	Kommu	9844554444	sridhar@gmail.com	dsdf	555555555555	A	\N	2021-12-23 23:47:34.005	2021-12-23 23:47:34.005	Test Company	\N
 5	REC000005	ts	ts	4444444444	ts@ts.com	sdsdf	555555555555	A	\N	2021-12-23 23:52:04.53	2021-12-23 23:52:04.53	Test Company	\N
+6	pas	\N	\N	\N	pas@pas.com	\N	\N	A	2021-12-24 21:48:41.457	2021-12-24 21:48:41.458	2021-12-24 21:48:41.458	\N	\N
 \.
 
 
@@ -1299,6 +1332,7 @@ COPY recruitment_user (id, user_id, first_name, is_active, created_on, gender, m
 13	JS000013	js	A	2021-12-23 23:34:40.158	M	\N	\N	sss@f.com	\N	\N	\N	\N	\N	\N	2021-12-23 23:34:40.158	2021-12-23 23:34:40.158	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	js	\N	\N
 14	JS000014	rs	A	\N	M	9844554444	4444444444	rs@rs.com	rs	1982-08-01	\N	\N	rss	\N	2021-12-24 00:34:16.251	2021-12-24 00:34:16.251	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	222222222222	500000000000	A	A	rs	\N	\N
 15	JS000015	rss	A	\N	M	4343434343	9944994499	rss@rss.com	rss	1982-08-01	\N	\N	rss	\N	2021-12-24 00:35:53.42	2021-12-24 00:35:53.42	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	999999999999	500000000000	A	A	rss	\N	\N
+16	ppa	\N	A	2021-12-24 21:49:39.716	M	\N	\N	ppa@ppa.com	\N	\N	\N	\N	\N	\N	2021-12-24 21:49:39.716	2021-12-24 21:49:39.716	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	A	A	\N	\N	\N
 \.
 
 
@@ -1391,6 +1425,8 @@ SELECT pg_catalog.setval('recruitment_user_skills_id_seq', 12, true);
 --
 
 COPY recruitment_users_jobs (id, user_id, job_id, applied_date, applied_flag, ignored_flag, ignored_date, selected_flag, selected_date) FROM stdin;
+9	JS000009	WT000017	2022-01-14 00:00:00	t	\N	\N	\N	\N
+12	JS000009	WT000018	2022-01-14 00:00:00	t	\N	\N	\N	\N
 \.
 
 
@@ -1398,7 +1434,7 @@ COPY recruitment_users_jobs (id, user_id, job_id, applied_date, applied_flag, ig
 -- Name: recruitment_users_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sample
 --
 
-SELECT pg_catalog.setval('recruitment_users_jobs_id_seq', 1, false);
+SELECT pg_catalog.setval('recruitment_users_jobs_id_seq', 12, true);
 
 
 --
@@ -1429,6 +1465,7 @@ COPY role_services (role_id, service_id) FROM stdin;
 9	92
 9	95
 8	97
+9	98
 \.
 
 
@@ -1461,7 +1498,6 @@ COPY services (service_id, service_url, service_name, disabled, parent_id, displ
 23	/home	Management Reports	f	0	6	t	t
 28	/admin/usersList	Users List	f	16	3	t	f
 37	/management/managementDashboard	Management Dashboard	f	23	38	t	f
-29	/super/roleServices	Role Services Mapping	f	16	4	t	f
 18	/changePassword	Change Password	f	16	2	t	f
 92	/recruitment/compiler	Compiler Test	f	91	3	t	f
 93	/recruitment/jobSeeker	Registration	f	91	1	t	f
@@ -1473,6 +1509,8 @@ COPY services (service_id, service_url, service_name, disabled, parent_id, displ
 95	/recruitment/profile	Job Seeker Profile	f	91	2	f	f
 96	/recruitment/recruiter	Recruiter Profile	f	91	2	f	f
 97	/recruitment/jobPosting	Job Postings	f	91	3	t	f
+29	/roleServices	Role Services Mapping	f	16	4	t	f
+98	/recruitment/jobPosts	Job Postings	f	91	3	t	f
 \.
 
 
@@ -1531,6 +1569,12 @@ COPY user_roles (user_id, role_id) FROM stdin;
 35	8
 36	9
 37	9
+38	8
+39	8
+40	8
+41	8
+42	8
+43	9
 1	1
 \.
 
@@ -1542,7 +1586,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 COPY users (id, user_name, password, disabled, user_desc, email, last_login, failed_login_attempts, last_password_change) FROM stdin;
 2	management	$2a$10$/Vq9fiMAIpZj7yd8MO46I.V0G0scg3wEuLNhoy91kyCqol1dNeNFG	f	Management Login	\N	2019-08-02 04:55:09	0	2019-05-03 05:32:11
 4	super	$2a$10$WvPD/76KaGt3Bny6OXdRTeXBI6GThwE.eeqFXLODkb58yBLKuITgm	f	Supervizor Login	\N	2019-06-03 04:55:26	0	\N
-26	JS000009	$2a$10$5nGFvwvAfAT3tqSa3LrNUObE4xYXZZD2WfWf3WzR7QaxRr/tvSAaa	f	Test RR	r@r.com	\N	\N	\N
+26	JS000009	$2a$10$lXeYpgJIg.W8QuOZFSnoGux/wb9S00ghjmjXNCaa5otI8PjHnRcu2	f	Test RR	r@r.com	2022-01-14 19:31:31.865	0	\N
 16	SAMPLE000004	$2a$10$XaGREVjSVkhIm4GPLn6ByOgi9RYZtr8gQh04HlRX5JCOd6NZQZy5i	f	JJ	rdd@g.com	2021-11-30 22:21:12.068	0	\N
 17	SAMPLE000005	$2a$10$g3BzyDAkzSa4CxWy.SLzS.3r1TszqUjDdtuTXBEziqpl48QhkD0LO	f	Ramu	d@g.com	2021-11-30 22:45:52.115	0	\N
 23	SAMPLE000006	$2a$10$I0a82/TFHZ3GUe9W0/l0u.cynQxY6Dq0qVfiCQXYHspYDbvRDFHGS	f	Test Register	raje@gmail.com	2021-12-11 23:18:20.862	0	\N
@@ -1550,19 +1594,25 @@ COPY users (id, user_name, password, disabled, user_desc, email, last_login, fai
 29	JS000010	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	TS tj	tj@d.com	2021-12-19 22:25:37.044	0	\N
 25	REC000008	$2a$10$jca532RMeL.YBuqG./1CHuBh7Zpitzx1XZpgWXZYq/Em9XM339qMK	f	Test Recruiter	rec@rec.com	2021-12-19 17:45:40.238	1	\N
 28	REC000002	$2a$10$OsahFcT6ivzT0ygxFdfc4e/4nQ7CDFpaF92HfKh5l3UWi5nazKF22	f	TT RT	TR@r.com	\N	1	\N
-30	JS000011	$2a$10$.StTSb2x0EKEJJq5S3Iz6.EXyuo3C2bj3eSHMUQ7ntM5E2WFfOveW	f	Swamy Kumar	sk@gmail.com	2021-12-20 11:39:02.396	0	\N
 31	REC000003	$2a$10$QXrMznC1rhri1d4txxueMOShrcStANd.YknmscaQIpKX.ixij0Aya	f	REC SWAMY	rsw@gmail.com	2021-12-20 11:42:37.18	0	\N
-1	admin	$2a$10$2ywcf.uWfZtKiH8cdWS7/.0UD1mXSgXFqf6VjMdqmcer1RGhk8rBq	f	Admin User	\N	2021-12-20 11:45:03.034	0	2019-05-02 13:00:00
-27	REC000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	rrrr rrrr	rrr@r.com	2021-12-23 23:25:15.849	0	\N
 14	SAMPLE000002	$2a$10$Sb7nUXt8uNl0fZ72onKGa.e7vQsO2vbtuF3tmG/77.CDAO3N2RXXC	f	Lakshmi Rajeswara Rao	rdd@g.com	2021-12-14 22:52:49.738	0	2021-11-29 18:44:49.385
-13	SAMPLE000001	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Lakshmi Rajeswara Rao	dd@dd.com	2021-12-20 22:50:24.713	0	2021-11-30 16:15:35.134
 15	SAMPLE000003	$2a$10$BzqsIT/gCXu1EBgtDQF1N.M34yyXYzpuCnPCBzZGrCWUFv13/QaaG	f	Jyothirmayee	j@g.com	2021-11-30 18:12:00.157	0	\N
 34	JS000013	$2a$10$IyB5tNa8D7naOwEne8oN.O7dqcueOIfj3YX0hvsMB0IJafjUMpsbC	f	js js	sss@f.com	2021-12-23 23:34:56.029	0	\N
+38	ss	$2a$10$t871Mmo4Xv6lFj6HkJNCkeTu70U5BmBZlBu6gfVy8bw//YBrsjnXe	f	Res	ss@ss.com	\N	\N	\N
+39	ssa	$2a$10$vn8GbaMT9NVrvVcaK9ZiqO4.DKHmxvz2SCOKgNSpQiZgwgG1k4p/e	f	ss	ss@ss.com	\N	\N	\N
+40	ssap	$2a$10$xmNbbkMdrCx9m0UFXqkuHu/yRv3.gnd4en1F17nMvZ/WFMzowtf7y	f	sa	ss@ss.com	\N	\N	\N
 33	REC000004	$2a$10$B4pd6f.lWsXBmD59fvPjo.wIveIMgoFYfLFJrutt7GqN/UrwmeAey	f	Sridhar Kommu	sridhar@gmail.com	2021-12-23 23:47:18.295	0	\N
 35	REC000005	$2a$10$P3l6ESNHe1j2C9qxZvdhrOipiVkfMr56gKxB1OigrnHraZ6aUW64.	f	ts ts	ts@ts.com	2021-12-23 23:51:44.088	0	\N
+41	ap	$2a$10$yaOASRL7ZkNLTUpTJECnNeKvqQ1QyTQthccASEPVzZWd7.9vgcfFy	f	s	ss@ss.com	\N	\N	\N
+13	SAMPLE000001	$2a$10$lXeYpgJIg.W8QuOZFSnoGux/wb9S00ghjmjXNCaa5otI8PjHnRcu2	f	Lakshmi Rajeswara Rao	dd@dd.com	2022-01-11 21:26:09.164	0	2021-11-30 16:15:35.134
 36	JS000014	$2a$10$g5rdTIpFCxsQV2OKHnobW.6.bE4zt3S/0oqBlIENkr1mPbCynVNIO	f	rs rs	rs@rs.com	2021-12-24 00:34:03.246	0	\N
 37	JS000015	$2a$10$0jkwkqUOaWxGHSpeGfT6kO.FoQNIYCLtmTvT73KOEIasN6/TcHWZW	f	rss rss	rss@rss.com	2021-12-24 00:35:20.729	0	\N
 32	JS000012	$2a$10$nv7jrdlk/w3yR1qM2eqQ0eNS1uNs.ru.QzZLnwOEhsn9Q03AC.ImS	f	cr cr	cr@gmailc.om	\N	\N	\N
+42	pas	$2a$10$2XD8.BVRUG/rn3YmTi4REOTRZ.KKWUOmLRNG96V.TE6y2g83mHphG	f	pas	pas@pas.com	2021-12-24 21:49:01.797	0	\N
+43	ppa	$2a$10$J/aU/61hCkjMAekD71oRfOu/WqxPh/q5PAmuhG6Y5tli59Qnkg.A.	f	ppa	ppa@ppa.com	2021-12-24 21:49:56.491	0	\N
+30	JS000011	$2a$10$lXeYpgJIg.W8QuOZFSnoGux/wb9S00ghjmjXNCaa5otI8PjHnRcu2	f	Swamy Kumar	sk@gmail.com	2021-12-20 11:39:02.396	2	\N
+27	REC000001	$2a$10$lXeYpgJIg.W8QuOZFSnoGux/wb9S00ghjmjXNCaa5otI8PjHnRcu2	f	rrrr rrrr	rrr@r.com	2022-01-14 19:22:56.951	0	2022-01-11 19:50:56.722
+1	admin	$2a$10$8bWf5fdbsLefHEs87KJeA.jD.gO4n7iYv1LEaRwG1ZTG/.SbPM4Dy	f	Admin User	\N	2021-12-24 22:15:38.343	0	2021-12-24 13:19:07.277
 \.
 
 
@@ -1571,6 +1621,14 @@ COPY users (id, user_name, password, disabled, user_desc, email, last_login, fai
 --
 
 SELECT pg_catalog.setval('users_id_seq', 1, false);
+
+
+--
+-- Name: rec_user_post_unique_key; Type: CONSTRAINT; Schema: public; Owner: sample; Tablespace: 
+--
+
+ALTER TABLE ONLY recruitment_users_jobs
+    ADD CONSTRAINT rec_user_post_unique_key UNIQUE (user_id, job_id);
 
 
 --

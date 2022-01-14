@@ -1,0 +1,26 @@
+sudo /usr/sbin/alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+
+sudo /usr/sbin/alternatives --set javac /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+
+
+3.111.35.155
+
+ec2-user
+
+sudo systemctl is-enabled httpd
+sudo systemctl start httpd && sudo systemctl enable httpd
+sudo yum update -y
+
+
+to kill process
+fuser 8080/tcp
+fuser -k 8080/tcp
+sudo yum install -y mod_ssl
+cd /etc/pki/tls/certs
+sudo ./make-dummy-cert localhost.crt
+vim /etc/httpd/conf.d/ssl.conf
+Comment the below line
+#SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+
+sudo systemctl restart httpd
+

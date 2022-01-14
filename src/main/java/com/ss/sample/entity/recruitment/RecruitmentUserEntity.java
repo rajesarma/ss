@@ -99,4 +99,8 @@ public class RecruitmentUserEntity extends RecruitmentEntity implements Serializ
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<RecruitmentUserSkillEntity> userSkills;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recruitmentUser")
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<RecruitmentUserJobEntity> userJobs;
 }

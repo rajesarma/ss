@@ -69,7 +69,15 @@ public class ProfilingInterceptor {
         }
     }
 
-    @Around("execution(* com.ss.sample..*.*(..))")
+    @Around("execution(* com.ss.sample..*.*(..)) " +
+            "&& !execution(* com.ss.sample.filter.CookieFilter.*(..))" +
+            "&& !execution(* com.ss.sample.filter.UrlSessionFilter.*(..))" +
+            "&& !execution(* com.ss.sample.util.DBUtils.*(..))" +
+            "&& !execution(* com.ss.sample.configuration.WebConfig.*(..))" +
+            "&& !execution(* com.ss.sample.configuration.TilesConfiguration.*(..))" +
+            "&& !execution(* com.ss.sample.configuration.security.WebSecurityConfig.*(..))"
+//            + "&& !within(com.ss.sample.configuration.security.*) " for package
+    )
     public Object invoke(ProceedingJoinPoint invocation) throws Throwable {
         if (enableProfiling) {
             MethodSignature methodSignature = (MethodSignature) invocation.getSignature();

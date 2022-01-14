@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,6 +59,9 @@ public class JobPostingEntity implements Serializable {
     @Column(name ="mail_to")
     private String mailTo;
 
+    @Column(name ="company")
+    private String company;
+
     @Column(name ="qualifications")
     private String qualifications;
 
@@ -87,4 +93,8 @@ public class JobPostingEntity implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "jobPosting")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<JobPostingSkillEntity> jobPostingSkills;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "jobPosting")
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<RecruitmentUserJobEntity> jobAppliedUsers;
 }

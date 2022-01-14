@@ -31,6 +31,8 @@ public class JobPostingDto implements Serializable {
 	private String otherDetails;
 	private Double salary; //
 	private String company;
+	private Boolean appliedFlag;
+	private String postedDays;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String postedOn;
